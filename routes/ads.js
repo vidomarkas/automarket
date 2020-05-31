@@ -1,32 +1,24 @@
 const express = require("express");
 const router = express.Router();
 
+const Ad = require("../models/Ad");
+const { check, validationResult } = require("express-validator");
+const auth = require("../middleware/auth");
+
 // Route        GET api/ads
 // Description  Get all ads
 // Access       Public
-router.get("/", (req, res) => {
-  res.send("Show all ads");
-});
-
-// Route        POST api/ads
-// Description  Create an ad
-// Access       Private
-router.post("/", (req, res) => {
-  res.send("Create an ad");
-});
-
-// Route        PUT api/ads/:id
-// Description  Edit an ad
-// Access       Private
-router.put("/:id", (req, res) => {
-  res.send("Edit an ad");
-});
-
-// Route        DELETE api/ads
-// Description  Delete an ad
-// Access       Private
-router.delete("/:id", (req, res) => {
-  res.send("Delete an ad");
+router.get("/", async (req, res) => {
+  try {
+    //  Leave this for implementing search by some criteria
+    const allAds = await Ad.find({}).sort({
+      date: -1,
+    });
+    res.json({ allAds });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json("Server error serving ads");
+  }
 });
 
 module.exports = router;
