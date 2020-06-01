@@ -22,6 +22,8 @@ const AdSchema = mongoose.Schema({
   phoneNumber: { type: String, required: true },
   featured: { type: Boolean, default: false },
   sold: { type: Boolean, default: false },
+  powerUnit: { type: String, required: true },
+  mileageUnit: { type: String, required: true },
   // loweredPrice: { type: Boolean, default: false },
   // priceHistory: { type: Array },
   // marked: { type: Number, default: 0 },
