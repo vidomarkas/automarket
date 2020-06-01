@@ -20,6 +20,11 @@ const AdSchema = mongoose.Schema({
   dateAdded: { type: Date, default: Date.now },
   description: { type: String, required: true },
   phoneNumber: { type: String, required: true },
+  featured: { type: Boolean, default: false },
+  sold: { type: Boolean, default: false },
+  // loweredPrice: { type: Boolean, default: false },
+  // priceHistory: { type: Array },
+  // marked: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("ad", AdSchema);

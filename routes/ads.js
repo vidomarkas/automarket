@@ -21,4 +21,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Route        GET api/ads/id
+// Description  Get particular ad details
+// Access       Public
+router.get("/:id", async (req, res) => {
+  try {
+    let ad = await Ad.findById(req.params.id);
+
+    if (!ad) {
+      res.status(404).json({ msg: "Advertisement not found" });
+    }
+    res.json({ ad });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json("Server error");
+  }
+});
+
 module.exports = router;
