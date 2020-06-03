@@ -9,7 +9,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_AD,
-  FILTER_ADS,
+  SEARCH_ADS,
   CLEAR_FILTER,
   AD_ERROR,
   GET_ADS,
@@ -74,26 +74,81 @@ const AdState = (props) => {
         phoneNumber: "07425858895",
       },
     ],
+    myAds: [
+      {
+        id: 2,
+        make: "BMW",
+        model: "320",
+        dateManufactured: 2018,
+        bodyType: "hatchback",
+        fuelType: "petrol",
+        gearbox: "auto",
+        doors: "2/3",
+        damage: "none",
+        steeringWheel: "right",
+        color: "black",
+        mileage: 12300,
+        dateAdded: "2020-05-31",
+        description: "Great car, sad to see it go",
+        price: "13000",
+        phoneNumber: "07425858895",
+        engineCapacity: 1596,
+        power: 300,
+        powerUnit: "hp",
+        VINnumber: "",
+        postcode: "",
+      },
+    ],
+    current: null,
+    foundAds: [],
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
 
   // Post ad
+  const postAd = (ad) => {
+    ad.id = uuidv4();
+    dispatch({ type: POST_AD, payload: ad });
+  };
 
   // Delete ad
+  const deleteAd = (id) => {
+    dispatch({ type: DELETE_AD, payload: id });
+  };
 
   // Set current ad
-
+  const setCurrent = (ad) => {
+    dispatch({ type: SET_CURRENT, payload: ad });
+  };
   // CLear current ad
-
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
   // Update ad
-
-  // Filter ads
-
+  const updateAd = (ad) => {
+    dispatch({ type: UPDATE_AD, payload: ad });
+  };
+  // Search ads
+  const searchAds = (criteria) => {
+    dispatch({ type: SEARCH_ADS, payload: criteria });
+  };
   // Clear filter
 
   return (
-    <AdContext.Provider value={{ ads: state.ads }}>
+    <AdContext.Provider
+      value={{
+        ads: state.ads,
+        myAds: state.myAds,
+        current: state.current,
+        foundAds: state.foundAds,
+        postAd,
+        deleteAd,
+        updateAd,
+        setCurrent,
+        clearCurrent,
+        searchAds,
+      }}
+    >
       {props.children}
     </AdContext.Provider>
   );

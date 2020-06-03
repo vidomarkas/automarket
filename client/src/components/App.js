@@ -5,6 +5,7 @@ import Navbar from "./layout/Navbar";
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm";
 import AdDetails from "./pages/AdDetails";
+import MyAds from "./pages/MyAds";
 import AdState from "../context/ad/AdState";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={Main}></Route>
+              <Route exact path="/myads" component={MyAds}></Route>
               <Route exact path="/ads/:id" component={AdDetails}></Route>
               <Route exact path="/editing" component={AdForm}></Route>
             </Switch>

@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import carMakes from "../../assets/carMakes.json";
+import AdContext from "../../context/ad/adContext";
 import "./AdForm.scss";
 
 const AdForm = () => {
-  const [ad, setAd] = useState({
+  const adContext = useContext(AdContext);
+  const { postAd, current, updateAd } = adContext;
+
+  const initialState = {
     make: "",
     model: "",
     dateManufactured: "",
-    bodyType: "",
-    fuelType: "",
-    gearbox: "",
-    doors: "",
-    damage: "",
-    steeringWheel: "",
+    bodyType: "saloon",
+    fuelType: "diesel",
+    gearbox: "manual",
+    doors: "4/5",
+    damage: "noDamage",
+    steeringWheel: "RHD",
     color: "",
     price: "",
     engineCapacity: "",
     power: "",
+    powerUnit: "hp",
     VINnumber: "",
     mileage: "",
     mileageUnit: "",
@@ -26,7 +31,18 @@ const AdForm = () => {
     featured: false,
     sold: false,
     powerUnit: "",
-  });
+    postcode: "",
+  };
+
+  useEffect(() => {
+    if (current !== null) {
+      setAd(current);
+    } else {
+      setAd(initialState);
+    }
+  }, [adContext, current]);
+
+  const [ad, setAd] = useState(initialState);
 
   const {
     make,
@@ -51,11 +67,22 @@ const AdForm = () => {
     phoneNumber,
     powerUnit,
     mileageUnit,
+    postcode,
   } = ad;
 
   const onChange = (e) => {
     setAd({ ...ad, [e.target.name]: e.target.value });
-    console.log(ad);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (current === null) {
+      postAd(ad);
+    } else {
+      updateAd(ad);
+    }
+    setAd(initialState);
   };
 
   const yearManufactured = () => {
@@ -74,14 +101,16 @@ const AdForm = () => {
 
   return (
     <>
-      <h1 className="text-primary">Advert editing</h1>
-      <form className="adForm">
+      <h1 className="text-primary">
+        {current ? "Advert editing" : "New advert"}
+      </h1>
+      <form className="adForm" onSubmit={onSubmit}>
         <div className="adForm__section">
           <h2 className="adForm__heading">Main information</h2>
           <div className="adForm-group">
             <label htmlFor="make" className="adForm-group--item1">
               Make
-              <select name="make" onChange={onChange} defaultValue="">
+              <select name="make" onChange={onChange} value={make}>
                 <option value="">--</option>
                 {carMakes.map((brand) => (
                   <option key={brand.name} value={brand.name}>
@@ -92,7 +121,7 @@ const AdForm = () => {
             </label>
             <label htmlFor="model" className="adForm-group--item1">
               Model
-              <select name="model" onChange={onChange} defaultValue="">
+              <select name="model" onChange={onChange} value={model}>
                 <option value="">--</option>
                 {carMakes.map((brand) =>
                   brand.name === make
@@ -109,7 +138,7 @@ const AdForm = () => {
               Date of manufacture
               <select
                 onChange={onChange}
-                defaultValue=""
+                value={dateManufactured}
                 name="dateManufactured"
               >
                 <option value="">--</option>
@@ -122,7 +151,7 @@ const AdForm = () => {
               Body type
               <select
                 onChange={onChange}
-                defaultValue=""
+                value={bodyType}
                 size="5"
                 name="bodyType"
               >
@@ -144,7 +173,7 @@ const AdForm = () => {
               Fuel type
               <select
                 onChange={onChange}
-                defaultValue=""
+                value={fuelType}
                 size="5"
                 name="fuelType"
               >
@@ -162,7 +191,7 @@ const AdForm = () => {
               Gearbox
               <select
                 onChange={onChange}
-                defaultValue=""
+                value={gearbox}
                 size="2"
                 name="gearbox"
               >
@@ -172,7 +201,7 @@ const AdForm = () => {
             </label>
             <label htmlFor="doors" className="adForm-group--item2">
               Number of doors
-              <select name="doors" onChange={onChange} defaultValue="" size="3">
+              <select name="doors" onChange={onChange} value={doors} size="3">
                 <option value="4/5">4/5</option>
                 <option value="2/3">2/3</option>
                 <option value="other">Other</option>
@@ -182,7 +211,7 @@ const AdForm = () => {
           <div className="adForm-group">
             <label htmlFor="damage" className="adForm-group--item2">
               Damage
-              <select name="damage" onChange={onChange} defaultValue="">
+              <select name="damage" onChange={onChange} value={damage}>
                 <option value="noDamage">No damage</option>
                 <option value="crashedDamage">Crashed</option>
                 <option value="fireDamage">Fire / burn</option>
@@ -195,14 +224,18 @@ const AdForm = () => {
             </label>
             <label htmlFor="steeringWheel" className="adForm-group--item2">
               Steering wheel
-              <select name="steeringWheel" onChange={onChange} defaultValue="">
-                <option value="LHD">Left hand drive (LHD)</option>
+              <select
+                name="steeringWheel"
+                onChange={onChange}
+                value={steeringWheel}
+              >
                 <option value="RHD">Right hand drive (RHD)</option>
+                <option value="LHD">Left hand drive (LHD)</option>
               </select>
             </label>
             <label htmlFor="color" className="adForm-group--item2">
-              Steering wheel
-              <select name="color" onChange={onChange} defaultValue="">
+              Color
+              <select name="color" onChange={onChange} value={color}>
                 <option value="">--</option>
                 <option value="white">White</option>
                 <option value="yellow">Yellow / gold</option>
@@ -220,7 +253,12 @@ const AdForm = () => {
             </label>
             <label htmlFor="price" className="adForm-group--item2">
               Price, £
-              <input type="number" name="price" onChange={onChange} value="" />
+              <input
+                type="number"
+                name="price"
+                onChange={onChange}
+                value={price}
+              />
             </label>
           </div>
           <div className="adForm-group">
@@ -231,15 +269,20 @@ const AdForm = () => {
                 name="engineCapacity"
                 onChange={onChange}
                 placeholder="E.g. 1400"
-                value=""
+                value={engineCapacity}
               />
             </label>
             <label htmlFor="power" className="adForm-group--item2">
               Power
-              <input type="number" name="power" onChange={onChange} value="" />
-              <select name="powerUnit" onChange={onChange} value="kw">
-                <option value="kw">kW</option>
+              <input
+                type="number"
+                name="power"
+                onChange={onChange}
+                value={power}
+              />
+              <select name="powerUnit" onChange={onChange} value={powerUnit}>
                 <option value="hp">HP</option>
+                <option value="kw">kW</option>
               </select>
             </label>
             <label htmlFor="VINnumber" className="adForm-group--item2">
@@ -248,7 +291,7 @@ const AdForm = () => {
                 type="text"
                 name="VINnumber"
                 onChange={onChange}
-                value=""
+                value={VINnumber}
               />
             </label>
             <label htmlFor="mileage" className="adForm-group--item2">
@@ -257,9 +300,13 @@ const AdForm = () => {
                 type="number"
                 name="mileage"
                 onChange={onChange}
-                value=""
+                value={mileage}
               />
-              <select name="mileageUnit" onChange={onChange} value="mi">
+              <select
+                name="mileageUnit"
+                onChange={onChange}
+                value={mileageUnit}
+              >
                 <option value="mi">Mi</option>
                 <option value="km">Km</option>
               </select>
@@ -269,7 +316,12 @@ const AdForm = () => {
         <div className="adForm__section">
           <h2 className="adForm__heading">Description</h2>
 
-          <textarea name="description" cols="30" rows="10"></textarea>
+          <textarea
+            name="description"
+            cols="20"
+            rows="10"
+            onChange={onChange}
+          ></textarea>
           <div className="description-comments">
             <p>Detailed comment can attract more attention to your ad.</p>
 
@@ -283,11 +335,32 @@ const AdForm = () => {
             </p>
           </div>
         </div>
+        <div className="adForm__section">
+          <h2 className="adForm__heading">Contact information</h2>
+          <label htmlFor="phoneNumber">
+            Phone number
+            <input
+              type="number"
+              name="phoneNumber"
+              value={phoneNumber}
+              onChange={onChange}
+            />
+          </label>
+          <label htmlFor="postcode">
+            Postcode
+            <input
+              type="text"
+              name="postcode"
+              value={postcode}
+              onChange={onChange}
+            />
+          </label>
+        </div>
 
         <input
           type="submit"
           className="btn btn-block btn-primary"
-          value="Publish"
+          value={current ? "Update" : "Publish"}
         />
       </form>
     </>

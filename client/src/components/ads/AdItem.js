@@ -6,9 +6,9 @@ const AdItem = ({ ad }) => {
   return (
     <div className="card bg-light">
       <div>
-        {ad.make} {ad.model}
+        {make} {model}
       </div>
-      <div>{ad.price}</div>
+      <div>{price}</div>
       <Link to={`/ads/${id}`}>More details</Link>
       <br />
     </div>
