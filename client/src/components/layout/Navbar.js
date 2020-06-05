@@ -22,6 +22,12 @@ const Navbar = () => {
         <li>
           <Link to="/editing">Post an ad</Link>
         </li>
+        <li>
+          <Link to="/register">Register</Link>
+        </li>
+        <li>
+          <Link to="/login">Log in</Link>
+        </li>
       </ul>
     </div>
   );

@@ -7,24 +7,41 @@ import AdForm from "./ads/AdForm";
 import AdDetails from "./pages/AdDetails";
 import MyAds from "./pages/MyAds";
 import AdState from "../context/ad/AdState";
+import AuthState from "../context/auth/AuthState";
+import AlertState from "../context/alert/AlertState";
+import Register from "../components/auth/Register";
+import Login from "../components/auth/Login";
+import Alerts from "../components/layout/Alerts";
+import setAuthToken from "../utils/setAuthToken";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
   return (
-    <AdState>
-      <Router>
-        <>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Main}></Route>
-              <Route exact path="/myads" component={MyAds}></Route>
-              <Route exact path="/ads/:id" component={AdDetails}></Route>
-              <Route exact path="/editing" component={AdForm}></Route>
-            </Switch>
-          </div>
-        </>
-      </Router>
-    </AdState>
+    <AuthState>
+      <AdState>
+        <AlertState>
+          <Router>
+            <>
+              <Navbar />
+              <div className="container">
+                <Alerts />
+                <Switch>
+                  <Route exact path="/" component={Main}></Route>
+                  <Route exact path="/myads" component={MyAds}></Route>
+                  <Route exact path="/ads/:id" component={AdDetails}></Route>
+                  <Route exact path="/editing" component={AdForm}></Route>
+                  <Route exact path="/register" component={Register}></Route>
+                  <Route exact path="/login" component={Login}></Route>
+                </Switch>
+              </div>
+            </>
+          </Router>
+        </AlertState>
+      </AdState>
+    </AuthState>
   );
 }
 

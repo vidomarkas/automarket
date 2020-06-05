@@ -8,7 +8,7 @@ import {
   CLEAR_FILTER,
   SEARCH_ADS,
 } from "../types";
-import { multiPropsFilter } from "../../utilities/multiPropsFilter";
+import { multiPropsFilter } from "./multiPropsFilter";
 
 export default (state, action) => {
   switch (action.type) {

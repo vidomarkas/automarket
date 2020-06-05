@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AdContext from "../../context/ad/adContext";
 import AdItem from "./AdItem";
 
@@ -6,10 +6,6 @@ import AdItem from "./AdItem";
 const Ads = () => {
   const adContext = useContext(AdContext);
   const { foundAds } = adContext;
-
-  useEffect(() => {
-    console.log("foundAds", foundAds);
-  }, [foundAds]);
 
   if (foundAds === null) {
     return null;
