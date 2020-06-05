@@ -30,7 +30,6 @@ const AdForm = () => {
     phoneNumber: "",
     featured: false,
     sold: false,
-    powerUnit: "",
     postcode: "",
   };
 

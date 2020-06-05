@@ -6,35 +6,37 @@ const AdSearch = () => {
   const adContext = useContext(AdContext);
   const { searchAds } = adContext;
   const initialState = {
-    make: "",
-    model: "",
-    yearFrom: "",
-    yearTo: "",
-    bodyType: "",
-    fuelType: "",
-    priceFrom: "",
-    priceTo: "",
+    exactFields: { make: "", model: "", bodyType: "", fuelType: "" },
+    rangeFields: { yearFrom: "", yearTo: "", priceFrom: "", priceTo: "" },
   };
   const [criteria, setCriteria] = useState(initialState);
 
-  const {
-    make,
-    model,
-    yearFrom,
-    yearTo,
-    bodyType,
-    fuelType,
-    priceFrom,
-    priceTo,
-  } = criteria;
+  const { make, model, bodyType, fuelType } = criteria.exactFields;
+  const { yearFrom, yearTo, priceFrom, priceTo } = criteria.rangeFields;
 
-  const onChange = (e) => {
-    setCriteria({ ...criteria, [e.target.name]: e.target.value });
+  // onchange exact fields
+  const onChangeExact = (e) => {
+    setCriteria({
+      ...criteria,
+      exactFields: { ...criteria.exactFields, [e.target.name]: e.target.value },
+    });
+    console.log(criteria);
+  };
+
+  //onchange range fields
+  const onChangeRange = (e) => {
+    setCriteria({
+      ...criteria,
+      rangeFields: { ...criteria.rangeFields, [e.target.name]: e.target.value },
+    });
+    console.log(criteria);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(criteria);
     searchAds(criteria);
+    // setCriteria(initialState);
   };
 
   const calcYearFrom = () => {
@@ -71,7 +73,7 @@ const AdSearch = () => {
           <div className="adForm-group">
             <label htmlFor="make" className="adForm-group--item1">
               Make
-              <select name="make" onChange={onChange} value={make}>
+              <select name="make" onChange={onChangeExact} value={make}>
                 <option>--</option>
                 {carMakes.map((brand) => (
                   <option key={brand.name}>{brand.name}</option>
@@ -80,7 +82,7 @@ const AdSearch = () => {
             </label>
             <label htmlFor="model" className="adForm-group--item1">
               Model
-              <select name="model" onChange={onChange} value={model}>
+              <select name="model" onChange={onChangeExact} value={model}>
                 <option>--</option>
                 {carMakes.map((brand) =>
                   brand.name === make
@@ -95,14 +97,14 @@ const AdSearch = () => {
           <div className="adForm-group">
             <label htmlFor="yearFrom" className="adForm-group--item1">
               Year from
-              <select onChange={onChange} value={yearFrom} name="yearFrom">
+              <select onChange={onChangeRange} value={yearFrom} name="yearFrom">
                 <option value="">--</option>
                 {calcYearFrom()}
               </select>
             </label>
             <label htmlFor="yearTo" className="adForm-group--item1">
               Year to
-              <select onChange={onChange} value={yearTo} name="yearTo">
+              <select onChange={onChangeRange} value={yearTo} name="yearTo">
                 <option value="">--</option>
                 {calcYearTo()}
               </select>
@@ -112,11 +114,12 @@ const AdSearch = () => {
             <label htmlFor="bodyType" className="adForm-group--item2">
               Body type
               <select
-                onChange={onChange}
+                onChange={onChangeExact}
                 value={bodyType}
                 size="5"
                 name="bodyType"
               >
+                <option>--</option>
                 <option value="saloon">Saloon</option>
                 <option value="estate">Estate</option>
                 <option value="hatchback">Hatchback</option>
@@ -134,11 +137,12 @@ const AdSearch = () => {
             <label htmlFor="fuelType" className="adForm-group--item2">
               Fuel type
               <select
-                onChange={onChange}
+                onChange={onChangeExact}
                 value={fuelType}
                 size="5"
                 name="fuelType"
               >
+                <option>--</option>
                 <option value="diesel">Diesel</option>
                 <option value="petrol">Petrol</option>
                 <option value="petrol/lpg">Petrol / LPG</option>
@@ -151,22 +155,24 @@ const AdSearch = () => {
             </label>
           </div>
           <div className="adForm-group">
-            <label htmlFor="price" className="adForm-group--item2">
+            <label htmlFor="priceFrom" className="adForm-group--item2">
               Price from, £
               <input
                 type="number"
                 name="priceFrom"
-                onChange={onChange}
+                onChange={onChangeRange}
                 value={priceFrom}
+                min="0"
               />
             </label>
-            <label htmlFor="price" className="adForm-group--item2">
+            <label htmlFor="priceTo" className="adForm-group--item2">
               Price to, £
               <input
                 type="number"
                 name="priceTo"
-                onChange={onChange}
+                onChange={onChangeRange}
                 value={priceTo}
+                min="0"
               />
             </label>
           </div>

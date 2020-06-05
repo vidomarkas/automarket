@@ -8,6 +8,7 @@ import {
   CLEAR_FILTER,
   SEARCH_ADS,
 } from "../types";
+import { multiPropsFilter } from "../../utilities/multiPropsFilter";
 
 export default (state, action) => {
   switch (action.type) {
@@ -23,17 +24,11 @@ export default (state, action) => {
           ad.id === action.payload.id ? action.payload : ad
         ),
       };
-    // case SEARCH_ADS:
-    //   return {
-    //     ...state,
-    //     foundAds: state.ads.filter((ad) => {
-    //      for (let key in filter){
-    //        if
-    //      }
-
-    //       // check if there is make, model, yearFrom, yearTo, fuelType, bodyType, priceFrom, priceTo
-    //     }),
-    //   };
+    case SEARCH_ADS:
+      return {
+        ...state,
+        foundAds: multiPropsFilter(state.ads, action.payload),
+      };
     case DELETE_AD:
       return {
         ...state,
