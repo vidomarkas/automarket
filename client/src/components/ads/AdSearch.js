@@ -4,7 +4,7 @@ import AdContext from "../../context/ad/adContext";
 
 const AdSearch = () => {
   const adContext = useContext(AdContext);
-  const { searchAds } = adContext;
+  const { searchAds, clearFilter, foundAds } = adContext;
   const initialState = {
     exactFields: { make: "", model: "", bodyType: "", fuelType: "" },
     rangeFields: { yearFrom: "", yearTo: "", priceFrom: "", priceTo: "" },
@@ -14,13 +14,12 @@ const AdSearch = () => {
   const { make, model, bodyType, fuelType } = criteria.exactFields;
   const { yearFrom, yearTo, priceFrom, priceTo } = criteria.rangeFields;
 
-  // onchange exact fields
+  // onchange exact match fields
   const onChangeExact = (e) => {
     setCriteria({
       ...criteria,
       exactFields: { ...criteria.exactFields, [e.target.name]: e.target.value },
     });
-    console.log(criteria);
   };
 
   //onchange range fields
@@ -29,14 +28,16 @@ const AdSearch = () => {
       ...criteria,
       rangeFields: { ...criteria.rangeFields, [e.target.name]: e.target.value },
     });
-    console.log(criteria);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(criteria);
     searchAds(criteria);
-    // setCriteria(initialState);
+  };
+
+  const onResetFilter = () => {
+    setCriteria(initialState);
+    clearFilter();
   };
 
   const calcYearFrom = () => {
@@ -183,6 +184,14 @@ const AdSearch = () => {
           className="btn btn-block btn-primary"
           value="Search"
         />
+        {foundAds && (
+          <input
+            type="button"
+            className="btn btn-block btn-secondary"
+            onClick={onResetFilter}
+            value="Reset filter"
+          />
+        )}
       </form>
     </>
   );

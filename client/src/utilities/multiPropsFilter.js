@@ -35,7 +35,6 @@ const rangePropsFilter = (ads, search) => {
     const thisYear = date.getFullYear();
     search.rangeFields.yearTo = thisYear;
   }
-
   return ads.filter((ad) => {
     return (
       ad.dateManufactured >= search.rangeFields.yearFrom &&
@@ -48,58 +47,5 @@ const rangePropsFilter = (ads, search) => {
 
 export const multiPropsFilter = (ads, search) => {
   const filteredExact = exactPropsFilter(ads, search);
-  rangePropsFilter(filteredExact, search);
+  return rangePropsFilter(filteredExact, search);
 };
-
-// const search = {
-//   exactFields: {
-//     make: "BMW",
-//     model: "320",
-//     bodyType: "hatchback",
-//     fuelType: "petrol",
-//     doors: "",
-//   },
-
-//   rangeFields: {
-//     priceFrom: 3000,
-//     priceTo: 20000,
-//     yearFrom: 2007,
-//     yearTo: 2019,
-//   },
-// };
-
-// const ads = [
-//   {
-//     make: "BMW",
-//     model: "320",
-//     dateManufactured: 2018,
-//     bodyType: "hatchback",
-//     fuelType: "petrol",
-//     price: 20000,
-//   },
-
-//   {
-//     make: "BMW",
-//     model: "320",
-//     dateManufactured: 2008,
-//     bodyType: "hatchback",
-//     fuelType: "petrol",
-//     price: 2999,
-//   },
-//   {
-//     make: "BMW",
-//     model: "320",
-//     dateManufactured: 2016,
-//     bodyType: "saloon",
-//     fuelType: "diesel",
-//     price: 14999,
-//   },
-//   {
-//     make: "BMW",
-//     model: "323",
-//     dateManufactured: 2010,
-//     bodyType: "saloon",
-//     fuelType: "petrol",
-//     price: 10000,
-//   },
-// ];

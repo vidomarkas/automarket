@@ -29,6 +29,8 @@ export default (state, action) => {
         ...state,
         foundAds: multiPropsFilter(state.ads, action.payload),
       };
+    case CLEAR_FILTER:
+      return { ...state, foundAds: null };
     case DELETE_AD:
       return {
         ...state,

@@ -40,8 +40,8 @@ const AdState = (props) => {
       {
         id: 2,
         make: "BMW",
-        model: "320",
-        dateManufactured: 2018,
+        model: "114",
+        dateManufactured: 2010,
         bodyType: "hatchback",
         fuelType: "petrol",
         gearbox: "auto",
@@ -58,16 +58,16 @@ const AdState = (props) => {
       {
         id: 3,
         make: "BMW",
-        model: "320",
+        model: "114",
         dateManufactured: 2008,
         bodyType: "saloon",
         fuelType: "diesel",
-        price: "1000",
+        price: 1000,
       },
       {
         id: 4,
         make: "BMW",
-        model: "320",
+        model: "114",
         dateManufactured: 2018,
         bodyType: "saloon",
         fuelType: "diesel",
@@ -76,8 +76,8 @@ const AdState = (props) => {
       {
         id: 5,
         make: "BMW",
-        model: "320",
-        dateManufactured: 2018,
+        model: "114",
+        dateManufactured: 2020,
         bodyType: "hatchback",
         fuelType: "diesel",
         price: 1200,
@@ -105,8 +105,8 @@ const AdState = (props) => {
       {
         id: 7,
         make: "BMW",
-        model: "320",
-        dateManufactured: 2018,
+        model: "114",
+        dateManufactured: 2014,
         bodyType: "hatchback",
         fuelType: "petrol",
         gearbox: "auto",
@@ -127,7 +127,7 @@ const AdState = (props) => {
       },
     ],
     current: null,
-    foundAds: [],
+    foundAds: null,
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
@@ -160,6 +160,9 @@ const AdState = (props) => {
     dispatch({ type: SEARCH_ADS, payload: criteria });
   };
   // Clear filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
 
   return (
     <AdContext.Provider
@@ -174,6 +177,7 @@ const AdState = (props) => {
         setCurrent,
         clearCurrent,
         searchAds,
+        clearFilter,
       }}
     >
       {props.children}

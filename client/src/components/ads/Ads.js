@@ -8,16 +8,18 @@ const Ads = () => {
   const { foundAds } = adContext;
 
   useEffect(() => {
-    if (foundAds && foundAds.length > 0) {
-      return;
-    }
+    console.log("foundAds", foundAds);
   }, [foundAds]);
+
+  if (foundAds === null) {
+    return null;
+  }
   return (
     <>
       {foundAds && foundAds.length > 0 ? (
         foundAds.map((ad) => <AdItem key={ad.id} ad={ad} />)
       ) : (
-        <h2>Nothing found matching your criteria</h2>
+        <h4>Nothing found matching your criteria</h4>
       )}
     </>
   );
