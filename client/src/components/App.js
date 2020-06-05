@@ -13,6 +13,7 @@ import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
 import Alerts from "../components/layout/Alerts";
 import setAuthToken from "../utils/setAuthToken";
+import PrivateRoute from "../components/routing/PrivateRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -30,9 +31,17 @@ function App() {
                 <Alerts />
                 <Switch>
                   <Route exact path="/" component={Main}></Route>
-                  <Route exact path="/myads" component={MyAds}></Route>
+                  <PrivateRoute
+                    exact
+                    path="/myads"
+                    component={MyAds}
+                  ></PrivateRoute>
                   <Route exact path="/ads/:id" component={AdDetails}></Route>
-                  <Route exact path="/editing" component={AdForm}></Route>
+                  <PrivateRoute
+                    exact
+                    path="/editing"
+                    component={AdForm}
+                  ></PrivateRoute>
                   <Route exact path="/register" component={Register}></Route>
                   <Route exact path="/login" component={Login}></Route>
                 </Switch>
