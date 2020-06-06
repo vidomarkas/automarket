@@ -1,11 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
 import carMakes from "../../assets/carMakes.json";
 import AdContext from "../../context/ad/adContext";
+import AlertContext from "../../context/alert/alertContext";
 import "./AdForm.scss";
 
 const AdForm = () => {
   const adContext = useContext(AdContext);
-  const { postAd, current, updateAd } = adContext;
+  const alertContext = useContext(AlertContext);
+  const {
+    postAd,
+    current,
+    clearCurrent,
+    updateAd,
+    error,
+    clearAdError,
+  } = adContext;
+  const { setAlert } = alertContext;
 
   const initialState = {
     make: "",
@@ -24,7 +34,7 @@ const AdForm = () => {
     powerUnit: "hp",
     VINnumber: "",
     mileage: "",
-    mileageUnit: "",
+    mileageUnit: "mi",
     dateAdded: "",
     description: "",
     phoneNumber: "",
@@ -76,12 +86,32 @@ const AdForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (current === null) {
-      postAd(ad);
+    if (
+      make === "" ||
+      model === "" ||
+      mileage === "" ||
+      dateManufactured === "" ||
+      phoneNumber === "" ||
+      postcode === "" ||
+      price === ""
+    ) {
+      setAlert("Please enter required fields", "danger");
     } else {
-      updateAd(ad);
+      if (current === null) {
+        postAd(ad);
+      } else {
+        updateAd(ad);
+      }
+      //setAd(initialState);
+      clearCurrent();
     }
-    setAd(initialState);
+
+    // if (error) {
+    //   setAlert(error, "danger");
+    //   clearAdError();
+    // } else {
+
+    // }
   };
 
   const yearManufactured = () => {

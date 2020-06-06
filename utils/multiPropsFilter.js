@@ -1,6 +1,5 @@
-const removeKeysWithEmptyValues = (obj) => {
+function removeKeysWithEmptyValues(obj) {
   // remove empty search values (mutates the object)
-  console.log("obj", obj);
   const propNames = Object.getOwnPropertyNames(obj);
   for (let i = 0; i < propNames.length; i++) {
     let propName = propNames[i];
@@ -8,9 +7,9 @@ const removeKeysWithEmptyValues = (obj) => {
       delete obj[propName];
     }
   }
-};
+}
 
-const exactPropsFilter = (ads, search) => {
+function exactPropsFilter(ads, search) {
   removeKeysWithEmptyValues(search.exactFields);
   const filterArr = Object.keys(search.exactFields);
   return ads.filter((ad) => {
@@ -18,9 +17,9 @@ const exactPropsFilter = (ads, search) => {
       return search.exactFields[key].includes(ad[key]);
     });
   });
-};
+}
 
-const rangePropsFilter = (ads, search) => {
+function rangePropsFilter(ads, search) {
   removeKeysWithEmptyValues(search.rangeFields);
   if (!search.rangeFields.priceFrom) {
     search.rangeFields.priceFrom = 0;
@@ -36,6 +35,7 @@ const rangePropsFilter = (ads, search) => {
     const thisYear = date.getFullYear();
     search.rangeFields.yearTo = thisYear;
   }
+
   return ads.filter((ad) => {
     return (
       ad.dateManufactured >= search.rangeFields.yearFrom &&
@@ -44,9 +44,11 @@ const rangePropsFilter = (ads, search) => {
       ad.price <= search.rangeFields.priceTo
     );
   });
-};
+}
 
-export const multiPropsFilter = (ads, search) => {
+module.exports = function (ads, search) {
   const filteredExact = exactPropsFilter(ads, search);
-  return rangePropsFilter(filteredExact, search);
+  const filteredRange = rangePropsFilter(filteredExact, search);
+
+  return filteredRange;
 };

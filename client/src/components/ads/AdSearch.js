@@ -31,8 +31,9 @@ const AdSearch = () => {
   };
 
   const onSubmit = (e) => {
+    console.log("criteria from searchAds :>> ", { criteria });
     e.preventDefault();
-    searchAds(criteria);
+    searchAds({ criteria });
   };
 
   const onResetFilter = () => {

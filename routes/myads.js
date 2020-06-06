@@ -36,6 +36,7 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
+    console.log("errors:", errors.errors);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
@@ -88,7 +89,7 @@ router.post(
       res.json(ad);
     } catch (error) {
       console.error(error.message);
-      res.status(500).json("Server error");
+      res.status(500).json(error.message);
     }
   }
 );

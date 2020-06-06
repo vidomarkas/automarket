@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const AdItem = ({ ad }) => {
-  const { make, model, price, id, dateManufactured, bodyType, fuelType } = ad;
+  const { make, model, price, _id, dateManufactured, bodyType, fuelType } = ad;
   return (
     <div className="card bg-light">
       <div>
@@ -12,7 +12,7 @@ const AdItem = ({ ad }) => {
         {bodyType} {fuelType}
       </div>
       <div>{price}</div>
-      <Link to={`/ads/${id}`}>More details</Link>
+      <Link to={`/ads/${_id}`}>More details</Link>
       <br />
     </div>
   );

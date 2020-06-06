@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AdContext from "../../context/ad/adContext";
 import MyAdItem from "../ads/MyAdItem";
 
 const MyAds = () => {
   const adContext = useContext(AdContext);
-  const { myAds } = adContext;
+  const { myAds, getMyAds, loading } = adContext;
+
+  useEffect(() => {
+    getMyAds();
+    // eslint-disable-next-line
+  }, []);
   return (
-    <div>
-      {myAds.map((ad) => (
-        <MyAdItem key={ad.id} myAd={ad} />
-      ))}
-    </div>
+    <div>{myAds && myAds.map((ad) => <MyAdItem key={ad.id} myAd={ad} />)}</div>
   );
 };
 

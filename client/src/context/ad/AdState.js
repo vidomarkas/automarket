@@ -2,7 +2,6 @@ import React, { useReducer } from "react";
 import AdContext from "./adContext";
 import AdReducer from "./adReducer";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import {
   POST_AD,
   DELETE_AD,
@@ -12,130 +11,42 @@ import {
   SEARCH_ADS,
   CLEAR_FILTER,
   AD_ERROR,
-  GET_ADS,
+  CLEAR_AD_ERROR,
+  GET_MY_ADS,
   CLEAR_ADS,
 } from "../types";
 
 const AdState = (props) => {
   const initialState = {
-    ads: [
-      {
-        id: 1,
-        make: "Honda",
-        model: "Civic",
-        dateManufactured: 1970,
-        bodyType: "hatchback",
-        fuelType: "petrol",
-        gearbox: "auto",
-        doors: "2/3",
-        damage: "none",
-        steeringWheel: "right",
-        color: "green",
-        mileage: 12300,
-        dateAdded: "2020-05-31",
-        description: "Great car, sad to see it go",
-        price: 23000,
-        phoneNumber: "07425858895",
-      },
-      {
-        id: 2,
-        make: "BMW",
-        model: "114",
-        dateManufactured: 2010,
-        bodyType: "hatchback",
-        fuelType: "petrol",
-        gearbox: "auto",
-        doors: "2/3",
-        damage: "none",
-        steeringWheel: "right",
-        color: "black",
-        mileage: 12300,
-        dateAdded: "2020-05-31",
-        description: "Great car, sad to see it go",
-        price: 153000,
-        phoneNumber: "07425858895",
-      },
-      {
-        id: 3,
-        make: "BMW",
-        model: "114",
-        dateManufactured: 2008,
-        bodyType: "saloon",
-        fuelType: "diesel",
-        price: 1000,
-      },
-      {
-        id: 4,
-        make: "BMW",
-        model: "114",
-        dateManufactured: 2018,
-        bodyType: "saloon",
-        fuelType: "diesel",
-        price: 14000,
-      },
-      {
-        id: 5,
-        make: "BMW",
-        model: "114",
-        dateManufactured: 2020,
-        bodyType: "hatchback",
-        fuelType: "diesel",
-        price: 1200,
-      },
-      {
-        id: 6,
-        make: "Toyota",
-        model: "Land Cruiser",
-        dateManufactured: 2016,
-        bodyType: "SUV",
-        fuelType: "diesel",
-        gearbox: "manual",
-        doors: "4/5",
-        damage: "none",
-        steeringWheel: "left",
-        color: "black",
-        mileage: 12300,
-        dateAdded: "2020-05-31",
-        description: "Great car, sad to see it go",
-        price: 14999,
-        phoneNumber: "07425858895",
-      },
-    ],
-    myAds: [
-      {
-        id: 7,
-        make: "BMW",
-        model: "114",
-        dateManufactured: 2014,
-        bodyType: "hatchback",
-        fuelType: "petrol",
-        gearbox: "auto",
-        doors: "2/3",
-        damage: "none",
-        steeringWheel: "right",
-        color: "black",
-        mileage: 12300,
-        dateAdded: "2020-05-31",
-        description: "Great car, sad to see it go",
-        price: 13000,
-        phoneNumber: "07425858895",
-        engineCapacity: 1596,
-        power: 300,
-        powerUnit: "hp",
-        VINnumber: "",
-        postcode: "",
-      },
-    ],
+    ads: [],
+    myAds: null,
     current: null,
     foundAds: null,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
 
+  // Get my ads
+  const getMyAds = async () => {
+    try {
+      const res = await axios.get("/api/myads");
+      dispatch({ type: GET_MY_ADS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
+    }
+  };
+
   // Post ad
-  const postAd = (ad) => {
-    ad.id = uuidv4();
-    dispatch({ type: POST_AD, payload: ad });
+  const postAd = async (ad) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    try {
+      const res = await axios.post("/api/myads", ad, config);
+      dispatch({ type: POST_AD, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
+    }
   };
 
   // Delete ad
@@ -156,12 +67,29 @@ const AdState = (props) => {
     dispatch({ type: UPDATE_AD, payload: ad });
   };
   // Search ads
-  const searchAds = (criteria) => {
-    dispatch({ type: SEARCH_ADS, payload: criteria });
+  const searchAds = async (criteria) => {
+    console.log("criteria :>> ", criteria);
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    try {
+      const res = await axios.post("/api/ads", criteria, config);
+
+      dispatch({ type: SEARCH_ADS, payload: res.data });
+    } catch (err) {
+      dispatch({
+        type: AD_ERROR,
+        payload: err.response,
+      });
+    }
   };
   // Clear filter
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER });
+  };
+  // Clear errors
+  const clearAdError = () => {
+    dispatch({ type: CLEAR_AD_ERROR });
   };
 
   return (
@@ -171,6 +99,8 @@ const AdState = (props) => {
         myAds: state.myAds,
         current: state.current,
         foundAds: state.foundAds,
+        error: state.error,
+        getMyAds,
         postAd,
         deleteAd,
         updateAd,
@@ -178,6 +108,7 @@ const AdState = (props) => {
         clearCurrent,
         searchAds,
         clearFilter,
+        clearAdError,
       }}
     >
       {props.children}

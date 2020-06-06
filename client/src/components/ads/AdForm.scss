@@ -10,8 +10,9 @@
 
   &-group {
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
     margin-bottom: 1rem;
+    margin-right: 1rem;
 
     &--item1 {
       flex-basis: 32%;
