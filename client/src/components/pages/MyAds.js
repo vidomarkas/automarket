@@ -11,7 +11,7 @@ const MyAds = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div>{myAds && myAds.map((ad) => <MyAdItem key={ad.id} myAd={ad} />)}</div>
+    <div>{myAds && myAds.map((ad) => <MyAdItem key={ad._id} myAd={ad} />)}</div>
   );
 };
 

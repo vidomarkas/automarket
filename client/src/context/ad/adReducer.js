@@ -10,8 +10,8 @@ import {
   SEARCH_ADS,
   AD_ERROR,
   CLEAR_AD_ERROR,
+  CLEAR_MY_ADS,
 } from "../types";
-import { multiPropsFilter } from "./multiPropsFilter";
 
 export default (state, action) => {
   switch (action.type) {
@@ -23,10 +23,10 @@ export default (state, action) => {
       return {
         ...state,
         ads: state.ads.map((ad) =>
-          ad.id === action.payload.id ? action.payload : ad
+          ad._id === action.payload._id ? action.payload : ad
         ),
         myAds: state.myAds.map((ad) =>
-          ad.id === action.payload.id ? action.payload : ad
+          ad._id === action.payload._id ? action.payload : ad
         ),
         loading: false,
       };
@@ -42,8 +42,8 @@ export default (state, action) => {
     case DELETE_AD:
       return {
         ...state,
-        ads: state.ads.filter((ad) => ad.id !== action.payload),
-        myAds: state.myAds.filter((ad) => ad.id !== action.payload),
+        ads: state.ads.filter((ad) => ad._id !== action.payload),
+        myAds: state.myAds.filter((ad) => ad._id !== action.payload),
         loading: false,
       };
     case SET_CURRENT:
@@ -54,6 +54,14 @@ export default (state, action) => {
       return { ...state, error: action.payload };
     case CLEAR_AD_ERROR:
       return { ...state, error: null };
+    case CLEAR_MY_ADS:
+      return {
+        ...state,
+        myAds: null,
+        current: null,
+        foundAds: null,
+        error: null,
+      };
     default:
       return state;
   }

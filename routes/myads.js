@@ -118,6 +118,7 @@ router.put("/:id", auth, async (req, res) => {
     description,
     price,
     phoneNumber,
+    postcode,
   } = req.body;
 
   // Build contact body
@@ -141,11 +142,13 @@ router.put("/:id", auth, async (req, res) => {
   if (description) adFields.description = description;
   if (price) adFields.price = price;
   if (phoneNumber) adFields.phoneNumber = phoneNumber;
+  if (postcode) adFields.postcode = postcode;
+  if (description) adFields.description = description;
 
   try {
     let ad = await Ad.findById(req.params.id);
     if (!ad) {
-      res.status(404).json({ msg: "Advertisement not found" });
+      res.status(404).json({ msg: "Ad not found" });
     }
 
     //Make sure user owns the ad
@@ -174,8 +177,9 @@ router.put("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     let ad = await Ad.findById(req.params.id);
+
     if (!ad) {
-      res.status(404).json({ msg: "Advertisement not found" });
+      res.status(404).json({ msg: "Ad not found" });
     }
 
     //Make sure user owns the ad
@@ -185,10 +189,9 @@ router.delete("/:id", auth, async (req, res) => {
 
     await Ad.findByIdAndRemove(req.params.id);
 
-    res.json({ msg: "Advertisement removed" });
+    res.json({ msg: "Ad removed" });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json("Server error");
+    res.status(500).json({ msg: "Server error" });
   }
 });
 

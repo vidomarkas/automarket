@@ -24,9 +24,10 @@ const AdSchema = mongoose.Schema({
   sold: { type: Boolean, default: false },
   powerUnit: { type: String },
   mileageUnit: { type: String },
+  postcode: { type: String },
   // loweredPrice: { type: Boolean, default: false },
   // priceHistory: { type: Array },
-  // marked: { type: Number, default: 0 },
+  marked: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("ad", AdSchema);

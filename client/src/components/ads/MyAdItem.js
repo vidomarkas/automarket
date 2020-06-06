@@ -5,10 +5,10 @@ import AdContext from "../../context/ad/adContext";
 const MyAdItem = ({ myAd }) => {
   const adContext = useContext(AdContext);
   const { deleteAd, setCurrent, clearCurrent } = adContext;
-  const { make, model, price, id } = myAd;
+  const { make, model, price, _id } = myAd;
 
   const onDelete = () => {
-    deleteAd(id);
+    deleteAd(_id);
     clearCurrent();
   };
 
@@ -18,7 +18,7 @@ const MyAdItem = ({ myAd }) => {
         {make} {model}
       </div>
       <div>{price}</div>
-      <Link to={`/ads/${id}`}>More details</Link>
+      <Link to={`/ads/${_id}`}>More details</Link>
       <br />
       <Link
         to="/editing"

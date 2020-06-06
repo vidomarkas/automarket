@@ -2,13 +2,17 @@ import React, { useContext } from "react";
 import { GiSteeringWheel } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
+import AdContext from "../../context/ad/adContext";
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
+  const adContext = useContext(AdContext);
   const { isAuthenticated, logout, user } = authContext;
+  const { clearMyAds } = adContext;
 
   const onLogout = () => {
     logout();
+    clearMyAds();
   };
 
   const authLinks = (

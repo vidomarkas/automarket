@@ -13,7 +13,7 @@ import {
   AD_ERROR,
   CLEAR_AD_ERROR,
   GET_MY_ADS,
-  CLEAR_ADS,
+  CLEAR_MY_ADS,
 } from "../types";
 
 const AdState = (props) => {
@@ -36,11 +36,9 @@ const AdState = (props) => {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
-
   // Post ad
   const postAd = async (ad) => {
     const config = { headers: { "Content-Type": "application/json" } };
-
     try {
       const res = await axios.post("/api/myads", ad, config);
       dispatch({ type: POST_AD, payload: res.data });
@@ -48,12 +46,15 @@ const AdState = (props) => {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
-
   // Delete ad
-  const deleteAd = (id) => {
-    dispatch({ type: DELETE_AD, payload: id });
+  const deleteAd = async (id) => {
+    try {
+      await axios.delete(`/api/myads/${id}`);
+      dispatch({ type: DELETE_AD, payload: id });
+    } catch (err) {
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
+    }
   };
-
   // Set current ad
   const setCurrent = (ad) => {
     dispatch({ type: SET_CURRENT, payload: ad });
@@ -63,18 +64,20 @@ const AdState = (props) => {
     dispatch({ type: CLEAR_CURRENT });
   };
   // Update ad
-  const updateAd = (ad) => {
-    dispatch({ type: UPDATE_AD, payload: ad });
+  const updateAd = async (ad) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    try {
+      const res = await axios.put(`/api/myads/${ad._id}`, ad, config);
+      dispatch({ type: UPDATE_AD, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
+    }
   };
   // Search ads
   const searchAds = async (criteria) => {
-    console.log("criteria :>> ", criteria);
-
     const config = { headers: { "Content-Type": "application/json" } };
-
     try {
       const res = await axios.post("/api/ads", criteria, config);
-
       dispatch({ type: SEARCH_ADS, payload: res.data });
     } catch (err) {
       dispatch({
@@ -90,6 +93,11 @@ const AdState = (props) => {
   // Clear errors
   const clearAdError = () => {
     dispatch({ type: CLEAR_AD_ERROR });
+  };
+
+  // Clear my ads
+  const clearMyAds = () => {
+    dispatch({ type: CLEAR_MY_ADS });
   };
 
   return (
@@ -109,6 +117,7 @@ const AdState = (props) => {
         searchAds,
         clearFilter,
         clearAdError,
+        clearMyAds,
       }}
     >
       {props.children}

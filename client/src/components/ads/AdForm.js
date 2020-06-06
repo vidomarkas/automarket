@@ -93,7 +93,8 @@ const AdForm = () => {
       dateManufactured === "" ||
       phoneNumber === "" ||
       postcode === "" ||
-      price === ""
+      price === "" ||
+      color === ""
     ) {
       setAlert("Please enter required fields", "danger");
     } else {
@@ -103,6 +104,7 @@ const AdForm = () => {
         updateAd(ad);
       }
       //setAd(initialState);
+
       clearCurrent();
     }
 
@@ -349,6 +351,7 @@ const AdForm = () => {
             name="description"
             cols="20"
             rows="10"
+            value={description}
             onChange={onChange}
           ></textarea>
           <div className="description-comments">

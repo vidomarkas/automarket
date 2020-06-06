@@ -4,7 +4,7 @@ import AdItem from "./AdItem";
 import Spinner from "../layout/Spinner";
 
 // change this component to featured ads
-const Ads = () => {
+const FoundAds = () => {
   const adContext = useContext(AdContext);
   const { foundAds, getAds, loading } = adContext;
 
@@ -28,4 +28,4 @@ const Ads = () => {
   );
 };
 
-export default Ads;
+export default FoundAds;
