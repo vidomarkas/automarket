@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://viktoras:JuodasBerzas11@automarket-main-nldtq.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "Juodasberzas12"
+}

@@ -31,7 +31,6 @@ export default (state, action) => {
         loading: false,
       };
     case SEARCH_ADS:
-      console.log("action.payload", action.payload);
       return {
         ...state,
         foundAds: action.payload,
