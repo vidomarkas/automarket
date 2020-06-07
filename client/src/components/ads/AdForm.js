@@ -12,8 +12,8 @@ const AdForm = () => {
     current,
     clearCurrent,
     updateAd,
-    error,
-    clearAdError,
+    uploadImage,
+    setCurrent,
   } = adContext;
   const { setAlert } = alertContext;
 
@@ -35,12 +35,12 @@ const AdForm = () => {
     VINnumber: "",
     mileage: "",
     mileageUnit: "mi",
-    dateAdded: "",
     description: "",
     phoneNumber: "",
     featured: false,
     sold: false,
     postcode: "",
+    images: "",
   };
 
   useEffect(() => {
@@ -49,7 +49,8 @@ const AdForm = () => {
     } else {
       setAd(initialState);
     }
-  }, [adContext, current]);
+    // eslint-disable-next-line
+  }, []);
 
   const [ad, setAd] = useState(initialState);
 
@@ -69,9 +70,8 @@ const AdForm = () => {
     power,
     VINnumber,
     mileage,
-    dateAdded,
-    featured,
-    sold,
+    //featured,
+    //sold,
     description,
     phoneNumber,
     powerUnit,
@@ -83,7 +83,11 @@ const AdForm = () => {
     setAd({ ...ad, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onImageSelect = (e) => {
+    setAd({ ...ad, [e.target.name]: e.target.files[0] });
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -99,6 +103,9 @@ const AdForm = () => {
       setAlert("Please enter required fields", "danger");
     } else {
       if (current === null) {
+        setCurrent(ad);
+        const uploadedImg = await uploadImage(ad.image);
+        console.log("uploadedImg", uploadedImg);
         postAd(ad);
       } else {
         updateAd(ad);
@@ -107,13 +114,6 @@ const AdForm = () => {
 
       clearCurrent();
     }
-
-    // if (error) {
-    //   setAlert(error, "danger");
-    //   clearAdError();
-    // } else {
-
-    // }
   };
 
   const yearManufactured = () => {
@@ -135,7 +135,11 @@ const AdForm = () => {
       <h1 className="text-primary">
         {current ? "Advert editing" : "New advert"}
       </h1>
-      <form className="adForm" onSubmit={onSubmit}>
+      <form
+        className="adForm"
+        onSubmit={onSubmit}
+        encType="multipart/form-data"
+      >
         <div className="adForm__section">
           <h2 className="adForm__heading">Main information</h2>
           <div className="adForm-group">
@@ -388,6 +392,10 @@ const AdForm = () => {
             />
           </label>
         </div>
+        <label htmlFor="image">
+          Upload image
+          <input type="file" name="image" onChange={onImageSelect} />
+        </label>
 
         <input
           type="submit"

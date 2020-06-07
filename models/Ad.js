@@ -28,6 +28,7 @@ const AdSchema = mongoose.Schema({
   // loweredPrice: { type: Boolean, default: false },
   // priceHistory: { type: Array },
   marked: { type: Number, default: 0 },
+  image: { data: Buffer, contentType: String },
 });
 
 module.exports = mongoose.model("ad", AdSchema);

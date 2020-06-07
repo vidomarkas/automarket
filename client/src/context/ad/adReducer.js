@@ -5,12 +5,13 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_AD,
-  FILTER_ADS,
   CLEAR_FILTER,
   SEARCH_ADS,
   AD_ERROR,
   CLEAR_AD_ERROR,
   CLEAR_MY_ADS,
+  UPLOAD_IMAGES,
+  ERROR_UPLOADING_IMAGES,
 } from "../types";
 
 export default (state, action) => {
@@ -19,6 +20,12 @@ export default (state, action) => {
       return { ...state, myAds: action.payload, loading: false };
     case POST_AD:
       return { ...state, ads: [...state.ads, action.payload], loading: false };
+    case UPLOAD_IMAGES:
+      return {
+        ...state,
+        current: [...state.current, action.payload],
+        loading: false,
+      };
     case UPDATE_AD:
       return {
         ...state,

@@ -19,3 +19,5 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const UPLOAD_IMAGES = "UPLOAD_IMAGES";
+export const ERROR_UPLOADING_IMAGES = "ERROR_UPLOADING_IMAGES";

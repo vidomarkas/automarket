@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AdContext from "../../context/ad/adContext";
 import AdItem from "./AdItem";
 import Spinner from "../layout/Spinner";
@@ -6,7 +6,7 @@ import Spinner from "../layout/Spinner";
 // change this component to featured ads
 const FoundAds = () => {
   const adContext = useContext(AdContext);
-  const { foundAds, getAds, loading } = adContext;
+  const { foundAds, loading } = adContext;
 
   if (foundAds === null) {
     return null;

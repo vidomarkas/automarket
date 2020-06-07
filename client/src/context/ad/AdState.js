@@ -14,6 +14,8 @@ import {
   CLEAR_AD_ERROR,
   GET_MY_ADS,
   CLEAR_MY_ADS,
+  UPLOAD_IMAGES,
+  ERROR_UPLOADING_IMAGES,
 } from "../types";
 
 const AdState = (props) => {
@@ -30,7 +32,7 @@ const AdState = (props) => {
   // Get my ads
   const getMyAds = async () => {
     try {
-      const res = await axios.get("/api/myads");
+      const res = await axios.get("api/myads");
       dispatch({ type: GET_MY_ADS, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -40,16 +42,34 @@ const AdState = (props) => {
   const postAd = async (ad) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.post("/api/myads", ad, config);
+      const res = await axios.post("api/myads", ad, config);
       dispatch({ type: POST_AD, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
+
+  //! Upload Image ===================================================
+  const uploadImage = async (image) => {
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+    try {
+      console.log(image);
+      const formData = new FormData();
+      formData.append("image", image);
+      const res = await axios.post("api/images", formData, config);
+      dispatch({ type: UPLOAD_IMAGES, payload: res.data });
+      console.log("res.data from uploadImage :>> ", res.data);
+    } catch (err) {
+      dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.message });
+      console.log(err);
+    }
+  };
+  //!==================================================================
   // Delete ad
   const deleteAd = async (id) => {
     try {
-      await axios.delete(`/api/myads/${id}`);
+      await axios.delete(`api/myads/${id}`);
       dispatch({ type: DELETE_AD, payload: id });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -57,9 +77,10 @@ const AdState = (props) => {
   };
   // Set current ad
   const setCurrent = (ad) => {
+    console.log("from setCurrent. Ad:", ad);
     dispatch({ type: SET_CURRENT, payload: ad });
   };
-  // CLear current ad
+  // Clear current ad
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
   };
@@ -67,7 +88,7 @@ const AdState = (props) => {
   const updateAd = async (ad) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.put(`/api/myads/${ad._id}`, ad, config);
+      const res = await axios.put(`api/myads/${ad._id}`, ad, config);
       dispatch({ type: UPDATE_AD, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -77,7 +98,7 @@ const AdState = (props) => {
   const searchAds = async (criteria) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.post("/api/ads", criteria, config);
+      const res = await axios.post("api/ads", criteria, config);
       dispatch({ type: SEARCH_ADS, payload: res.data });
     } catch (err) {
       dispatch({
@@ -118,6 +139,7 @@ const AdState = (props) => {
         clearFilter,
         clearAdError,
         clearMyAds,
+        uploadImage,
       }}
     >
       {props.children}

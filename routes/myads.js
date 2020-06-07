@@ -60,7 +60,10 @@ router.post(
       description,
       price,
       phoneNumber,
+      image,
     } = req.body;
+
+    console.log("image :>> ", req.body);
 
     try {
       const newAd = new Ad({
@@ -167,7 +170,7 @@ router.put("/:id", auth, async (req, res) => {
     res.json(ad);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json("Server error");
+    res.status(500).json({ msg: "Server error" });
   }
 });
 
@@ -179,9 +182,8 @@ router.delete("/:id", auth, async (req, res) => {
     let ad = await Ad.findById(req.params.id);
 
     if (!ad) {
-      res.status(404).json({ msg: "Ad not found" });
+      res.status(404).json({ msg: "Not found" });
     }
-
     //Make sure user owns the ad
     if (ad.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "Not authorized" });
@@ -189,7 +191,7 @@ router.delete("/:id", auth, async (req, res) => {
 
     await Ad.findByIdAndRemove(req.params.id);
 
-    res.json({ msg: "Ad removed" });
+    res.json({ msg: "Removed" });
   } catch (error) {
     res.status(500).json({ msg: "Server error" });
   }

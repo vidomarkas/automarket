@@ -30,12 +30,12 @@ router.get("/:id", async (req, res) => {
     let ad = await Ad.findById(req.params.id);
 
     if (!ad) {
-      res.status(404).json({ msg: "Advertisement not found" });
+      res.status(404).json({ msg: "Ad not found" });
     }
     res.json({ ad });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json("Server error");
+    res.status(500).json({ msg: "Server error" });
   }
 });
 
