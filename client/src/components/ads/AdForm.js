@@ -9,48 +9,41 @@ const AdForm = () => {
   const alertContext = useContext(AlertContext);
   const {
     postAd,
-    current,
-    clearCurrent,
     updateAd,
     uploadImage,
+    current,
     setCurrent,
+    clearCurrent,
+    currentImg,
   } = adContext;
   const { setAlert } = alertContext;
 
   const initialState = {
-    make: "",
-    model: "",
-    dateManufactured: "",
+    make: "AC",
+    model: "Other",
+    dateManufactured: "2003",
     bodyType: "saloon",
     fuelType: "diesel",
     gearbox: "manual",
     doors: "4/5",
     damage: "noDamage",
     steeringWheel: "RHD",
-    color: "",
-    price: "",
+    color: "red",
+    price: "555",
     engineCapacity: "",
-    power: "",
+    power: "1000",
     powerUnit: "hp",
     VINnumber: "",
-    mileage: "",
+    mileage: 1000000,
     mileageUnit: "mi",
-    description: "",
-    phoneNumber: "",
+    description: "testing",
+    phoneNumber: 555555555,
     featured: false,
     sold: false,
-    postcode: "",
-    images: "",
+    postcode: "DA550DA",
+    image: "",
+    imageURL: "",
   };
-
-  useEffect(() => {
-    if (current !== null) {
-      setAd(current);
-    } else {
-      setAd(initialState);
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const [ad, setAd] = useState(initialState);
 
@@ -70,14 +63,61 @@ const AdForm = () => {
     power,
     VINnumber,
     mileage,
-    //featured,
-    //sold,
     description,
     phoneNumber,
     powerUnit,
     mileageUnit,
     postcode,
+    imageURL,
+    //featured,
+    //sold,
   } = ad;
+
+  // Determine whether the ad is being updated or it is a new ad
+  useEffect(() => {
+    if (current !== null) {
+      setAd(current);
+    } else {
+      setAd(initialState);
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (currentImg !== null) {
+      console.log("CurrentImg changed in AdForm! Value:", currentImg);
+      setAd({
+        ...ad,
+        imageURL: currentImg,
+      });
+      console.log(
+        "Just set ad.image to currentImg, you may not see the updated ad value",
+        ad
+      );
+    }
+    // eslint-disable-next-line
+  }, [currentImg]);
+
+  useEffect(() => {
+    if (imageURL) {
+      if (current === null) {
+        postAd(ad);
+        console.log("Posting ad!");
+      } else {
+        //updateAd(ad);
+        console.log("Updating ad!");
+      }
+      setAd(initialState);
+      clearCurrent();
+    }
+  }, [imageURL]);
+
+  useEffect(() => {
+    console.log(
+      "This is from useeffect of ad. See if the ad.image value is updated :>> ",
+      ad
+    );
+  }, [ad]);
 
   const onChange = (e) => {
     setAd({ ...ad, [e.target.name]: e.target.value });
@@ -87,9 +127,9 @@ const AdForm = () => {
     setAd({ ...ad, [e.target.name]: e.target.files[0] });
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-
+    //validation
     if (
       make === "" ||
       model === "" ||
@@ -102,17 +142,10 @@ const AdForm = () => {
     ) {
       setAlert("Please enter required fields", "danger");
     } else {
-      if (current === null) {
-        setCurrent(ad);
-        const uploadedImg = await uploadImage(ad.image);
-        console.log("uploadedImg", uploadedImg);
-        postAd(ad);
-      } else {
-        updateAd(ad);
+      // passed validation
+      if (ad.image) {
+        uploadImage(ad.image);
       }
-      //setAd(initialState);
-
-      clearCurrent();
     }
   };
 
@@ -396,6 +429,7 @@ const AdForm = () => {
           Upload image
           <input type="file" name="image" onChange={onImageSelect} />
         </label>
+        {imageURL && <img src={imageURL} alt="" />}
 
         <input
           type="submit"

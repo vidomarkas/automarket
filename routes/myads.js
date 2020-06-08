@@ -60,10 +60,8 @@ router.post(
       description,
       price,
       phoneNumber,
-      image,
+      imageURL,
     } = req.body;
-
-    console.log("image :>> ", req.body);
 
     try {
       const newAd = new Ad({
@@ -85,6 +83,7 @@ router.post(
         description,
         price,
         phoneNumber,
+        imageURL,
         user: req.user.id,
       });
       const ad = await newAd.save();
@@ -122,6 +121,7 @@ router.put("/:id", auth, async (req, res) => {
     price,
     phoneNumber,
     postcode,
+    imageURL,
   } = req.body;
 
   // Build contact body
@@ -147,6 +147,7 @@ router.put("/:id", auth, async (req, res) => {
   if (phoneNumber) adFields.phoneNumber = phoneNumber;
   if (postcode) adFields.postcode = postcode;
   if (description) adFields.description = description;
+  if (imageURL) adFields.imageURL = imageURL;
 
   try {
     let ad = await Ad.findById(req.params.id);

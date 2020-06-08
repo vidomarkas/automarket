@@ -10,7 +10,7 @@ const fs = require("fs");
 // Description  Upload image
 // Access       Private
 router.post("/", upload.array("image"), async (req, res) => {
-  const uploader = async (path) => await cloudinary.uploads(path, "Immages");
+  const uploader = async (path) => await cloudinary.uploads(path, "automarket");
 
   try {
     const urls = [];

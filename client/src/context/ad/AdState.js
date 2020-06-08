@@ -25,6 +25,7 @@ const AdState = (props) => {
     current: null,
     foundAds: null,
     error: null,
+    currentImg: null,
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
@@ -54,12 +55,11 @@ const AdState = (props) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
     try {
-      console.log(image);
       const formData = new FormData();
       formData.append("image", image);
+      console.log("Adstate.js: uploadImage(): received image!");
       const res = await axios.post("api/images", formData, config);
-      dispatch({ type: UPLOAD_IMAGES, payload: res.data });
-      console.log("res.data from uploadImage :>> ", res.data);
+      dispatch({ type: UPLOAD_IMAGES, payload: res.data.data[0].url });
     } catch (err) {
       dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.message });
       console.log(err);
@@ -77,7 +77,6 @@ const AdState = (props) => {
   };
   // Set current ad
   const setCurrent = (ad) => {
-    console.log("from setCurrent. Ad:", ad);
     dispatch({ type: SET_CURRENT, payload: ad });
   };
   // Clear current ad
@@ -129,6 +128,7 @@ const AdState = (props) => {
         current: state.current,
         foundAds: state.foundAds,
         error: state.error,
+        currentImg: state.currentImg,
         getMyAds,
         postAd,
         deleteAd,
