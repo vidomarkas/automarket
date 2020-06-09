@@ -12,7 +12,7 @@ const FoundAds = () => {
     return null;
   }
   return (
-    <>
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
       {loading ? (
         <Spinner />
       ) : (
@@ -24,7 +24,7 @@ const FoundAds = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

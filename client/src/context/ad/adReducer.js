@@ -21,11 +21,6 @@ export default (state, action) => {
     case POST_AD:
       return { ...state, ads: [...state.ads, action.payload], loading: false };
     case UPLOAD_IMAGES:
-      console.log(
-        "adReducer: this is what i got: ",
-        action.payload,
-        "setting it to currentImg!"
-      );
       return {
         ...state,
         currentImg: action.payload,
@@ -60,7 +55,7 @@ export default (state, action) => {
     case SET_CURRENT:
       return { ...state, current: action.payload };
     case CLEAR_CURRENT:
-      return { ...state, current: null };
+      return { ...state, current: null, currentImg: null };
     case AD_ERROR:
       return { ...state, error: action.payload };
     case CLEAR_AD_ERROR:

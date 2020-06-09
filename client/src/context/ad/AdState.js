@@ -50,14 +50,12 @@ const AdState = (props) => {
     }
   };
 
-  //! Upload Image ===================================================
+  // Upload Image
   const uploadImage = async (image) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
-
     try {
       const formData = new FormData();
       formData.append("image", image);
-      console.log("Adstate.js: uploadImage(): received image!");
       const res = await axios.post("api/images", formData, config);
       dispatch({ type: UPLOAD_IMAGES, payload: res.data.data[0].url });
     } catch (err) {
@@ -65,7 +63,7 @@ const AdState = (props) => {
       console.log(err);
     }
   };
-  //!==================================================================
+
   // Delete ad
   const deleteAd = async (id) => {
     try {
