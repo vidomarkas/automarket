@@ -154,7 +154,6 @@ const AdForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("ad from submit:>> ", ad);
     //validate inputs (check if they're not empty)
     if (
       make === "" ||
@@ -180,6 +179,15 @@ const AdForm = (props) => {
         });
       }
     }
+  };
+
+  const onCancel = () => {
+    setPublishing(false);
+    //setPublished(true);
+    setAd(initialState);
+    clearCurrent();
+    console.log("clicked cancel");
+    props.history.push("/myads");
   };
 
   const yearManufactured = () => {
@@ -487,7 +495,12 @@ const AdForm = (props) => {
               className="btn btn-primary"
               value={current ? "Update" : "Publish"}
             />
-            <input type="button" className="btn btn-secondary" value="Cancel" />
+            <input
+              type="button"
+              className="btn btn-secondary"
+              onClick={onCancel}
+              value="Cancel"
+            />
           </form>
         </>
       ) : publishing && !published ? (
