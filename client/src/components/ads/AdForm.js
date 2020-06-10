@@ -21,28 +21,28 @@ const AdForm = (props) => {
   const { setAlert } = alertContext;
 
   const initialState = {
-    make: "AC",
-    model: "Other",
-    dateManufactured: "2003",
+    make: "",
+    model: "",
+    dateManufactured: "",
     bodyType: "saloon",
     fuelType: "diesel",
     gearbox: "manual",
     doors: "4/5",
     damage: "noDamage",
     steeringWheel: "RHD",
-    color: "red",
-    price: "555",
+    color: "",
+    price: "",
     engineCapacity: "",
-    power: "1000",
+    power: "",
     powerUnit: "hp",
     VINnumber: "",
-    mileage: 1000000,
+    mileage: "",
     mileageUnit: "mi",
-    description: "testing",
-    phoneNumber: 555555555,
+    description: "",
+    phoneNumber: "",
     featured: false,
     sold: false,
-    postcode: "DA550DA",
+    postcode: "",
     image: "",
     imageURL: null,
   };
@@ -50,6 +50,7 @@ const AdForm = (props) => {
   const [ad, setAd] = useState(initialState);
   const [publishing, setPublishing] = useState(false);
   const [published, setPublished] = useState(false);
+  const [fields, setFields] = useState([]);
 
   const {
     make,
@@ -80,14 +81,9 @@ const AdForm = (props) => {
 
   // Determine whether the ad is being updated or it is a new ad
   useEffect(() => {
-    console.log(
-      "1 Determine whether the ad is being updated or it is a new ad"
-    );
     if (current !== null) {
-      console.log("current was not null!", current);
       setAd(current);
     } else {
-      console.log("current was null", current);
       setAd(initialState);
     }
     // eslint-disable-next-line
@@ -95,7 +91,6 @@ const AdForm = (props) => {
 
   useEffect(() => {
     if (publishing && currentImg !== null) {
-      console.log("2.publishing && currentImg !== null");
       setAd({
         ...ad,
         imageURL: currentImg,
@@ -107,13 +102,10 @@ const AdForm = (props) => {
   // Ready to post/update ad
   useEffect(() => {
     if (publishing && imageURL !== null) {
-      console.log("3.publishing && imageURL !== null");
       if (current === null) {
         postAd(ad);
-        console.log("Posting ad!");
       } else {
         updateAd(ad);
-        console.log("Updating ad!");
       }
       setPublishing(false);
       setPublished(true);
@@ -125,7 +117,6 @@ const AdForm = (props) => {
   // Ad published, redirecting to /myads
   useEffect(() => {
     if (published && !publishing) {
-      console.log("4 (published && !publishing");
       const timer = setTimeout(() => {
         props.history.push("/myads");
       }, 3000);
@@ -140,34 +131,58 @@ const AdForm = (props) => {
 
   useEffect(() => {
     if (image) {
-      console.log("5 image effect ;  setAd({ ...ad, imageURL: null });");
       setAd({ ...ad, imageURL: null });
-      console.log("from effect ad :>> ", ad);
     }
   }, [image]);
 
   // On change in image upload input, update state
   const onImageSelect = (e) => {
-    console.log("ad in image select :>> ", ad);
     setAd({ ...ad, [e.target.name]: e.target.files[0] });
+  };
+
+  useEffect(() => {
+    // Change classname on corresponding inputs
+  }, [failedFields]);
+
+  const fieldValidation = () => {
+    let emptyFields = [];
+
+    const reqFields = {
+      make,
+      model,
+      mileage,
+      dateManufactured,
+      phoneNumber,
+      postcode,
+      price,
+      color,
+    };
+
+    const showFieldError = () => {
+      setAlert("Please enter required fields", "danger");
+      for (let field in reqFields) {
+        if (reqFields[field] === "") {
+          emptyFields.push(String(field));
+        }
+      }
+      setFailedFields(...emptyFields);
+    };
+
+    if (Object.values(reqFields).some((field) => field === "")) {
+      console.log("Failed validation!");
+      showFieldError();
+      return false;
+    } else {
+      // passed validation
+      console.log("Passed validation!");
+      return true;
+    }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //validate inputs (check if they're not empty)
-    if (
-      make === "" ||
-      model === "" ||
-      mileage === "" ||
-      dateManufactured === "" ||
-      phoneNumber === "" ||
-      postcode === "" ||
-      price === "" ||
-      color === ""
-    ) {
-      setAlert("Please enter required fields", "danger");
-    } else {
-      // passed validation
+    if (fieldValidation()) {
+      // Passed validation
       setPublishing(true);
       // If user added image
       if (ad.image) {
