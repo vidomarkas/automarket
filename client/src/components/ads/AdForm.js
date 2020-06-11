@@ -21,36 +21,38 @@ const AdForm = (props) => {
   const { setAlert } = alertContext;
 
   const initialState = {
+    // required fields
     make: "",
     model: "",
     dateManufactured: "",
+    postcode: "",
+    phoneNumber: "",
+    color: "",
+    price: "",
+    mileage: "",
+    // not required fields / predefined values
+    description: "",
+    engineCapacity: "",
+    power: "",
+    VINnumber: "",
+    image: "",
+    imageURL: null,
     bodyType: "saloon",
     fuelType: "diesel",
     gearbox: "manual",
     doors: "4/5",
     damage: "noDamage",
     steeringWheel: "RHD",
-    color: "",
-    price: "",
-    engineCapacity: "",
-    power: "",
     powerUnit: "hp",
-    VINnumber: "",
-    mileage: "",
     mileageUnit: "mi",
-    description: "",
-    phoneNumber: "",
     featured: false,
     sold: false,
-    postcode: "",
-    image: "",
-    imageURL: null,
   };
 
   const [ad, setAd] = useState(initialState);
   const [publishing, setPublishing] = useState(false);
   const [published, setPublished] = useState(false);
-  const [fields, setFields] = useState([]);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const {
     make,
@@ -124,29 +126,32 @@ const AdForm = (props) => {
     }
   }, [published, publishing]);
 
-  // On change in inputs, update ad state
-  const onChange = (e) => {
-    setAd({ ...ad, [e.target.name]: e.target.value });
-  };
-
   useEffect(() => {
     if (image) {
       setAd({ ...ad, imageURL: null });
     }
   }, [image]);
 
+  // On change in inputs, update ad state
+  const onChange = (e) => {
+    setAd({ ...ad, [e.target.name]: e.target.value });
+    const emptyFieldsCopy = emptyFields.slice();
+    const index = emptyFields.indexOf(e.target.name);
+    if (index !== -1) {
+      emptyFieldsCopy.splice(index, 1);
+
+      setEmptyFields([...emptyFieldsCopy]);
+    }
+    console.log("emptyFieldsCopy", emptyFieldsCopy);
+  };
+
   // On change in image upload input, update state
   const onImageSelect = (e) => {
     setAd({ ...ad, [e.target.name]: e.target.files[0] });
   };
 
-  useEffect(() => {
-    // Change classname on corresponding inputs
-  }, [failedFields]);
-
   const fieldValidation = () => {
-    let emptyFields = [];
-
+    let failedFields = [];
     const reqFields = {
       make,
       model,
@@ -162,19 +167,21 @@ const AdForm = (props) => {
       setAlert("Please enter required fields", "danger");
       for (let field in reqFields) {
         if (reqFields[field] === "") {
-          emptyFields.push(String(field));
+          failedFields.push(field);
         }
       }
-      setFailedFields(...emptyFields);
+      setEmptyFields([...failedFields]);
     };
 
     if (Object.values(reqFields).some((field) => field === "")) {
       console.log("Failed validation!");
       showFieldError();
+
       return false;
     } else {
       // passed validation
       console.log("Passed validation!");
+
       return true;
     }
   };
@@ -201,7 +208,6 @@ const AdForm = (props) => {
     //setPublished(true);
     setAd(initialState);
     clearCurrent();
-    console.log("clicked cancel");
     props.history.push("/myads");
   };
 
@@ -236,7 +242,14 @@ const AdForm = (props) => {
               <div className="adForm-group">
                 <label htmlFor="make" className="adForm-group--item1">
                   Make
-                  <select name="make" onChange={onChange} value={make}>
+                  <select
+                    name="make"
+                    onChange={onChange}
+                    value={make}
+                    className={
+                      emptyFields.indexOf("make") === -1 ? "" : "failed-input"
+                    }
+                  >
                     <option value="">--</option>
                     {carMakes.map((brand) => (
                       <option key={brand.name} value={brand.name}>
@@ -247,7 +260,14 @@ const AdForm = (props) => {
                 </label>
                 <label htmlFor="model" className="adForm-group--item1">
                   Model
-                  <select name="model" onChange={onChange} value={model}>
+                  <select
+                    name="model"
+                    onChange={onChange}
+                    value={model}
+                    className={
+                      emptyFields.indexOf("model") === -1 ? "" : "failed-input"
+                    }
+                  >
                     <option value="">--</option>
                     {carMakes.map((brand) =>
                       brand.name === make
@@ -269,6 +289,11 @@ const AdForm = (props) => {
                     onChange={onChange}
                     value={dateManufactured}
                     name="dateManufactured"
+                    className={
+                      emptyFields.indexOf("dateManufactured") === -1
+                        ? ""
+                        : "failed-input"
+                    }
                   >
                     <option value="">--</option>
                     {yearManufactured()}
@@ -373,7 +398,14 @@ const AdForm = (props) => {
                 </label>
                 <label htmlFor="color" className="adForm-group--item2">
                   Color
-                  <select name="color" onChange={onChange} value={color}>
+                  <select
+                    name="color"
+                    onChange={onChange}
+                    value={color}
+                    className={
+                      emptyFields.indexOf("color") === -1 ? "" : "failed-input"
+                    }
+                  >
                     <option value="">--</option>
                     <option value="white">White</option>
                     <option value="yellow">Yellow / gold</option>
@@ -396,6 +428,9 @@ const AdForm = (props) => {
                     name="price"
                     onChange={onChange}
                     value={price}
+                    className={
+                      emptyFields.indexOf("price") === -1 ? "" : "failed-input"
+                    }
                   />
                 </label>
               </div>
@@ -443,6 +478,11 @@ const AdForm = (props) => {
                     name="mileage"
                     onChange={onChange}
                     value={mileage}
+                    className={
+                      emptyFields.indexOf("mileage") === -1
+                        ? ""
+                        : "failed-input"
+                    }
                   />
                   <select
                     name="mileageUnit"
@@ -487,6 +527,11 @@ const AdForm = (props) => {
                   name="phoneNumber"
                   value={phoneNumber}
                   onChange={onChange}
+                  className={
+                    emptyFields.indexOf("phoneNumber") === -1
+                      ? ""
+                      : "failed-input"
+                  }
                 />
               </label>
               <label htmlFor="postcode">
@@ -496,6 +541,9 @@ const AdForm = (props) => {
                   name="postcode"
                   value={postcode}
                   onChange={onChange}
+                  className={
+                    emptyFields.indexOf("postcode") === -1 ? "" : "failed-input"
+                  }
                 />
               </label>
             </div>
