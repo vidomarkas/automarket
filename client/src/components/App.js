@@ -13,6 +13,9 @@ import Alerts from "../components/layout/Alerts";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
+import Footer from "../components/layout/Footer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -28,8 +31,9 @@ function App() {
   return (
     <Router>
       <>
+        <CssBaseline />
         <Navbar />
-        <div className="container">
+        <Container maxWidth="lg">
           <Alerts />
           <Switch>
             <Route exact path="/" component={Main}></Route>
@@ -43,7 +47,8 @@ function App() {
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/login" component={Login}></Route>
           </Switch>
-        </div>
+        </Container>
+        <Footer />
       </>
     </Router>
   );
