@@ -29,8 +29,8 @@ function App() {
   }, []);
   return (
     <Router>
-      <>
-        <Navbar />
+      <Navbar />
+      <div className="main-container">
         <Alerts />
         <Switch>
           <Route exact path="/" component={Main}></Route>
@@ -41,7 +41,7 @@ function App() {
           <Route exact path="/login" component={Login}></Route>
         </Switch>
         <Footer />
-      </>
+      </div>
     </Router>
   );
 }

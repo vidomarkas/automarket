@@ -57,14 +57,12 @@ const Navbar = () => {
         {user && user.name.toUpperCase()}
       </div>
       {dropdown && (
-        <div className="navbar-dropdown">
-          <ul>
-            <li className="navbar-dropdown-item">Account settings</li>
-            <li onClick={onLogout} className="navbar-dropdown-item">
-              Logout
-            </li>
-          </ul>
-        </div>
+        <ul className="navbar-dropdown">
+          <li className="navbar-dropdown-item">Account settings</li>
+          <li onClick={onLogout} className="navbar-dropdown-item">
+            Logout
+          </li>
+        </ul>
       )}
     </>
   );
@@ -75,30 +73,44 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar">
-      <div className="navbar-container" ref={container}>
-        <Link className="navbar-home" to="/">
-          <span style={{ color: "white" }}>Aut</span>
+    <>
+      <div className="navbar">
+        <div className="navbar-container" ref={container}>
+          <Link className="navbar-home" to="/">
+            <span
+              style={{
+                color: "white",
+                textShadow: "0px 2px 2px #c72b2b",
+              }}
+            >
+              Aut
+            </span>
 
-          <GiSteeringWheel
-            style={{ color: "white", marginBottom: "-4px", marginLeft: "1px" }}
-          />
-          <span
-            style={{
-              color: "#c72b2b",
-              letterSpacing: "-1px",
-              marginLeft: "1px",
-            }}
-          >
-            market
-          </span>
-        </Link>
+            <GiSteeringWheel
+              style={{
+                color: "#c72b2b",
+                marginBottom: "-4px",
+                marginLeft: "1px",
+              }}
+            />
+            <span
+              style={{
+                color: "#c72b2b",
+                letterSpacing: "-1px",
+                marginLeft: "1px",
+              }}
+            >
+              market
+            </span>
+          </Link>
 
-        <div className="navbar-links">
-          {isAuthenticated ? authLinks : guestLinks}
+          <div className="navbar-links">
+            {isAuthenticated ? authLinks : guestLinks}
+          </div>
         </div>
       </div>
-    </div>
+      <div className="sub-navbar">This is sub-nabvar</div>
+    </>
   );
 };
 

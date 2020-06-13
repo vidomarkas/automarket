@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import carMakes from "../../assets/carMakes.json";
 import AdContext from "../../context/ad/adContext";
-import Box from "@material-ui/core/Box";
+import "./AdSearch.scss";
 
 const AdSearch = () => {
   const adContext = useContext(AdContext);
@@ -68,7 +68,7 @@ const AdSearch = () => {
     return years;
   };
   return (
-    <>
+    <div className="search">
       <h1 className="text-primary">Search</h1>
       <form className="adForm" onSubmit={onSubmit}>
         <div className="adForm__section">
@@ -194,7 +194,7 @@ const AdSearch = () => {
           />
         )}
       </form>
-    </>
+    </div>
   );
 };
 

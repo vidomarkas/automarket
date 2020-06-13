@@ -352,6 +352,18 @@ template {
 
 body {
   font-family: "Roboto", sans-serif;
+  background-color: #fafafa;
+}
+
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  width: 1240px;
+
+  margin: 0 auto;
 }
 
 a {
