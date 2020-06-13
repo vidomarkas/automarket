@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import carMakes from "../../assets/carMakes.json";
 import AdContext from "../../context/ad/adContext";
+import Box from "@material-ui/core/Box";
 
 const AdSearch = () => {
   const adContext = useContext(AdContext);

@@ -1,135 +1,104 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { GiSteeringWheel } from "react-icons/gi";
+import { GoPlus } from "react-icons/go";
+import { FaUserCircle } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import AdContext from "../../context/ad/adContext";
-
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Avatar from "@material-ui/core/Avatar";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
-
-const useStyles = makeStyles((theme) => ({
-  spacing: 8,
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  avatar: {
-    backgroundColor: "#fff",
-    color: "black",
-    cursor: "pointer",
-  },
-}));
+import "./Navbar.scss";
 
 const Navbar = () => {
-  const classes = useStyles();
   const authContext = useContext(AuthContext);
   const adContext = useContext(AdContext);
   const { isAuthenticated, logout, user } = authContext;
   const { clearMyAds } = adContext;
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [dropdown, setDropdown] = useState(false);
+
+  const handleDropdown = () => {
+    setDropdown(!dropdown);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const container = useRef();
 
   const onLogout = () => {
     logout();
     clearMyAds();
   };
+  const handleClickOutside = (event) => {
+    if (container.current && !container.current.contains(event.target)) {
+      setDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdown]);
 
   const authLinks = (
     <>
-      <Link to="/editing">
-        <Button color="secondary" variant="contained">
-          Post an ad
-        </Button>
+      <Link className="navbar-link navbar-link--primary" to="/editing">
+        <GoPlus style={{ marginBottom: "-2px", marginRight: "4px" }} />
+        Post an ad
       </Link>
-      <Link to="/myads">
-        <Button color="inherit">My adverts</Button>
+      <Link to="/myads" className="navbar-link">
+        My adverts
       </Link>
-      <Box ml={1}>
-        <Avatar
-          alt=""
-          src="/broken-image.jpg"
-          className={classes.avatar}
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          {user && user.name.toUpperCase().charAt(0)}
-        </Avatar>
-      </Box>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <Divider />
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            onLogout();
-          }}
-        >
-          Logout
-        </MenuItem>
-      </Menu>
+
+      <div className="navbar-avatar navbar-link" onClick={handleDropdown}>
+        <FaUserCircle
+          size="1.5em"
+          style={{ marginBottom: "2px", marginRight: "4px" }}
+        />
+        {user && user.name.toUpperCase()}
+      </div>
+      {dropdown && (
+        <div className="navbar-dropdown">
+          <ul>
+            <li className="navbar-dropdown-item">Account settings</li>
+            <li onClick={onLogout} className="navbar-dropdown-item">
+              Logout
+            </li>
+          </ul>
+        </div>
+      )}
     </>
   );
   const guestLinks = (
     <>
-      <Link to="/register">
-        <Button color="inherit">Register</Button>
-      </Link>
-      <Link to="/login">
-        <Button color="inherit">Login</Button>
-      </Link>
+      <Link to="/register">Register</Link>
+      <Link to="/login">Login</Link>
     </>
   );
   return (
-    <AppBar position="static">
-      <Toolbar>
-        {/* <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton> */}
-        <Typography variant="h6" className={classes.title}>
-          <Link to="/">
-            <span style={{ color: "white" }}>Aut</span>
+    <div className="navbar">
+      <div className="navbar-container" ref={container}>
+        <Link className="navbar-home" to="/">
+          <span style={{ color: "white" }}>Aut</span>
 
-            <GiSteeringWheel style={{ color: "white", marginBottom: "-4px" }} />
-            <span style={{ color: "red" }}>market</span>
-          </Link>
-        </Typography>
+          <GiSteeringWheel
+            style={{ color: "white", marginBottom: "-4px", marginLeft: "1px" }}
+          />
+          <span
+            style={{
+              color: "#c72b2b",
+              letterSpacing: "-1px",
+              marginLeft: "1px",
+            }}
+          >
+            market
+          </span>
+        </Link>
 
-        <>{isAuthenticated ? authLinks : guestLinks}</>
-      </Toolbar>
-    </AppBar>
+        <div className="navbar-links">
+          {isAuthenticated ? authLinks : guestLinks}
+        </div>
+      </div>
+    </div>
   );
 };
 
