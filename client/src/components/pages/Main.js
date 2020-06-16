@@ -7,10 +7,8 @@ const Main = () => {
   return (
     <>
       <Header />
-      <div className="container">
-        <AdSearch />
-        <FoundAds />
-      </div>
+      <AdSearch />
+      <FoundAds />
     </>
   );
 };

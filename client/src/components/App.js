@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.scss";
-import Navbar from "./layout/Navbar";
+//import "./App.scss";
+import NavigationBar from "./layout/NavigationBar";
 
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm";
@@ -29,7 +29,7 @@ function App() {
   }, []);
   return (
     <Router>
-      <Navbar />
+      <NavigationBar />
       <div className="main-container">
         <Alerts />
         <Switch>

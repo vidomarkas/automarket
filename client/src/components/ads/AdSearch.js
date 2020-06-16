@@ -69,7 +69,7 @@ const AdSearch = () => {
   };
   return (
     <div className="search">
-      <h1 className="text-primary">Search</h1>
+      <h2 className="text-primary">Search</h2>
       <form className="adForm" onSubmit={onSubmit}>
         <div className="adForm__section">
           <div className="adForm-group">
@@ -175,6 +175,7 @@ const AdSearch = () => {
                 onChange={onChangeRange}
                 value={priceTo}
                 min="0"
+                className="input-field"
               />
             </label>
           </div>
@@ -188,7 +189,7 @@ const AdSearch = () => {
         {foundAds && (
           <input
             type="button"
-            className="btn btn-block btn-secondary"
+            className="btn btn-block btn-secondary "
             onClick={onResetFilter}
             value="Reset filter"
           />
