@@ -380,7 +380,7 @@ ul {
   cursor: pointer;
   color: #fff;
   border-radius: 4px;
-  padding: 1rem 2rem;
+  padding: 0.8rem 2.2rem;
   margin-left: 2rem;
   outline: none;
   font-size: 1.4rem;
@@ -395,9 +395,11 @@ ul {
   &-primary.btn {
     color: #fff;
     background-color: #249af3;
+    box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
     &:hover {
       color: #fff;
-      background-color: #1b85d6;
+      background-color: #108be9;
+      box-shadow: none;
     }
   }
   &-secondary.btn {

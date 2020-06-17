@@ -4,8 +4,10 @@
   color: #334150;
   width: 100%;
   font-size: 1.6rem;
+  box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
   & a {
     color: #95a3b6;
+    transition: all 0.2s;
     &:hover {
       color: #334150;
     }
