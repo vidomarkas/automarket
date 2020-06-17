@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-//import "./App.scss";
+import "./App.scss";
 import NavigationBar from "./layout/NavigationBar";
 
 import Main from "./pages/Main";

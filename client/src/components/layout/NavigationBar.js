@@ -1,12 +1,12 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { GiSteeringWheel } from "react-icons/gi";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import { GoPlus } from "react-icons/go";
 import { FaUserCircle } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import AdContext from "../../context/ad/adContext";
-import styled from "styled-components";
-import { Nav, Navbar, NavDropdown, Dropdown, Button } from "react-bootstrap";
+import "./Navbar.scss";
 
 const NavigationBar = () => {
   const authContext = useContext(AuthContext);
@@ -41,89 +41,75 @@ const NavigationBar = () => {
 
   const authLinks = (
     <>
-      <Nav.Link
-        as={Link}
-        className="navbar-link navbar-link--primary"
-        to="/editing"
-      >
-        <Button variant="primary">
-          <GoPlus style={{ marginBottom: "-2px", marginRight: "4px" }} /> Post
-          an ad
-        </Button>
-      </Nav.Link>
-      <Nav.Link as={Link} to="/myads" className="navbar-link">
+      <Link to="/editing" className="btn btn-primary">
+        <GoPlus style={{ marginBottom: "-2px", marginRight: "4px" }} /> Post an
+        ad
+      </Link>
+      <Link to="/myads" className="navbar-link">
         My adverts
-      </Nav.Link>
+      </Link>
+      <div onClick={handleDropdown} className="navbar__avatar">
+        <FaUserCircle /> {user && user.name} <MdKeyboardArrowDown />
+      </div>
 
-      <Dropdown>
-        <Dropdown.Toggle variant="light" id="dropdown-basic">
-          <FaUserCircle />
-          {user && user.name.toUpperCase()}
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu className="dropdown-menu-right">
-          <Dropdown.Item href="#/action-1">Account settings</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      {dropdown && (
+        <ul className="navbar__dropdown">
+          <li className="navbar__dropdown-item">
+            <a href="">Account settings</a>{" "}
+          </li>
+          <li className="navbar__dropdown-item">
+            <a href="" onClick={onLogout}>
+              Logout
+            </a>
+          </li>
+        </ul>
+      )}
     </>
   );
   const guestLinks = (
     <>
-      <Nav.Link as={Link} to="/register">
-        <Button variant="light">Demo User</Button>
-      </Nav.Link>
-      <Nav.Link as={Link} to="/register">
-        <Button variant="light"> Sign Up</Button>
-      </Nav.Link>
-      <Nav.Link as={Link} to="/login">
-        <Button variant="primary"> Log In</Button>
-      </Nav.Link>
+      <Link to="/register" className="navbar__demo-link">
+        Demo User
+      </Link>
+      <Link to="/login" className="btn btn-secondary">
+        Log In
+      </Link>
+      <Link to="/register" className="btn btn-primary">
+        Sign Up
+      </Link>
     </>
   );
   return (
-    <>
-      <Navbar expand="lg ">
-        <Navbar.Brand>
-          <Nav.Link as={Link} className="navbar-home" to="/">
-            <h2>
-              <span
-                style={{
-                  color: "white",
-                  textShadow: "0px 2px 2px #c72b2b",
-                }}
-              >
-                Aut
-              </span>
+    <nav className="navbar">
+      <div className="navbar__container" ref={container}>
+        <Link className="navbar__logo" to="/">
+          <h2>
+            ///AutoMarket <span>&reg;</span>
+          </h2>
+        </Link>
+        <ul className="navbar__menu-links">
+          <li className="navbar__menu-link">
+            <Link to="/featured">Featured</Link>
+          </li>
+          <li className="navbar__menu-link">
+            {" "}
+            <Link to="/detailed-search">Detailed Search</Link>
+          </li>
+          <li className="navbar__menu-link">
+            {" "}
+            <Link to="/help">Help</Link>
+          </li>
+          <li className="navbar__menu-link">
+            {" "}
+            <Link to="/news">News</Link>
+          </li>
+        </ul>
 
-              <GiSteeringWheel
-                style={{
-                  color: "#c72b2b",
-                  marginBottom: "-4px",
-                  marginLeft: "1px",
-                }}
-              />
-              <span
-                style={{
-                  color: "#c72b2b",
-                  letterSpacing: "-1px",
-                  marginLeft: "1px",
-                }}
-              >
-                market
-              </span>
-            </h2>
-          </Nav.Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto ">
-            {isAuthenticated ? authLinks : guestLinks}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    </>
+        <div className="navbar__user-links">
+          {isAuthenticated ? authLinks : guestLinks}
+        </div>
+      </div>
+    </nav>
   );
 };
 

@@ -1,13 +1,18 @@
 .navbar {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgb(255, 255, 255);
   height: 48px;
-  color: rgb(54, 49, 49);
+  color: #334150;
   width: 100%;
+  font-size: 1.6rem;
+  & a {
+    color: #95a3b6;
+    &:hover {
+      color: #334150;
+    }
+  }
 
-  &-container {
+  &__container {
     width: 1240px;
-
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -15,21 +20,17 @@
     position: relative;
   }
 
-  &-dropdown {
+  &__dropdown {
     position: absolute;
-    top: 100%;
+    top: 90%;
     right: -20px;
-    // width: 300px;
     z-index: 2;
-    background: rgba(88, 88, 88, 0.918);
-    backdrop-filter: saturate(180%) blur(20px);
     box-shadow: 0 2px 14px 0 rgba(37, 42, 49, 0.16);
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    list-style: none;
-    padding: 0;
+    border-radius: 6px;
+
+    background-color: #fff;
     margin: 0;
-    padding: 10px 16px;
+    padding: 1rem 1.4rem;
 
     &-item {
       color: #000;
@@ -39,10 +40,8 @@
       line-height: 1.5;
       padding: 6px;
       transition: all 0.2s ease-in-out;
-      &:hover {
-        background: #f5f5fa;
-        color: #00826f;
-        cursor: pointer;
+      a {
+        display: block;
       }
 
       &:last-child {
@@ -50,10 +49,43 @@
       }
     }
   }
-  &-home {
+  &__logo {
     font-weight: 600;
     font-size: 1.8rem;
     font-style: italic;
+    & h2 {
+      color: #000;
+      & span {
+        font-size: 1.2rem;
+        vertical-align: text-top;
+        margin-left: -4px;
+      }
+    }
+  }
+
+  &__menu-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__menu-link {
+    & a {
+      padding: 0.5rem 2rem 2rem 2rem;
+      margin: 0 1rem;
+    }
+  }
+
+  &__user-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__demo-link {
+    border-right: 1px solid #e1e8ee;
+    padding-right: 1.5rem;
+    color: #334150;
   }
 
   &-links {
@@ -65,45 +97,17 @@
   &-link {
     margin: 8px;
     padding: 6px 16px;
-
-    background-color: #ffffff00;
-    border-radius: 4px;
-    letter-spacing: 0.02857em;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    &:hover {
-      background-color: #0000001e;
-    }
-
-    &--primary {
-      background-color: #000000;
-      color: #fff;
-      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-      &:hover {
-        background-color: #2e2e2e;
-      }
-    }
   }
 
-  &-avatar {
-    display: inline-block;
+  &__avatar {
     margin: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-transform: capitalize;
     cursor: pointer;
-    &:hover {
-      background-color: #0000001e;
+    & svg {
+      margin-right: 0.6rem;
     }
   }
-}
-
-.sub-navbar {
-  width: 100%;
-  height: 20px;
-  background-color: #c72b2b;
-  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 }
