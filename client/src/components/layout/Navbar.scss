@@ -1,0 +1,115 @@
+.navbar {
+  background: rgb(255, 255, 255);
+  height: 48px;
+  color: #334150;
+  width: 100%;
+  font-size: 1.6rem;
+  box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
+  & a {
+    color: #95a3b6;
+    transition: all 0.2s;
+    &:hover {
+      color: #334150;
+    }
+  }
+
+  &__container {
+    width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 90%;
+    right: -20px;
+    z-index: 2;
+    box-shadow: 0 2px 14px 0 rgba(37, 42, 49, 0.16);
+    border-radius: 6px;
+
+    background-color: #fff;
+    margin: 0;
+    padding: 1rem 1.4rem;
+
+    &-item {
+      color: #000;
+      border-bottom: 1px solid #dee7f5;
+      margin: 12px 0 0;
+      margin-top: 0;
+      line-height: 1.5;
+      padding: 6px;
+      transition: all 0.2s ease-in-out;
+      a {
+        display: block;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+  &__logo {
+    font-weight: 600;
+    font-size: 1.8rem;
+    font-style: italic;
+    & h2 {
+      color: #000;
+      & span {
+        font-size: 1.2rem;
+        vertical-align: text-top;
+        margin-left: -4px;
+      }
+    }
+  }
+
+  &__menu-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__menu-link {
+    & a {
+      padding: 0.5rem 2rem 2rem 2rem;
+      margin: 0 1rem;
+    }
+  }
+
+  &__user-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__demo-link {
+    border-right: 1px solid #e1e8ee;
+    padding-right: 1.5rem;
+    color: #334150;
+  }
+
+  &-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-link {
+    margin: 8px;
+    padding: 6px 16px;
+  }
+
+  &__avatar {
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: capitalize;
+    cursor: pointer;
+    & svg {
+      margin-right: 0.6rem;
+    }
+  }
+}

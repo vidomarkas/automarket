@@ -21,3 +21,4 @@ export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const UPLOAD_IMAGES = "UPLOAD_IMAGES";
 export const ERROR_UPLOADING_IMAGES = "ERROR_UPLOADING_IMAGES";
+export const GET_AD_DETAILS = "GET_AD_DETAILS";

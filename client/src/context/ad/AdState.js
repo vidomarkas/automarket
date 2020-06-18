@@ -16,6 +16,7 @@ import {
   CLEAR_MY_ADS,
   UPLOAD_IMAGES,
   ERROR_UPLOADING_IMAGES,
+  GET_AD_DETAILS,
 } from "../types";
 
 const AdState = (props) => {
@@ -26,6 +27,7 @@ const AdState = (props) => {
     foundAds: null,
     error: null,
     currentImg: null,
+    adDetails: null,
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
@@ -36,6 +38,19 @@ const AdState = (props) => {
       const res = await axios.get("api/myads");
       dispatch({ type: GET_MY_ADS, payload: res.data });
     } catch (err) {
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
+    }
+  };
+  //! Get ad details
+  const getAdDetails = async (id) => {
+    try {
+      console.log("from getAdDetails");
+      const res = await axios.get(`${id}`);
+      console.log("res", res);
+
+      dispatch({ type: GET_AD_DETAILS, payload: res.data });
+    } catch (err) {
+      console.log("error");
       dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
@@ -95,7 +110,7 @@ const AdState = (props) => {
   const searchAds = async (criteria) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.post("api/ads", criteria, config);
+      const res = await axios.post("api/search", criteria, config);
       dispatch({ type: SEARCH_ADS, payload: res.data });
     } catch (err) {
       dispatch({
@@ -127,6 +142,7 @@ const AdState = (props) => {
         foundAds: state.foundAds,
         error: state.error,
         currentImg: state.currentImg,
+        adDetails: state.adDetails,
         getMyAds,
         postAd,
         deleteAd,
@@ -138,6 +154,7 @@ const AdState = (props) => {
         clearAdError,
         clearMyAds,
         uploadImage,
+        getAdDetails,
       }}
     >
       {props.children}

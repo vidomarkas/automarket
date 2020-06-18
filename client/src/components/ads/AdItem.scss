@@ -1,0 +1,12 @@
+.ad-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e1e8ee;
+  &:hover {
+    background-color: #f7f7f7;
+  }
+  &__image {
+    width: 200px;
+  }
+}

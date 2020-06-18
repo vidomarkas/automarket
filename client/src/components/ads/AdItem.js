@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./AdItem.scss";
 
 const AdItem = ({ ad }) => {
   const {
@@ -11,25 +12,28 @@ const AdItem = ({ ad }) => {
     bodyType,
     fuelType,
     imageURL,
+    gearbox,
+    postcode,
   } = ad;
   return (
-    <div className="card bg-light" style={{ flexBasis: "25%" }}>
-      {imageURL && (
-        <div>
-          {" "}
-          <img src={imageURL} style={{ width: "200px" }} alt="" />
+    <Link to={`ads/${_id}`}>
+      <div className="ad-item">
+        {imageURL && (
+          <div className="ad-item__image-container">
+            <img className="ad-item__image" src={imageURL} alt={make} />
+          </div>
+        )}
+        <div className="ad-item__info">
+          {make} {model} {dateManufactured}
         </div>
-      )}
-      <div>
-        {make} {model} {dateManufactured}
+        <div>
+          {bodyType} {fuelType}
+          {gearbox}
+        </div>
+        <div>{postcode}</div>
+        <div>{price}</div>
       </div>
-      <div>
-        {bodyType} {fuelType}
-      </div>
-      <div>{price}</div>
-      <Link to={`/ads/${_id}`}>More details</Link>
-      <br />
-    </div>
+    </Link>
   );
 };
 

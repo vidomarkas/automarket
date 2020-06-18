@@ -12,10 +12,14 @@ import {
   CLEAR_MY_ADS,
   UPLOAD_IMAGES,
   ERROR_UPLOADING_IMAGES,
+  GET_AD_DETAILS,
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_AD_DETAILS:
+      console.log("adDetails: ", action.payload);
+      return { ...state, adDetails: action.payload, loading: false };
     case GET_MY_ADS:
       return { ...state, myAds: action.payload, loading: false };
     case POST_AD:

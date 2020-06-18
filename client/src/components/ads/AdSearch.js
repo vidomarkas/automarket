@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import carMakes from "../../assets/carMakes.json";
 import AdContext from "../../context/ad/adContext";
+import "./AdSearch.scss";
 
 const AdSearch = () => {
   const adContext = useContext(AdContext);
@@ -67,23 +68,35 @@ const AdSearch = () => {
     return years;
   };
   return (
-    <>
-      <h1 className="text-primary">Search</h1>
+    <div className="search">
+      <h2 className="search__heading">Find your perfect car</h2>
       <form className="adForm" onSubmit={onSubmit}>
-        <div className="adForm__section">
-          <div className="adForm-group">
-            <label htmlFor="make" className="adForm-group--item1">
+        <div className="search__section">
+          <div className="search__field">
+            <label htmlFor="make" className="search__field__label">
               Make
-              <select name="make" onChange={onChangeExact} value={make}>
+              <select
+                className="search__field__select search__input"
+                name="make"
+                onChange={onChangeExact}
+                value={make}
+              >
                 <option>--</option>
                 {carMakes.map((brand) => (
                   <option key={brand.name}>{brand.name}</option>
                 ))}
               </select>
             </label>
-            <label htmlFor="model" className="adForm-group--item1">
+          </div>
+          <div className="search__field">
+            <label htmlFor="model" className="search__field__label">
               Model
-              <select name="model" onChange={onChangeExact} value={model}>
+              <select
+                name="model"
+                onChange={onChangeExact}
+                value={model}
+                className="search__field__select search__input"
+              >
                 <option>--</option>
                 {carMakes.map((brand) =>
                   brand.name === make
@@ -95,30 +108,73 @@ const AdSearch = () => {
               </select>
             </label>
           </div>
-          <div className="adForm-group">
-            <label htmlFor="yearFrom" className="adForm-group--item1">
+        </div>
+
+        <div className="search__section">
+          <div className=" search__field--half">
+            <label htmlFor="yearFrom" className="search__field__label">
               Year from
-              <select onChange={onChangeRange} value={yearFrom} name="yearFrom">
+              <select
+                onChange={onChangeRange}
+                value={yearFrom}
+                name="yearFrom"
+                className="search__field__select search__input"
+              >
                 <option value="">--</option>
                 {calcYearFrom()}
               </select>
             </label>
-            <label htmlFor="yearTo" className="adForm-group--item1">
+          </div>
+          <div className=" search__field--half">
+            <label htmlFor="yearTo" className="search__field__label">
               Year to
-              <select onChange={onChangeRange} value={yearTo} name="yearTo">
+              <select
+                onChange={onChangeRange}
+                value={yearTo}
+                name="yearTo"
+                className="search__field__select search__input"
+              >
                 <option value="">--</option>
                 {calcYearTo()}
               </select>
             </label>
           </div>
-          <div className="adForm-group">
-            <label htmlFor="bodyType" className="adForm-group--item2">
+          <div className=" search__field--half">
+            <label htmlFor="priceFrom" className="search__field__label">
+              Price from, £
+              <input
+                type="number"
+                name="priceFrom"
+                onChange={onChangeRange}
+                value={priceFrom}
+                min="0"
+                className="search__field__number search__input"
+              />
+            </label>
+          </div>
+          <div className=" search__field--half">
+            <label htmlFor="priceTo" className="search__field__label">
+              Price to, £
+              <input
+                type="number"
+                name="priceTo"
+                onChange={onChangeRange}
+                value={priceTo}
+                min="0"
+                className="search__field__number search__input"
+              />
+            </label>
+          </div>
+        </div>
+        <div className="search__section">
+          <div className="search__field">
+            <label htmlFor="bodyType" className="search__field__label">
               Body type
               <select
                 onChange={onChangeExact}
                 value={bodyType}
-                size="5"
                 name="bodyType"
+                className="search__field__select search__input"
               >
                 <option>--</option>
                 <option value="saloon">Saloon</option>
@@ -135,13 +191,15 @@ const AdSearch = () => {
                 <option value="other">Other</option>
               </select>
             </label>
-            <label htmlFor="fuelType" className="adForm-group--item2">
+          </div>
+          <div className="search__field">
+            <label htmlFor="fuelType" className="search__field__label">
               Fuel type
               <select
                 onChange={onChangeExact}
                 value={fuelType}
-                size="5"
                 name="fuelType"
+                className="search__field__select search__input"
               >
                 <option>--</option>
                 <option value="diesel">Diesel</option>
@@ -155,45 +213,24 @@ const AdSearch = () => {
               </select>
             </label>
           </div>
-          <div className="adForm-group">
-            <label htmlFor="priceFrom" className="adForm-group--item2">
-              Price from, £
-              <input
-                type="number"
-                name="priceFrom"
-                onChange={onChangeRange}
-                value={priceFrom}
-                min="0"
-              />
-            </label>
-            <label htmlFor="priceTo" className="adForm-group--item2">
-              Price to, £
-              <input
-                type="number"
-                name="priceTo"
-                onChange={onChangeRange}
-                value={priceTo}
-                min="0"
-              />
-            </label>
-          </div>
         </div>
-
-        <input
-          type="submit"
-          className="btn btn-block btn-primary"
-          value="Search"
-        />
-        {foundAds && (
+        <div className="search__section">
           <input
-            type="button"
-            className="btn btn-block btn-secondary"
-            onClick={onResetFilter}
-            value="Reset filter"
+            type="submit"
+            className="btn btn-primary search__btn"
+            value="Search"
           />
-        )}
+          {foundAds && (
+            <input
+              type="button"
+              className="btn btn-secondary search__btn"
+              onClick={onResetFilter}
+              value="Reset filter"
+            />
+          )}
+        </div>
       </form>
-    </>
+    </div>
   );
 };
 
