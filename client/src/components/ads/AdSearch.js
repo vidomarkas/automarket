@@ -214,20 +214,21 @@ const AdSearch = () => {
             </label>
           </div>
         </div>
-
-        <input
-          type="submit"
-          className="btn btn-primary search__btn"
-          value="Search"
-        />
-        {foundAds && (
+        <div className="search__section">
           <input
-            type="button"
-            className="btn btn-secondary search__btn"
-            onClick={onResetFilter}
-            value="Reset filter"
+            type="submit"
+            className="btn btn-primary search__btn"
+            value="Search"
           />
-        )}
+          {foundAds && (
+            <input
+              type="button"
+              className="btn btn-secondary search__btn"
+              onClick={onResetFilter}
+              value="Reset filter"
+            />
+          )}
+        </div>
       </form>
     </div>
   );

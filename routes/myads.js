@@ -61,6 +61,7 @@ router.post(
       price,
       phoneNumber,
       imageURL,
+      postcode,
     } = req.body;
 
     try {
@@ -84,6 +85,7 @@ router.post(
         price,
         phoneNumber,
         imageURL,
+        postcode,
         user: req.user.id,
       });
       const ad = await newAd.save();
