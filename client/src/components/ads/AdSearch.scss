@@ -1,9 +1,7 @@
 .search {
   background-color: rgb(255, 255, 255);
   padding: 2rem 4rem;
-  //box-shadow: 0 10px 40px rgba(148, 148, 148, 0.699);
   border-radius: 3px;
-  //backdrop-filter: saturate(180%) blur(20px);
   width: 70rem;
 
   &__heading {
@@ -22,9 +20,13 @@
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
     border-radius: 4px;
-
     border: 1px solid #e1e8ee;
     height: 32px;
+    &:hover {
+      cursor: pointer;
+      background-color: #f5f5f8c0;
+      border: 1px solid #249af3;
+    }
   }
 
   &__field {

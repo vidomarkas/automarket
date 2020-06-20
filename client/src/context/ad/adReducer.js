@@ -11,8 +11,9 @@ import {
   CLEAR_AD_ERROR,
   CLEAR_MY_ADS,
   UPLOAD_IMAGES,
-  ERROR_UPLOADING_IMAGES,
+  // ERROR_UPLOADING_IMAGES,
   GET_AD_DETAILS,
+  CLEAR_AD_DETAILS,
 } from "../types";
 
 export default (state, action) => {
@@ -64,6 +65,8 @@ export default (state, action) => {
       return { ...state, error: action.payload };
     case CLEAR_AD_ERROR:
       return { ...state, error: null };
+    case CLEAR_AD_DETAILS:
+      return { ...state, adDetails: null };
     case CLEAR_MY_ADS:
       return {
         ...state,

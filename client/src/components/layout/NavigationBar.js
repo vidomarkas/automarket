@@ -54,13 +54,13 @@ const NavigationBar = () => {
 
       {dropdown && (
         <ul className="navbar__dropdown">
+          {/* <li className="navbar__dropdown-item">
+            <button>Account settings</button>{" "}
+          </li> */}
           <li className="navbar__dropdown-item">
-            <a href="">Account settings</a>{" "}
-          </li>
-          <li className="navbar__dropdown-item">
-            <a href="" onClick={onLogout}>
+            <button className="btn btn-block btn-danger" onClick={onLogout}>
               Logout
-            </a>
+            </button>
           </li>
         </ul>
       )}
@@ -71,10 +71,13 @@ const NavigationBar = () => {
       <Link to="/register" className="navbar__demo-link">
         Demo User
       </Link>
-      <Link to="/login" className="btn btn-secondary">
+      <Link to="/login" className="btn btn-secondary navbar-button-left-margin">
         Log In
       </Link>
-      <Link to="/register" className="btn btn-primary">
+      <Link
+        to="/register"
+        className="btn btn-primary navbar-button-left-margin"
+      >
         Sign Up
       </Link>
     </>
@@ -84,6 +87,9 @@ const NavigationBar = () => {
       <div className="navbar__container" ref={container}>
         <Link className="navbar__logo" to="/">
           <h2>
+            {
+              // eslint-disable-next-line
+            }
             ///AutoMarket <span>&reg;</span>
           </h2>
         </Link>

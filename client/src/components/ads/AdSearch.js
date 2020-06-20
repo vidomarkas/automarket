@@ -58,7 +58,8 @@ const AdSearch = () => {
     const date = new Date();
     const thisYear = date.getFullYear();
     const years = [];
-    for (let i = yearFrom; i <= thisYear; i++) {
+
+    for (let i = yearFrom < 1900 ? 1900 : yearFrom; i <= thisYear; i++) {
       years.unshift(
         <option key={i} value={i}>
           {i}

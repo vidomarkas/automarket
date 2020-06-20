@@ -1,0 +1,108 @@
+.ad-details {
+  &__container {
+    width: 1280px;
+    margin: 4rem auto;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__section {
+    padding: 4rem;
+  }
+
+  // =========== Main ===================
+
+  &__main {
+    flex-basis: 66%;
+    background-color: #fff;
+    margin-right: 2rem;
+  }
+
+  &__main-image {
+    height: 500px;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+
+    &--overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        circle,
+        rgba(32, 23, 180, 0) 55%,
+        rgba(0, 0, 0, 0.295) 100%
+      );
+    }
+  }
+
+  &__technical-specs {
+    h2 {
+    }
+  }
+
+  &__specs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &--left,
+    &--right {
+      flex-basis: 45%;
+    }
+  }
+
+  &__spec-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1e8ee;
+    font-size: 1.4rem;
+    img {
+      height: 24px;
+      width: 24px;
+      margin-right: 1rem;
+    }
+
+    &__atribute {
+      display: flex;
+      align-items: center;
+    }
+    &--primary {
+      color: #334150;
+      text-transform: capitalize;
+    }
+
+    &--secondary {
+      color: #7f8fa4;
+    }
+  }
+
+  // ===========Left side =============
+
+  &__aside {
+    flex-basis: 34%;
+  }
+
+  &__summary {
+    background-color: #fff;
+    padding: 4rem;
+    border-radius: 4px;
+
+    &__description {
+      p {
+        color: #95a3b6;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+      }
+    }
+
+    &__action-buttons {
+      button {
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+      }
+    }
+  }
+}

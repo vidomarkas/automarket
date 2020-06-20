@@ -1,0 +1,112 @@
+.register {
+  &__container {
+    display: flex;
+    margin: 4rem auto;
+    width: 1280px;
+    border-radius: 4px;
+    position: relative;
+  }
+  &__left {
+    flex-basis: 50%;
+    background-position: center center;
+    background-size: cover;
+    height: 80vh;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  &__right {
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &__text-box {
+    &__heading {
+      color: #334150;
+      font-size: 3rem;
+      span {
+        color: #000;
+        font-style: italic;
+      }
+    }
+    &__subheading {
+      color: #95a3b6;
+      font-size: 1.6rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__form {
+    label {
+      color: #95a3b6;
+      font-size: 1.4rem;
+    }
+
+    &__group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+
+      &--checkbox {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+      }
+
+      a {
+        color: #249af3;
+        &:hover {
+          color: #0c83df;
+        }
+      }
+
+      input {
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        border-radius: 4px;
+        border: 1px solid #e1e8ee;
+        height: 32px;
+        font-size: 1.6rem;
+        &:hover {
+          cursor: pointer;
+          background-color: #f5f5f8c0;
+          border: 1px solid #249af3;
+        }
+        &:focus {
+          outline: none !important;
+          border: 2px solid #249af3;
+        }
+        &::placeholder {
+          color: rgb(214, 214, 214);
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+
+  &__login-link {
+    position: absolute;
+    bottom: 4rem;
+    color: #95a3b6;
+    font-size: 1.4rem;
+    a {
+      color: #249af3;
+      &:hover {
+        color: #0c83df;
+      }
+    }
+  }
+
+  &__alert {
+    position: absolute;
+    top: 4rem;
+  }
+
+  &__checkbox {
+    margin-right: 1rem;
+  }
+}

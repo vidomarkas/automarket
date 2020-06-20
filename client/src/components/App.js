@@ -7,6 +7,7 @@ import Main from "./pages/Main";
 import AdForm from "./ads/AdForm";
 import AdDetails from "./pages/AdDetails";
 import MyAds from "./pages/MyAds";
+import TermsConditions from "./pages/TermsConditions";
 
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
@@ -31,7 +32,7 @@ function App() {
     <Router>
       <NavigationBar />
       <div className="main-container">
-        <Alerts />
+        {/* <Alerts /> */}
         <Switch>
           <Route exact path="/" component={Main}></Route>
           <PrivateRoute exact path="/myads" component={MyAds}></PrivateRoute>
@@ -39,6 +40,11 @@ function App() {
           <PrivateRoute exact path="/editing" component={AdForm}></PrivateRoute>
           <Route exact path="/register" component={Register}></Route>
           <Route exact path="/login" component={Login}></Route>
+          <Route
+            exact
+            path="/terms-and-conditions"
+            component={TermsConditions}
+          ></Route>
         </Switch>
         <Footer />
       </div>

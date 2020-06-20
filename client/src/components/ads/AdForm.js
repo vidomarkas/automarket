@@ -16,7 +16,6 @@ const AdForm = (props) => {
     current,
     clearCurrent,
     currentImg,
-    loading,
   } = adContext;
   const { setAlert } = alertContext;
 
@@ -114,6 +113,7 @@ const AdForm = (props) => {
       setAd(initialState);
       clearCurrent();
     }
+    // eslint-disable-next-line
   }, [imageURL, publishing]);
 
   // Ad published, redirecting to /myads
@@ -124,12 +124,14 @@ const AdForm = (props) => {
       }, 3000);
       return () => clearTimeout(timer);
     }
+    // eslint-disable-next-line
   }, [published, publishing]);
 
   useEffect(() => {
     if (image) {
       setAd({ ...ad, imageURL: null });
     }
+    // eslint-disable-next-line
   }, [image]);
 
   // On change in inputs, update ad state

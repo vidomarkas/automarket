@@ -17,6 +17,7 @@ import {
   UPLOAD_IMAGES,
   ERROR_UPLOADING_IMAGES,
   GET_AD_DETAILS,
+  CLEAR_AD_DETAILS,
 } from "../types";
 
 const AdState = (props) => {
@@ -133,6 +134,10 @@ const AdState = (props) => {
     dispatch({ type: CLEAR_MY_ADS });
   };
 
+  const clearAdDetails = () => {
+    dispatch({ type: CLEAR_AD_DETAILS });
+  };
+
   return (
     <AdContext.Provider
       value={{
@@ -155,6 +160,7 @@ const AdState = (props) => {
         clearMyAds,
         uploadImage,
         getAdDetails,
+        clearAdDetails,
       }}
     >
       {props.children}

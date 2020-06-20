@@ -13,7 +13,7 @@ const FoundAds = () => {
     return null;
   }
   return (
-    <div className="found-ads__container">
+    <div className="found-ads__container shadow-md">
       {loading ? (
         <Spinner />
       ) : (
