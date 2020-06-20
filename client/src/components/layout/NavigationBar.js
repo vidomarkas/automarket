@@ -68,7 +68,7 @@ const NavigationBar = () => {
   );
   const guestLinks = (
     <>
-      <Link to="/register" className="navbar__demo-link">
+      <Link to="/demo" className="navbar__demo-link">
         Demo User
       </Link>
       <Link to="/login" className="btn btn-secondary navbar-button-left-margin">

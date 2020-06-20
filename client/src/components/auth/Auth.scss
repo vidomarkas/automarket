@@ -1,4 +1,4 @@
-.register {
+.auth {
   &__container {
     display: flex;
     margin: 4rem auto;
@@ -83,6 +83,10 @@
         &::placeholder {
           color: rgb(214, 214, 214);
           font-size: 1.4rem;
+        }
+        &:disabled {
+          cursor: not-allowed;
+          border: 1px solid rgb(214, 214, 214);
         }
       }
     }

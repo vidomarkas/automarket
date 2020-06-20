@@ -4,7 +4,7 @@ import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import Alerts from "../layout/Alerts";
 import registerImg from "../../assets/img/register.jpg";
-import "./Register.scss";
+import "./Auth.scss";
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -58,24 +58,22 @@ const Register = (props) => {
   };
 
   return (
-    <div className="register__container shadow-min">
+    <div className="auth__container shadow-min">
       <div
-        className="register__left"
+        className="auth__left"
         style={{ backgroundImage: `url(${registerImg})` }}
       ></div>
-      <div className="register__right">
-        <div className="register__alert">
+      <div className="auth__right">
+        <div className="auth__alert">
           <Alerts />
         </div>
-        <div className="register__text-box">
-          <h1 className="register__text-box__heading">
+        <div className="auth__text-box">
+          <h1 className="auth__text-box__heading">
             Sign up for the <span>///AutoMarket</span>
           </h1>
-          <p className="register__text-box__subheading">
-            Enter your details below
-          </p>
-          <form onSubmit={onSubmit} className="register__form">
-            <div className="register__form__group">
+          <p className="auth__text-box__subheading">Enter your details below</p>
+          <form onSubmit={onSubmit} className="auth__form">
+            <div className="auth__form__group">
               <label htmlFor="name">Name</label>
               <input
                 type="text"
@@ -85,7 +83,7 @@ const Register = (props) => {
                 //required
               />
             </div>
-            <div className="register__form__group">
+            <div className="auth__form__group">
               <label htmlFor="email">Email</label>
               <input
                 type="email"
@@ -96,7 +94,7 @@ const Register = (props) => {
                 minLength="6"
               />
             </div>
-            <div className="register__form__group">
+            <div className="auth__form__group">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -108,7 +106,7 @@ const Register = (props) => {
                 placeholder="Minimum 6 symbols"
               />
             </div>
-            <div className="register__form__group">
+            <div className="auth__form__group">
               <label htmlFor="password2">Confirm password</label>
               <input
                 type="password"
@@ -120,12 +118,12 @@ const Register = (props) => {
               />
             </div>
 
-            <div className="register__form__group register__form__group--checkbox">
+            <div className="auth__form__group auth__form__group--checkbox">
               <input
                 type="checkbox"
                 name="termsConditions"
                 id="termsConditions"
-                className="register__checkbox"
+                className="auth__checkbox"
                 onChange={onCheck}
               />
               <label htmlFor="termsConditions">
@@ -137,12 +135,12 @@ const Register = (props) => {
             </div>
             <input
               type="submit"
-              value="Register"
+              value="Sign Up"
               className="btn btn-primary btn-block"
             />
           </form>
         </div>
-        <p className="register__login-link">
+        <p className="auth__login-link">
           Already have an account? <Link to="/login">Log In</Link>
         </p>
       </div>
