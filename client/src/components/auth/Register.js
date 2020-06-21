@@ -9,7 +9,7 @@ import "./Auth.scss";
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
-  const { setAlert } = alertContext;
+  const { setAlert, clearAllAlerts } = alertContext;
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
@@ -43,15 +43,13 @@ const Register = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    clearAllAlerts();
     if (name === "" || email === "" || password === "") {
       setAlert("Please enter all fields", "danger");
     } else if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else if (termsAgreed === false) {
-      setAlert(
-        "You need to agree to Terms and Conditions to continue",
-        "danger"
-      );
+      setAlert("Please agree to Terms and Conditions", "danger");
     } else {
       register({ name, email, password });
     }

@@ -8,8 +8,8 @@ const Alerts = () => {
   return (
     alertContext.alerts.length > 0 &&
     alertContext.alerts.map((alert) => (
-      <div key={alert.id} className={`alert alert-${alert.type}`}>
-        <BsInfoCircle /> {alert.msg}
+      <div key={alert.id} className={`alert alert__${alert.type}`}>
+        <BsInfoCircle className="alert__icon" /> {alert.msg}
       </div>
     ))
   );

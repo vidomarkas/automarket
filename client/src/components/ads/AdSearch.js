@@ -77,7 +77,7 @@ const AdSearch = () => {
             <label htmlFor="make" className="search__field__label">
               Make
               <select
-                className="search__field__select search__input"
+                className="search__field__select search__input shadow-aa"
                 name="make"
                 onChange={onChangeExact}
                 value={make}

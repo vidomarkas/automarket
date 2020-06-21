@@ -71,7 +71,10 @@ const NavigationBar = () => {
       <Link to="/demo" className="navbar__demo-link">
         Demo User
       </Link>
-      <Link to="/login" className="btn btn-secondary navbar-button-left-margin">
+      <Link
+        to="/login"
+        className="btn navbar-button-secondary navbar-button-left-margin"
+      >
         Log In
       </Link>
       <Link
@@ -87,9 +90,6 @@ const NavigationBar = () => {
       <div className="navbar__container" ref={container}>
         <Link className="navbar__logo" to="/">
           <h2>
-            {
-              // eslint-disable-next-line
-            }
             ///AutoMarket <span>&reg;</span>
           </h2>
         </Link>

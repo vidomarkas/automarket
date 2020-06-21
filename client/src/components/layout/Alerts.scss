@@ -1,2 +1,19 @@
 .alert {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+
+  &__icon {
+    margin-right: 1rem;
+  }
+
+  &__danger {
+    border: 1px solid rgb(244, 210, 210);
+    border-radius: 6px;
+    background: rgb(250, 234, 234);
+    color: rgb(151, 12, 12);
+    padding: 1rem 2rem;
+    width: 60%;
+    margin: 0 auto;
+  }
 }

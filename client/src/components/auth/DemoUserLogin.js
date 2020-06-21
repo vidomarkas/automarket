@@ -49,9 +49,8 @@ const Login = (props) => {
         style={{ backgroundImage: `url(${demoImg})` }}
       ></div>
       <div className="auth__right">
-        <div className="auth__alert">
-          <h1>Demo account</h1>
-        </div>
+        <h1 className="auth__demo-heading">Demo account</h1>
+
         <div className="auth__text-box">
           <h1 className="auth__text-box__heading">
             Sign In to the <span>///AutoMarket</span>

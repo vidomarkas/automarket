@@ -1,20 +1,27 @@
 .navbar {
-  background: rgb(255, 255, 255);
+  //background: rgb(255, 255, 255);
   height: 48px;
   color: #334150;
   width: 100%;
   font-size: 1.6rem;
-  box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
+  //box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
+  background: rgba(0, 0, 0, 0.801);
+  position: fixed;
+  top: 0;
+  left: 0;
+  //height: 4rem;
+  z-index: 555;
+  backdrop-filter: saturate(180%) blur(20px);
   & a {
-    color: #95a3b6;
+    color: #9ea1a5;
     transition: all 0.2s;
     &:hover {
-      color: #334150;
+      color: #ffffff;
     }
   }
 
   &__container {
-    width: 1240px;
+    width: 1280px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -30,7 +37,7 @@
     box-shadow: 0 2px 14px 0 rgba(37, 42, 49, 0.16);
     border-radius: 6px;
 
-    background-color: #fff;
+    background: rgba(0, 0, 0, 0.801);
     margin: 0;
     padding: 1rem 1.4rem;
 
@@ -54,9 +61,14 @@
   &__logo {
     font-weight: 600;
     font-size: 1.8rem;
-    font-style: italic;
+    //font-style: italic;
+
     & h2 {
-      color: #000;
+      color: rgb(230, 230, 230);
+      //transition: all 0.2s;
+      &:hover {
+        color: rgb(255, 255, 255);
+      }
       & span {
         font-size: 1.2rem;
         vertical-align: text-top;
@@ -85,7 +97,7 @@
   }
 
   &__demo-link {
-    border-right: 1px solid #e1e8ee;
+    border-right: 1px solid #616264;
     padding-right: 1.5rem;
     color: #334150;
   }
@@ -107,13 +119,24 @@
     align-items: center;
     justify-content: space-between;
     text-transform: capitalize;
+    color: #9ea1a5;
     cursor: pointer;
     & svg {
       margin-right: 0.6rem;
+    }
+    &:hover {
+      color: #ffffff;
     }
   }
 
   &-button-left-margin {
     margin-left: 2rem;
+  }
+
+  &-button-secondary {
+    border: 1px solid #616264;
+    &:hover {
+      border-color: #fff;
+    }
   }
 }
