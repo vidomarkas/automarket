@@ -62,6 +62,8 @@ router.post(
       phoneNumber,
       imageURL,
       postcode,
+      regNo,
+      featured,
     } = req.body;
 
     try {
@@ -86,6 +88,8 @@ router.post(
         phoneNumber,
         imageURL,
         postcode,
+        regNo,
+        featured,
         user: req.user.id,
       });
       const ad = await newAd.save();
@@ -123,7 +127,9 @@ router.put("/:id", auth, async (req, res) => {
     price,
     phoneNumber,
     postcode,
+    regNo,
     imageURL,
+    featured,
   } = req.body;
 
   // Build contact body
@@ -150,6 +156,8 @@ router.put("/:id", auth, async (req, res) => {
   if (postcode) adFields.postcode = postcode;
   if (description) adFields.description = description;
   if (imageURL) adFields.imageURL = imageURL;
+  if (regNo) adFields.regNo = regNo;
+  if (featured) adFields.featured = featured;
 
   try {
     let ad = await Ad.findById(req.params.id);

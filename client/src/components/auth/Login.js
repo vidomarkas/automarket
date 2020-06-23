@@ -54,7 +54,7 @@ const Login = (props) => {
         </div>
         <div className="auth__text-box">
           <h1 className="auth__text-box__heading">
-            Sign In to the <span>///AutoMarket</span>
+            Sign In to the <span>{"///"}AutoMarket</span>
           </h1>
           <p className="auth__text-box__subheading">Enter your details below</p>
           <form onSubmit={onSubmit} className="auth__form">

@@ -8,11 +8,10 @@ import AdForm from "./ads/AdForm";
 import AdDetails from "./pages/AdDetails";
 import MyAds from "./pages/MyAds";
 import TermsConditions from "./pages/TermsConditions";
-
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
 import DemoUserLogin from "../components/auth/DemoUserLogin";
-import Alerts from "../components/layout/Alerts";
+// import Alerts from "../components/layout/Alerts";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";

@@ -25,6 +25,7 @@ const AdSchema = mongoose.Schema({
   powerUnit: { type: String },
   mileageUnit: { type: String },
   postcode: { type: String },
+  regNo: { type: String },
   // loweredPrice: { type: Boolean, default: false },
   // priceHistory: { type: Array },
   marked: { type: Number, default: 0 },

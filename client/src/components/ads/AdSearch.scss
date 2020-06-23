@@ -1,8 +1,8 @@
 .search {
   background-color: rgb(255, 255, 255);
   padding: 2rem 4rem;
-  border-radius: 3px;
-  width: 70rem;
+  border-radius: 6px;
+  //width: 70rem;
 
   &__heading {
     font-size: 2.2rem;
@@ -17,7 +17,6 @@
   }
 
   &__input {
-    height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
     border-radius: 4px;
     border: 1px solid #e1e8ee;

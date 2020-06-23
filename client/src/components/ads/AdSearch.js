@@ -71,7 +71,7 @@ const AdSearch = () => {
   return (
     <div className="search">
       <h2 className="search__heading">Find your perfect car</h2>
-      <form className="adForm" onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="search__section">
           <div className="search__field">
             <label htmlFor="make" className="search__field__label">
@@ -96,7 +96,7 @@ const AdSearch = () => {
                 name="model"
                 onChange={onChangeExact}
                 value={model}
-                className="search__field__select search__input"
+                className="search__field__select search__input shadow-aa"
               >
                 <option>--</option>
                 {carMakes.map((brand) =>
@@ -119,7 +119,7 @@ const AdSearch = () => {
                 onChange={onChangeRange}
                 value={yearFrom}
                 name="yearFrom"
-                className="search__field__select search__input"
+                className="search__field__select search__input shadow-aa"
               >
                 <option value="">--</option>
                 {calcYearFrom()}
@@ -133,7 +133,7 @@ const AdSearch = () => {
                 onChange={onChangeRange}
                 value={yearTo}
                 name="yearTo"
-                className="search__field__select search__input"
+                className="search__field__select search__input shadow-aa"
               >
                 <option value="">--</option>
                 {calcYearTo()}
@@ -149,7 +149,7 @@ const AdSearch = () => {
                 onChange={onChangeRange}
                 value={priceFrom}
                 min="0"
-                className="search__field__number search__input"
+                className="search__field__number search__input shadow-aa"
               />
             </label>
           </div>
@@ -162,7 +162,7 @@ const AdSearch = () => {
                 onChange={onChangeRange}
                 value={priceTo}
                 min="0"
-                className="search__field__number search__input"
+                className="search__field__number search__input shadow-aa"
               />
             </label>
           </div>
@@ -175,7 +175,7 @@ const AdSearch = () => {
                 onChange={onChangeExact}
                 value={bodyType}
                 name="bodyType"
-                className="search__field__select search__input"
+                className="search__field__select search__input shadow-aa"
               >
                 <option>--</option>
                 <option value="saloon">Saloon</option>
@@ -200,7 +200,7 @@ const AdSearch = () => {
                 onChange={onChangeExact}
                 value={fuelType}
                 name="fuelType"
-                className="search__field__select search__input"
+                className="search__field__select search__input shadow-aa"
               >
                 <option>--</option>
                 <option value="diesel">Diesel</option>

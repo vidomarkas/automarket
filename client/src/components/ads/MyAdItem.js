@@ -27,6 +27,13 @@ const MyAdItem = ({ myAd }) => {
       >
         Edit
       </Link>
+      <Link
+        to="/editing"
+        onClick={() => setCurrent(myAd)}
+        className="btn btn-dark btn-sm"
+      >
+        Edit
+      </Link>
 
       <button onClick={onDelete} className="btn btn-danger btn-sm">
         Delete

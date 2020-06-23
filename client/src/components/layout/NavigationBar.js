@@ -90,7 +90,7 @@ const NavigationBar = () => {
       <div className="navbar__container" ref={container}>
         <Link className="navbar__logo" to="/">
           <h2>
-            ///AutoMarket <span>&reg;</span>
+            {"///"}AutoMarket <span>&reg;</span>
           </h2>
         </Link>
         <ul className="navbar__menu-links">

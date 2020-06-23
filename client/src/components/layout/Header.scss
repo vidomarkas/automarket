@@ -1,8 +1,7 @@
 .header {
   background-position: center center;
   background-size: cover;
-  height: 60rem;
-  //overflow: hidden;
+  height: 50rem;
   box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
   position: relative;
   &__overlay {
@@ -13,54 +12,46 @@
     bottom: 0;
     background: radial-gradient(
       circle,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(0, 0, 0, 0.6699054621848739) 100%
+      rgba(0, 0, 0, 0.5) 0%,
+      rgb(0, 0, 0) 100%
     );
     background-size: cover;
+    //background-color: rgb(26, 20, 61);
   }
   &__container {
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
     // background-color: #fff;
-
-    width: 1280px;
+    //border: 1px solid red;
+    width: 80%;
+    max-width: 1280px;
     margin: 0 auto;
   }
 
-  &__left {
-    flex-grow: 5;
+  &__main {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    //border: 1px solid yellowgreen;
   }
-  &__text {
+
+  &__search {
+  }
+  &__text-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 6rem;
-  }
-  &__tags {
-    margin-left: 2rem;
+    padding-top: 16rem;
+    //border: 1px solid blue;
   }
 
-  &__tag {
-    color: #334150;
-    background-color: #f1f2f4;
-    display: inline-block;
-    margin: 0.6rem;
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    font-size: 1.6rem;
-  }
   &__heading {
     font-size: 3.6rem;
     color: #ffffff;
-    border-left: 4px solid #249af3;
+    //border-left: 4px solid #249af3;
     padding: 0 2rem;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.637);
+    text-align: center;
   }
   &__subheading {
     font-size: 1.8rem;
@@ -69,12 +60,12 @@
     font-weight: 500;
     text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.534);
     margin-bottom: 1rem;
+    text-align: center;
   }
   &__right {
-    flex-grow: 4;
-
-    position: relative;
-    display: flex;
-    align-items: center;
+    //border: 1px solid pink;
+    img {
+      height: 400px;
+    }
   }
 }

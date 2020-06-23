@@ -1,7 +1,8 @@
 .ad-details {
   &__container {
-    width: 1280px;
-    margin: 4rem auto;
+    max-width: 1280px;
+    width: 80%;
+    margin: 6rem auto;
     display: flex;
     justify-content: space-evenly;
   }
@@ -16,6 +17,7 @@
     flex-basis: 66%;
     background-color: #fff;
     margin-right: 2rem;
+    border-radius: 4px;
   }
 
   &__main-image {
@@ -23,9 +25,13 @@
     background-position: center center;
     background-size: cover;
     position: relative;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 
     &--overlay {
       position: absolute;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
       top: 0;
       left: 0;
       right: 0;

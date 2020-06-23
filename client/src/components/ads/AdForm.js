@@ -1,10 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import carMakes from "../../assets/carMakes.json";
-import AdContext from "../../context/ad/adContext";
-import AlertContext from "../../context/alert/alertContext";
-import "./AdForm.scss";
-import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
+import carMakes from "../../assets/carMakes.json";
+import AlertContext from "../../context/alert/alertContext";
+import AdContext from "../../context/ad/adContext";
+import Alerts from "../layout/Alerts";
+import Spinner from "../layout/Spinner";
+import { FaCheck } from "react-icons/fa";
+import "./AdForm.scss";
 
 const AdForm = (props) => {
   const adContext = useContext(AdContext);
@@ -24,6 +26,7 @@ const AdForm = (props) => {
     make: "",
     model: "",
     dateManufactured: "",
+    regNo: "",
     postcode: "",
     phoneNumber: "",
     color: "",
@@ -40,7 +43,7 @@ const AdForm = (props) => {
     fuelType: "diesel",
     gearbox: "manual",
     doors: "4/5",
-    damage: "noDamage",
+    damage: "No damage",
     steeringWheel: "RHD",
     powerUnit: "hp",
     mileageUnit: "mi",
@@ -76,8 +79,9 @@ const AdForm = (props) => {
     postcode,
     imageURL,
     image,
-    //featured,
-    //sold,
+    regNo,
+    featured,
+    sold,
   } = ad;
 
   // Determine whether the ad is being updated or it is a new ad
@@ -144,7 +148,6 @@ const AdForm = (props) => {
 
       setEmptyFields([...emptyFieldsCopy]);
     }
-    console.log("emptyFieldsCopy", emptyFieldsCopy);
   };
 
   // On change in image upload input, update state
@@ -152,17 +155,22 @@ const AdForm = (props) => {
     setAd({ ...ad, [e.target.name]: e.target.files[0] });
   };
 
+  const onCheck = (e) => {
+    setAd({ ...ad, [e.target.name]: e.target.checked });
+  };
+
   const fieldValidation = () => {
     let failedFields = [];
+    // Object of required fields
     const reqFields = {
       make,
       model,
-      mileage,
       dateManufactured,
       phoneNumber,
       postcode,
       price,
       color,
+      regNo,
     };
 
     const showFieldError = () => {
@@ -176,14 +184,10 @@ const AdForm = (props) => {
     };
 
     if (Object.values(reqFields).some((field) => field === "")) {
-      console.log("Failed validation!");
       showFieldError();
-
       return false;
     } else {
       // passed validation
-      console.log("Passed validation!");
-
       return true;
     }
   };
@@ -213,6 +217,10 @@ const AdForm = (props) => {
     props.history.push("/myads");
   };
 
+  const onChangeSoldStatus = () => {
+    setAd({ ...ad, sold: !sold });
+  };
+
   const yearManufactured = () => {
     const date = new Date();
     const thisYear = date.getFullYear();
@@ -228,344 +236,519 @@ const AdForm = (props) => {
   };
 
   return (
-    <>
+    <div className="ad-form__container shadow-min">
       {!publishing && !published ? (
         <>
-          <h1 className="text-primary">
-            {current ? "Advert editing" : "New advert"}
-          </h1>
+          <div className="ad-form__top">
+            <h1 className="ad-form__top__heading">
+              {current ? "Advert editing" : "New advert"}
+            </h1>
+            {current ? (
+              <div className="ad-form__top__controls">
+                {sold ? (
+                  <button
+                    className="ad-form__top__controls--sold btn btn-success"
+                    onClick={onChangeSoldStatus}
+                  >
+                    <FaCheck />
+                    Mark as for sale
+                  </button>
+                ) : (
+                  <button
+                    className="ad-form__top__controls--sold btn btn-danger"
+                    onClick={onChangeSoldStatus}
+                  >
+                    <FaCheck />
+                    Mark as sold
+                  </button>
+                )}
+              </div>
+            ) : null}
+          </div>
+          <Alerts />
           <form
-            className="adForm"
+            className="ad-form__form"
             onSubmit={onSubmit}
             encType="multipart/form-data"
           >
-            <div className="adForm__section">
-              <h2 className="adForm__heading">Main information</h2>
-              <div className="adForm-group">
-                <label htmlFor="make" className="adForm-group--item1">
-                  Make
-                  <select
-                    name="make"
-                    onChange={onChange}
-                    value={make}
-                    className={
-                      emptyFields.indexOf("make") === -1 ? "" : "failed-input"
-                    }
+            <div className="ad-form__section">
+              <h2 className="ad-form__section__heading">Main information</h2>
+              <div className="ad-form__group">
+                <div className="ad-form__field">
+                  <label htmlFor="make" className="ad-form__field__label">
+                    <span>
+                      Make
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <select
+                      name="make"
+                      onChange={onChange}
+                      value={make}
+                      className={
+                        emptyFields.indexOf("make") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    >
+                      <option value="">--</option>
+                      {carMakes.map((brand) => (
+                        <option key={brand.name} value={brand.name}>
+                          {brand.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                <div className="ad-form__field">
+                  <label htmlFor="model" className="ad-form__field__label">
+                    <span>
+                      Model
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <select
+                      name="model"
+                      onChange={onChange}
+                      value={model}
+                      className={
+                        emptyFields.indexOf("model") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    >
+                      <option value="">--</option>
+                      {carMakes.map((brand) =>
+                        brand.name === make
+                          ? brand.models.map((model) => (
+                              <option key={model.name} value={model.name}>
+                                {model.name}
+                              </option>
+                            ))
+                          : null
+                      )}
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label
+                    htmlFor="dateManufactured"
+                    className="ad-form__field__label"
                   >
-                    <option value="">--</option>
-                    {carMakes.map((brand) => (
-                      <option key={brand.name} value={brand.name}>
-                        {brand.name}
+                    <span>
+                      Date of manufacture
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <select
+                      onChange={onChange}
+                      value={dateManufactured}
+                      name="dateManufactured"
+                      className={
+                        emptyFields.indexOf("dateManufactured") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    >
+                      <option value="">--</option>
+                      {yearManufactured()}
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="regNo" className="ad-form__field__label">
+                    <span>
+                      Registration number
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <input
+                      type="text"
+                      onChange={onChange}
+                      value={regNo}
+                      name="regNo"
+                      className={
+                        emptyFields.indexOf("regNo") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="ad-form__group">
+                <div className="ad-form__field">
+                  <label htmlFor="bodyType" className="ad-form__field__label">
+                    Body type
+                    <select
+                      onChange={onChange}
+                      value={bodyType}
+                      size="5"
+                      name="bodyType"
+                      className="ad-form__field__input ad-form__field__input--multi"
+                    >
+                      <option value="saloon">Saloon</option>
+                      <option value="estate">Estate</option>
+                      <option value="hatchback">Hatchback</option>
+                      <option value="mpv">MPV / minivan</option>
+                      <option value="suv">SUV / off-road</option>
+                      <option value="coupe">Coupe</option>
+                      <option value="commercial">Commercial</option>
+                      <option value="convertible">Convertible</option>
+                      <option value="limousine">Limousine</option>
+                      <option value="pickUp">Pick-up</option>
+                      <option value="passengerVan">Passenger van</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="fuelType" className="ad-form__field__label">
+                    Fuel type
+                    <select
+                      onChange={onChange}
+                      value={fuelType}
+                      size="5"
+                      name="fuelType"
+                      className="ad-form__field__input ad-form__field__input--multi"
+                    >
+                      <option value="diesel">Diesel</option>
+                      <option value="petrol">Petrol</option>
+                      <option value="petrol/lpg">Petrol / LPG</option>
+                      <option value="petrol/electricity">
+                        Petrol / electricity
                       </option>
-                    ))}
-                  </select>
-                </label>
-                <label htmlFor="model" className="adForm-group--item1">
-                  Model
-                  <select
-                    name="model"
-                    onChange={onChange}
-                    value={model}
-                    className={
-                      emptyFields.indexOf("model") === -1 ? "" : "failed-input"
-                    }
-                  >
-                    <option value="">--</option>
-                    {carMakes.map((brand) =>
-                      brand.name === make
-                        ? brand.models.map((model) => (
-                            <option key={model.name} value={model.name}>
-                              {model.name}
-                            </option>
-                          ))
-                        : null
-                    )}
-                  </select>
-                </label>
-                <label
-                  htmlFor="dateManufactured"
-                  className="adForm-group--item1"
-                >
-                  Date of manufacture
-                  <select
-                    onChange={onChange}
-                    value={dateManufactured}
-                    name="dateManufactured"
-                    className={
-                      emptyFields.indexOf("dateManufactured") === -1
-                        ? ""
-                        : "failed-input"
-                    }
-                  >
-                    <option value="">--</option>
-                    {yearManufactured()}
-                  </select>
-                </label>
+                      <option value="electricity">Electricity</option>
+                      <option value="diesel/electricity">
+                        Diesel / electricity
+                      </option>
+                      <option value="bioethanol">Bioethanol (E85)</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="gearbox" className="ad-form__field__label">
+                    Gearbox
+                    <select
+                      onChange={onChange}
+                      value={gearbox}
+                      size="2"
+                      name="gearbox"
+                      className="ad-form__field__input ad-form__field__input--multi"
+                    >
+                      <option value="manual">Manual</option>
+                      <option value="auto">Auto</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="doors" className="ad-form__field__label">
+                    Number of doors
+                    <select
+                      name="doors"
+                      onChange={onChange}
+                      value={doors}
+                      size="3"
+                      className="ad-form__field__input ad-form__field__input--multi"
+                    >
+                      <option value="4/5">4/5</option>
+                      <option value="2/3">2/3</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
               </div>
-              <div className="adForm-group">
-                <label htmlFor="bodyType" className="adForm-group--item2">
-                  Body type
-                  <select
-                    onChange={onChange}
-                    value={bodyType}
-                    size="5"
-                    name="bodyType"
+              <div className="ad-form__group">
+                <div className="ad-form__field">
+                  <label htmlFor="damage" className="ad-form__field__label">
+                    Damage
+                    <select
+                      name="damage"
+                      onChange={onChange}
+                      value={damage}
+                      className="ad-form__field__input"
+                    >
+                      <option value="No damage">No damage</option>
+                      <option value="Crashed">Crashed</option>
+                      <option value="Fire damage">Fire / burn</option>
+                      <option value="Gearbox damage">Gearbox damage</option>
+                      <option value="Damage by hail">Damage by hail</option>
+                      <option value="Water damage">Water / flood</option>
+                      <option value="Engine damage">Engine damage</option>
+                      <option value="Other damage">Other major damage</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label
+                    htmlFor="steeringWheel"
+                    className="ad-form__field__label"
                   >
-                    <option value="saloon">Saloon</option>
-                    <option value="estate">Estate</option>
-                    <option value="hatchback">Hatchback</option>
-                    <option value="mpv">MPV / minivan</option>
-                    <option value="suv">SUV / off-road</option>
-                    <option value="coupe">Coupe</option>
-                    <option value="commercial">Commercial</option>
-                    <option value="convertible">Convertible</option>
-                    <option value="limousine">Limousine</option>
-                    <option value="pickUp">Pick-up</option>
-                    <option value="passengerVan">Passenger van</option>
-                    <option value="other">Other</option>
-                  </select>
-                </label>
-                <label htmlFor="fuelType" className="adForm-group--item2">
-                  Fuel type
-                  <select
-                    onChange={onChange}
-                    value={fuelType}
-                    size="5"
-                    name="fuelType"
-                  >
-                    <option value="diesel">Diesel</option>
-                    <option value="petrol">Petrol</option>
-                    <option value="petrol/lpg">Petrol / LPG</option>
-                    <option value="petrol/electricity">
-                      Petrol / electricity
-                    </option>
-                    <option value="electricity">Electricity</option>
-                    <option value="diesel/electricity">
-                      Diesel / electricity
-                    </option>
-                    <option value="bioethanol">Bioethanol (E85)</option>
-                    <option value="other">Other</option>
-                  </select>
-                </label>
-                <label htmlFor="gearbox" className="adForm-group--item2">
-                  Gearbox
-                  <select
-                    onChange={onChange}
-                    value={gearbox}
-                    size="2"
-                    name="gearbox"
-                  >
-                    <option value="manual">Manual</option>
-                    <option value="auto">Auto</option>
-                  </select>
-                </label>
-                <label htmlFor="doors" className="adForm-group--item2">
-                  Number of doors
-                  <select
-                    name="doors"
-                    onChange={onChange}
-                    value={doors}
-                    size="3"
-                  >
-                    <option value="4/5">4/5</option>
-                    <option value="2/3">2/3</option>
-                    <option value="other">Other</option>
-                  </select>
-                </label>
+                    Steering wheel
+                    <select
+                      name="steeringWheel"
+                      onChange={onChange}
+                      value={steeringWheel}
+                      className="ad-form__field__input"
+                    >
+                      <option value="RHD">Right hand drive (RHD)</option>
+                      <option value="LHD">Left hand drive (LHD)</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="color" className="ad-form__field__label">
+                    <span>
+                      Color
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <select
+                      name="color"
+                      onChange={onChange}
+                      value={color}
+                      className={
+                        emptyFields.indexOf("color") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    >
+                      <option value="">--</option>
+                      <option value="white">White</option>
+                      <option value="yellow">Yellow / gold</option>
+                      <option value="black">Black</option>
+                      <option value="varied">Varied</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="gray">Gray</option>
+                      <option value="red">Red / crimson</option>
+                      <option value="brown">Brown / beige</option>
+                      <option value="violet">Violet</option>
+                      <option value="green">Green / olive</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="price" className="ad-form__field__label">
+                    <span>
+                      Price, £
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <input
+                      type="number"
+                      name="price"
+                      onChange={onChange}
+                      value={price}
+                      className={
+                        emptyFields.indexOf("price") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    />
+                  </label>
+                </div>
               </div>
-              <div className="adForm-group">
-                <label htmlFor="damage" className="adForm-group--item2">
-                  Damage
-                  <select name="damage" onChange={onChange} value={damage}>
-                    <option value="noDamage">No damage</option>
-                    <option value="crashedDamage">Crashed</option>
-                    <option value="fireDamage">Fire / burn</option>
-                    <option value="gearboxDamage">Gearbox damage</option>
-                    <option value="hailDamage">Damage by hail</option>
-                    <option value="waterDamage">Water / flood</option>
-                    <option value="hailDamage">Engine damage</option>
-                    <option value="otherDamage">Other major damage</option>
-                  </select>
-                </label>
-                <label htmlFor="steeringWheel" className="adForm-group--item2">
-                  Steering wheel
-                  <select
-                    name="steeringWheel"
-                    onChange={onChange}
-                    value={steeringWheel}
+              <div className="ad-form__group">
+                <div className="ad-form__field">
+                  <label
+                    htmlFor="engineCapacity"
+                    className="ad-form__field__label"
                   >
-                    <option value="RHD">Right hand drive (RHD)</option>
-                    <option value="LHD">Left hand drive (LHD)</option>
-                  </select>
-                </label>
-                <label htmlFor="color" className="adForm-group--item2">
-                  Color
-                  <select
-                    name="color"
-                    onChange={onChange}
-                    value={color}
-                    className={
-                      emptyFields.indexOf("color") === -1 ? "" : "failed-input"
-                    }
-                  >
-                    <option value="">--</option>
-                    <option value="white">White</option>
-                    <option value="yellow">Yellow / gold</option>
-                    <option value="black">Black</option>
-                    <option value="varied">Varied</option>
-                    <option value="blue">Blue</option>
-                    <option value="orange">Orange</option>
-                    <option value="gray">Gray</option>
-                    <option value="red">Red / crimson</option>
-                    <option value="brown">Brown / beige</option>
-                    <option value="violet">Violet</option>
-                    <option value="green">Green / olive</option>
-                    <option value="other">Other</option>
-                  </select>
-                </label>
-                <label htmlFor="price" className="adForm-group--item2">
-                  Price, £
-                  <input
-                    type="number"
-                    name="price"
-                    onChange={onChange}
-                    value={price}
-                    className={
-                      emptyFields.indexOf("price") === -1 ? "" : "failed-input"
-                    }
-                  />
-                </label>
-              </div>
-              <div className="adForm-group">
-                <label htmlFor="engineCapacity" className="adForm-group--item2">
-                  Engine capacity, cc
-                  <input
-                    type="number"
-                    name="engineCapacity"
-                    onChange={onChange}
-                    placeholder="E.g. 1400"
-                    value={engineCapacity}
-                  />
-                </label>
-                <label htmlFor="power" className="adForm-group--item2">
-                  Power
-                  <input
-                    type="number"
-                    name="power"
-                    onChange={onChange}
-                    value={power}
-                  />
-                  <select
-                    name="powerUnit"
-                    onChange={onChange}
-                    value={powerUnit}
-                  >
-                    <option value="hp">HP</option>
-                    <option value="kw">kW</option>
-                  </select>
-                </label>
-                <label htmlFor="VINnumber" className="adForm-group--item2">
-                  VIN number
-                  <input
-                    type="text"
-                    name="VINnumber"
-                    onChange={onChange}
-                    value={VINnumber}
-                  />
-                </label>
-                <label htmlFor="mileage" className="adForm-group--item2">
-                  Mileage
-                  <input
-                    type="number"
-                    name="mileage"
-                    onChange={onChange}
-                    value={mileage}
-                    className={
-                      emptyFields.indexOf("mileage") === -1
-                        ? ""
-                        : "failed-input"
-                    }
-                  />
-                  <select
-                    name="mileageUnit"
-                    onChange={onChange}
-                    value={mileageUnit}
-                  >
-                    <option value="mi">Mi</option>
-                    <option value="km">Km</option>
-                  </select>
-                </label>
+                    Engine capacity, cc
+                    <input
+                      type="number"
+                      name="engineCapacity"
+                      onChange={onChange}
+                      placeholder="E.g. 1400"
+                      value={engineCapacity}
+                      className="ad-form__field__input"
+                    />
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="power" className="ad-form__field__label">
+                    Power
+                    <div className="ad-form__field__input--split">
+                      <input
+                        type="number"
+                        name="power"
+                        onChange={onChange}
+                        value={power}
+                        className="ad-form__field__input"
+                      />
+                      <select
+                        name="powerUnit"
+                        onChange={onChange}
+                        value={powerUnit}
+                        className="ad-form__field__input"
+                      >
+                        <option value="hp">HP</option>
+                        <option value="kw">kW</option>
+                      </select>
+                    </div>
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="VINnumber" className="ad-form__field__label">
+                    VIN number
+                    <input
+                      type="text"
+                      name="VINnumber"
+                      onChange={onChange}
+                      value={VINnumber}
+                      className="ad-form__field__input"
+                      placeholder="E.g. WAUZZZF49HA036784"
+                    />
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="mileage" className="ad-form__field__label">
+                    Mileage
+                    <div className="ad-form__field__input--split">
+                      <input
+                        type="number"
+                        name="mileage"
+                        onChange={onChange}
+                        value={mileage}
+                        className={
+                          emptyFields.indexOf("mileage") === -1
+                            ? "ad-form__field__input"
+                            : "ad-form__field__input ad-form__field__input--failed"
+                        }
+                      />
+                      <select
+                        name="mileageUnit"
+                        onChange={onChange}
+                        value={mileageUnit}
+                        className="ad-form__field__input"
+                      >
+                        <option value="mi">Mi</option>
+                        <option value="km">Km</option>
+                      </select>
+                    </div>
+                  </label>
+                </div>
               </div>
             </div>
-            <div className="adForm__section">
-              <h2 className="adForm__heading">Description</h2>
-
-              <textarea
-                name="description"
-                cols="20"
-                rows="10"
-                value={description}
-                onChange={onChange}
-              ></textarea>
-              <div className="description-comments">
-                <p>Detailed comment can attract more attention to your ad.</p>
-
-                <p>
-                  The more informative your ad is, the less questions you will
-                  be asked.
-                </p>
-                <p>
-                  Adverts with interesting comments can be featured on
-                  automarket facebook page.
-                </p>
-              </div>
+            <div className="ad-form__section">
+              <h2 className="ad-form__section__heading">
+                Aditional information
+              </h2>
             </div>
-            <div className="adForm__section">
-              <h2 className="adForm__heading">Contact information</h2>
-              <label htmlFor="phoneNumber">
-                Phone number
-                <input
-                  type="number"
-                  name="phoneNumber"
-                  value={phoneNumber}
+            <div className="ad-form__section">
+              <h2 className="ad-form__section__heading">
+                Features / Equipment
+              </h2>
+            </div>
+            <div className="ad-form__section ">
+              <h2 className="ad-form__section__heading">Description</h2>
+              <div className="ad-form__description__section">
+                <textarea
+                  name="description"
+                  cols="20"
+                  rows="10"
+                  value={description}
                   onChange={onChange}
-                  className={
-                    emptyFields.indexOf("phoneNumber") === -1
-                      ? ""
-                      : "failed-input"
-                  }
-                />
-              </label>
-              <label htmlFor="postcode">
-                Postcode
-                <input
-                  type="text"
-                  name="postcode"
-                  value={postcode}
-                  onChange={onChange}
-                  className={
-                    emptyFields.indexOf("postcode") === -1 ? "" : "failed-input"
-                  }
-                />
-              </label>
-            </div>
-            <label htmlFor="image">
-              Upload image
-              <input type="file" name="image" onChange={onImageSelect} />
-            </label>
-            {imageURL && <img src={imageURL} alt="" />}
+                  className="ad-form__description__textarea"
+                ></textarea>
+                <div className="ad-form__description__comments">
+                  <p>Detailed comment can attract more attention to your ad.</p>
 
-            <input
-              type="submit"
-              className="btn btn-primary"
-              value={current ? "Update" : "Publish"}
-            />
-            <input
-              type="button"
-              className="btn btn-secondary"
-              onClick={onCancel}
-              value="Cancel"
-            />
+                  <p>
+                    The more informative your ad is, the less questions you will
+                    be asked.
+                  </p>
+                  <p>
+                    Adverts with interesting comments can be featured on
+                    automarket facebook page.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="ad-form__section">
+              <h2 className="ad-form__section__heading">Photos</h2>
+              <label htmlFor="image" className="ad-form__field__label">
+                Upload image
+                <input type="file" name="image" onChange={onImageSelect} />
+              </label>
+              {imageURL && <img src={imageURL} alt="" />}
+            </div>
+            <div className="ad-form__section">
+              <h2 className="ad-form__section__heading">Extra services</h2>
+              <p className="ad-form__section__text">
+                {" "}
+                Set your ad as featured for free{" "}
+              </p>
+              <div className="ad-form__field__checkbox">
+                <input
+                  type="checkbox"
+                  name="featured"
+                  id="featured"
+                  onChange={onCheck}
+                  className="ad-form__field__input--mr"
+                />
+                <label htmlFor="featured" className="ad-form__field__label">
+                  Featured
+                </label>
+              </div>
+            </div>
+            <div className="ad-form__section">
+              <h2 className="ad-form__section__heading">Contact information</h2>
+              <div className="ad-form__group ad-form__group--start">
+                <div className="ad-form__field">
+                  <label
+                    htmlFor="phoneNumber"
+                    className="ad-form__field__label"
+                  >
+                    <span>
+                      Phone number
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <input
+                      type="number"
+                      name="phoneNumber"
+                      value={phoneNumber}
+                      onChange={onChange}
+                      className={
+                        emptyFields.indexOf("phoneNumber") === -1
+                          ? "ad-form__field__input ad-form__field__input--mr"
+                          : "ad-form__field__input ad-form__field__input--mr ad-form__field__input--failed"
+                      }
+                    />
+                  </label>
+                </div>
+                <div className="ad-form__field">
+                  <label htmlFor="postcode" className="ad-form__field__label">
+                    <span>
+                      Postcode
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
+                    <input
+                      type="text"
+                      name="postcode"
+                      value={postcode}
+                      onChange={onChange}
+                      className={
+                        emptyFields.indexOf("postcode") === -1
+                          ? "ad-form__field__input"
+                          : "ad-form__field__input ad-form__field__input--failed"
+                      }
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="ad-form__controls">
+              <input
+                type="submit"
+                className="btn btn-primary ad-form__controls__btn--mr"
+                value={current ? "Update" : "Publish"}
+              />
+              <input
+                type="button"
+                className="btn btn-secondary"
+                onClick={onCancel}
+                value="Cancel"
+              />
+            </div>
           </form>
         </>
       ) : publishing && !published ? (
@@ -580,7 +763,7 @@ const AdForm = (props) => {
           <Link to="/myads">My ads</Link>
         </>
       )}
-    </>
+    </div>
   );
 };
 
