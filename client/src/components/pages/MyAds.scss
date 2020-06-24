@@ -1,0 +1,13 @@
+.my-ads {
+  &__container {
+    max-width: 1280px;
+    width: 80%;
+    margin: 6rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 4rem;
+  }
+}

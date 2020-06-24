@@ -14,13 +14,23 @@ const AdItem = ({ ad }) => {
     imageURL,
     gearbox,
     postcode,
+    featured,
+    sold,
   } = ad;
   return (
     <Link to={`ads/${_id}`}>
       <div className="ad-item">
         {imageURL && (
           <div className="ad-item__image-container">
-            <img className="ad-item__image" src={imageURL} alt={make} />
+            <img
+              className={
+                featured
+                  ? "ad-item__image ad-item__image--featured"
+                  : "ad-item__image"
+              }
+              src={imageURL}
+              alt={make}
+            />
           </div>
         )}
         <div className="ad-item__info">
@@ -32,6 +42,7 @@ const AdItem = ({ ad }) => {
         </div>
         <div>{postcode}</div>
         <div>{price}</div>
+        {sold ? <div> sold</div> : null}
       </div>
     </Link>
   );

@@ -5,11 +5,10 @@ import Header from "../layout/Header";
 
 const Main = () => {
   return (
-    <>
+    <div>
       <Header />
-
       <FoundAds />
-    </>
+    </div>
   );
 };
 

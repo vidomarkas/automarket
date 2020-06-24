@@ -42,16 +42,13 @@ const AdState = (props) => {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
-  //! Get ad details
+  // Get ad details
   const getAdDetails = async (id) => {
     try {
-      console.log("from getAdDetails");
       const res = await axios.get(`${id}`);
-      console.log("res", res);
 
       dispatch({ type: GET_AD_DETAILS, payload: res.data });
     } catch (err) {
-      console.log("error");
       dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };

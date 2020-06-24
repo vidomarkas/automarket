@@ -5,7 +5,6 @@ import AlertContext from "../../context/alert/alertContext";
 import AdContext from "../../context/ad/adContext";
 import Alerts from "../layout/Alerts";
 import Spinner from "../layout/Spinner";
-import { FaCheck } from "react-icons/fa";
 import "./AdForm.scss";
 
 const AdForm = (props) => {
@@ -194,6 +193,7 @@ const AdForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log("ad :>> ", ad);
     if (fieldValidation()) {
       // Passed validation
       setPublishing(true);
@@ -218,6 +218,7 @@ const AdForm = (props) => {
   };
 
   const onChangeSoldStatus = () => {
+    console.log("sold :>> ", sold);
     setAd({ ...ad, sold: !sold });
   };
 
@@ -250,7 +251,6 @@ const AdForm = (props) => {
                     className="ad-form__top__controls--sold btn btn-success"
                     onClick={onChangeSoldStatus}
                   >
-                    <FaCheck />
                     Mark as for sale
                   </button>
                 ) : (
@@ -258,7 +258,6 @@ const AdForm = (props) => {
                     className="ad-form__top__controls--sold btn btn-danger"
                     onClick={onChangeSoldStatus}
                   >
-                    <FaCheck />
                     Mark as sold
                   </button>
                 )}
@@ -669,13 +668,15 @@ const AdForm = (props) => {
                 Upload image
                 <input type="file" name="image" onChange={onImageSelect} />
               </label>
-              {imageURL && <img src={imageURL} alt="" />}
+              {imageURL && (
+                <img src={imageURL} style={{ width: "80%" }} alt="" />
+              )}
             </div>
             <div className="ad-form__section">
               <h2 className="ad-form__section__heading">Extra services</h2>
               <p className="ad-form__section__text">
                 {" "}
-                Set your ad as featured for free{" "}
+                Set your ad as featured for free
               </p>
               <div className="ad-form__field__checkbox">
                 <input
@@ -684,6 +685,7 @@ const AdForm = (props) => {
                   id="featured"
                   onChange={onCheck}
                   className="ad-form__field__input--mr"
+                  checked={featured}
                 />
                 <label htmlFor="featured" className="ad-form__field__label">
                   Featured

@@ -30,23 +30,29 @@ function App() {
   }, []);
   return (
     <Router>
-      <NavigationBar />
-      <div className="main-container">
-        {/* <Alerts /> */}
-        <Switch>
-          <Route exact path="/" component={Main}></Route>
-          <PrivateRoute exact path="/myads" component={MyAds}></PrivateRoute>
-          <Route exact path="/ads/:id" component={AdDetails}></Route>
-          <PrivateRoute exact path="/editing" component={AdForm}></PrivateRoute>
-          <Route exact path="/register" component={Register}></Route>
-          <Route exact path="/login" component={Login}></Route>
-          <Route exact path="/demo" component={DemoUserLogin}></Route>
-          <Route
-            exact
-            path="/terms-and-conditions"
-            component={TermsConditions}
-          ></Route>
-        </Switch>
+      <div className="app">
+        <NavigationBar />
+        <div className="content">
+          {/* <Alerts /> */}
+          <Switch>
+            <Route exact path="/" component={Main}></Route>
+            <PrivateRoute exact path="/myads" component={MyAds}></PrivateRoute>
+            <Route exact path="/ads/:id" component={AdDetails}></Route>
+            <PrivateRoute
+              exact
+              path="/editing"
+              component={AdForm}
+            ></PrivateRoute>
+            <Route exact path="/register" component={Register}></Route>
+            <Route exact path="/login" component={Login}></Route>
+            <Route exact path="/demo" component={DemoUserLogin}></Route>
+            <Route
+              exact
+              path="/terms-and-conditions"
+              component={TermsConditions}
+            ></Route>
+          </Switch>
+        </div>
         <Footer />
       </div>
     </Router>

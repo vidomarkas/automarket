@@ -373,6 +373,16 @@ body {
   background-color: #f1f2f4;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+}
+
 ul {
   padding: 0;
 }

@@ -28,7 +28,8 @@ const AdSchema = mongoose.Schema({
   regNo: { type: String },
   // loweredPrice: { type: Boolean, default: false },
   // priceHistory: { type: Array },
-  marked: { type: Number, default: 0 },
+  savedCount: { type: Number, default: 0 },
+  seenCount: { type: Number, default: 0 },
   imageURL: { type: String },
 });
 

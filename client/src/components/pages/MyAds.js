@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import AdContext from "../../context/ad/adContext";
 import MyAdItem from "../ads/MyAdItem";
+import "./MyAds.scss";
 
 const MyAds = () => {
   const adContext = useContext(AdContext);
@@ -11,10 +12,13 @@ const MyAds = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div>
-      {!loading &&
-        myAds &&
-        myAds.map((ad) => <MyAdItem key={ad._id} myAd={ad} />)}
+    <div className="my-ads">
+      <div className="my-ads__container shadow-md">
+        {" "}
+        {!loading &&
+          myAds &&
+          myAds.map((ad) => <MyAdItem key={ad._id} myAd={ad} />)}
+      </div>
     </div>
   );
 };
