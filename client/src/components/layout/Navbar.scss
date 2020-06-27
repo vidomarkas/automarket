@@ -4,14 +4,13 @@
   color: #334150;
   width: 100%;
   font-size: 1.6rem;
-  //box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
   background: rgba(0, 0, 0, 0.801);
+  backdrop-filter: saturate(180%) blur(20px);
   position: fixed;
   top: 0;
   left: 0;
   //height: 4rem;
   z-index: 555;
-  backdrop-filter: saturate(180%) blur(20px);
   & a {
     color: #9ea1a5;
     transition: all 0.2s;

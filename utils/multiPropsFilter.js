@@ -1,5 +1,5 @@
 function removeKeysWithEmptyValues(obj) {
-  // remove empty search values (mutates the object)
+  // remove empty search values
   const propNames = Object.getOwnPropertyNames(obj);
   for (let i = 0; i < propNames.length; i++) {
     let propName = propNames[i];
@@ -25,7 +25,7 @@ function rangePropsFilter(ads, search) {
     search.rangeFields.priceFrom = 0;
   }
   if (!search.rangeFields.priceTo) {
-    search.rangeFields.priceTo = 1000000;
+    search.rangeFields.priceTo = 20000000;
   }
   if (!search.rangeFields.yearFrom) {
     search.rangeFields.yearFrom = 1900;

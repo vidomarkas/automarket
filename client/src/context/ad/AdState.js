@@ -18,6 +18,7 @@ import {
   ERROR_UPLOADING_IMAGES,
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
+  GET_AD_GROUP,
 } from "../types";
 
 const AdState = (props) => {
@@ -29,6 +30,8 @@ const AdState = (props) => {
     error: null,
     currentImg: null,
     adDetails: null,
+    featuredAds: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
@@ -117,6 +120,19 @@ const AdState = (props) => {
       });
     }
   };
+  // Get ad group (featured, recently added, most popular, new cars, most expensive )
+  const getAdGroup = async (criteria) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    try {
+      const res = await axios.post("api/getgroup", criteria, config);
+      dispatch({ type: GET_AD_GROUP, payload: res.data });
+    } catch (err) {
+      dispatch({
+        type: AD_ERROR,
+        payload: err.response,
+      });
+    }
+  };
   // Clear filter
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER });
@@ -142,9 +158,11 @@ const AdState = (props) => {
         myAds: state.myAds,
         current: state.current,
         foundAds: state.foundAds,
+        featuredAds: state.featuredAds,
         error: state.error,
         currentImg: state.currentImg,
         adDetails: state.adDetails,
+        loading: state.loading,
         getMyAds,
         postAd,
         deleteAd,
@@ -158,6 +176,7 @@ const AdState = (props) => {
         uploadImage,
         getAdDetails,
         clearAdDetails,
+        getAdGroup,
       }}
     >
       {props.children}

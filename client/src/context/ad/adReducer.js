@@ -14,6 +14,7 @@ import {
   // ERROR_UPLOADING_IMAGES,
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
+  GET_AD_GROUP,
 } from "../types";
 
 export default (state, action) => {
@@ -46,6 +47,12 @@ export default (state, action) => {
       return {
         ...state,
         foundAds: action.payload,
+        loading: false,
+      };
+    case GET_AD_GROUP:
+      return {
+        ...state,
+        featuredAds: action.payload,
         loading: false,
       };
     case CLEAR_FILTER:

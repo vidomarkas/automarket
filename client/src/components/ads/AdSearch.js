@@ -33,6 +33,7 @@ const AdSearch = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log("criteria", criteria);
     searchAds({ criteria });
   };
 
