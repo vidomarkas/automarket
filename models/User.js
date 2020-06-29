@@ -8,6 +8,7 @@ const UserSchema = mongoose.Schema({
   town: { type: String, required: false },
   phone: { type: String, required: false },
   date: { type: Date, default: Date.now },
+  savedAds: [],
 });
 
 module.exports = mongoose.model("user", UserSchema);

@@ -2,20 +2,18 @@
   &__container {
     width: 1280px;
     margin: 10rem auto;
-    border-radius: 3px;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
+    grid-gap: 1.4rem;
   }
 
   &__item {
     justify-self: stretch;
     background-color: #fff;
-    // width: 400px;
-    margin: 1rem;
     border-radius: 4px;
     box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
     border-bottom: 5px solid transparent;
@@ -24,11 +22,10 @@
     &__image {
       object-fit: cover;
       width: 100%;
-      max-height: 100%;
+      max-height: 163px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       &-wrapper {
-        width: 100%;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         position: relative;
@@ -38,19 +35,47 @@
     &__price {
       position: absolute;
       bottom: 0;
-      right: 1rem;
+      right: 0;
       transform: translateY(40%);
-      background: rgba(0, 0, 0, 0.801);
-      backdrop-filter: saturate(180%) blur(20px);
+      background: #2c8bd4;
       color: #fff;
       font-size: 2.2rem;
       padding: 0.3rem 0.6rem;
-      border-radius: 4px;
-      border: 1px solid #249af3;
+      width: 100%;
+      text-align: right;
+
+      &--sold {
+        background: #b81b23;
+      }
     }
 
     &__info {
       padding: 1.6rem;
+
+      &__heading {
+        font-size: 1.8rem;
+        margin: 1rem 0 0 0;
+        color: #334150;
+        font-weight: 600;
+      }
+      &__specs {
+        display: flex;
+        color: #95a3b6;
+        justify-content: space-between;
+      }
+
+      &__spec-item {
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+
+        &__atribute {
+          img {
+            height: 1.5rem;
+            margin-right: 0.7rem;
+          }
+        }
+      }
     }
 
     &:hover {

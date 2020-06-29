@@ -8,6 +8,104 @@
     flex-direction: column;
     background-color: #fff;
     border-radius: 4px;
-    padding: 4rem;
+    //padding: 4rem;
+  }
+
+  &__heading {
+    border-bottom: 2px solid #e1e8ee;
+    padding: 2rem 4rem;
+    margin-bottom: 2rem;
+    h1 {
+      font-size: 2rem;
+      color: #334150;
+      margin-bottom: 2rem;
+      margin: 0;
+    }
+  }
+
+  &__ads {
+    padding: 2rem 4rem;
+  }
+
+  &__no-ads {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.my-ad {
+  border-bottom: 1px solid #e1e8ee7a;
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  &__image {
+    img {
+      height: 100px;
+      border-radius: 4px;
+    }
+  }
+
+  &__make {
+    font-size: 1.6rem;
+    //margin: 1rem 0 0 0;
+    color: #334150;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: flex-start;
+    flex-basis: 160px;
+
+    span {
+      color: #95a3b6;
+      font-size: 1.4rem;
+      margin-top: 1rem;
+      font-weight: 400;
+    }
+  }
+
+  &__date-added {
+    font-size: 1.6rem;
+    color: #334150;
+    align-self: flex-start;
+    flex-basis: 180px;
+  }
+
+  &__price {
+    flex-basis: 100px;
+    font-size: 1.6rem;
+  }
+
+  &__status {
+    color: #95a3b6;
+    font-size: 1.4rem;
+    margin-top: 1rem;
+  }
+  &__sold {
+    color: red;
+  }
+
+  &__for-sale {
+    color: green;
+  }
+
+  &__controls {
+    flex-direction: column;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    a {
+      margin-bottom: 0.6rem;
+    }
+  }
+  &:hover {
+    background-color: #fafafa;
+  }
+  &:hover > .my-ad__controls {
+    opacity: 1;
+    pointer-events: auto;
   }
 }

@@ -5,13 +5,13 @@ import NavigationBar from "./layout/NavigationBar";
 
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm";
+import AdGrid from "./ads/AdGrid";
 import AdDetails from "./pages/AdDetails";
 import MyAds from "./pages/MyAds";
 import TermsConditions from "./pages/TermsConditions";
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
 import DemoUserLogin from "../components/auth/DemoUserLogin";
-// import Alerts from "../components/layout/Alerts";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
@@ -46,6 +46,7 @@ function App() {
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/demo" component={DemoUserLogin}></Route>
+            <Route exact path="/featured" component={AdGrid}></Route>
             <Route
               exact
               path="/terms-and-conditions"

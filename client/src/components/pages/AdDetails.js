@@ -155,8 +155,6 @@ const AdDetails = (props) => {
                         {adDetails.dateManufactured}
                       </p>
                     </li>
-
-                    {/* <h1>{adDetails.VINnumber}</h1> */}
                   </div>
                 </div>
               </div>

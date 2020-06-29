@@ -70,7 +70,7 @@ const AdSearch = () => {
     return years;
   };
   return (
-    <div className="search">
+    <div className="search shadow-md">
       <h2 className="search__heading">Find your perfect car</h2>
       <form onSubmit={onSubmit}>
         <div className="search__section">
