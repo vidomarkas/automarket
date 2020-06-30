@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
 import carMakes from "../../assets/carMakes.json";
 import AdContext from "../../context/ad/adContext";
+import PaginationContext from "../../context/pagination/paginationContext";
 import "./AdSearch.scss";
 
 const AdSearch = () => {
   const adContext = useContext(AdContext);
   const { searchAds, clearFilter, foundAds } = adContext;
+
+  const paginationContext = useContext(PaginationContext);
+  const { clearCurrentPage } = paginationContext;
   const initialState = {
     exactFields: { make: "", model: "", bodyType: "", fuelType: "" },
     rangeFields: { yearFrom: "", yearTo: "", priceFrom: "", priceTo: "" },
@@ -33,12 +37,14 @@ const AdSearch = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("criteria", criteria);
+    console.log(criteria);
+    clearCurrentPage();
     searchAds({ criteria });
   };
 
   const onResetFilter = () => {
     setCriteria(initialState);
+    clearCurrentPage();
     clearFilter();
   };
 
@@ -83,7 +89,7 @@ const AdSearch = () => {
                 onChange={onChangeExact}
                 value={make}
               >
-                <option>--</option>
+                <option value="">--</option>
                 {carMakes.map((brand) => (
                   <option key={brand.name}>{brand.name}</option>
                 ))}
@@ -99,7 +105,7 @@ const AdSearch = () => {
                 value={model}
                 className="search__field__select search__input shadow-aa"
               >
-                <option>--</option>
+                <option value="">--</option>
                 {carMakes.map((brand) =>
                   brand.name === make
                     ? brand.models.map((model) => (
@@ -127,7 +133,7 @@ const AdSearch = () => {
               </select>
             </label>
           </div>
-          <div className=" search__field--half">
+          <div className="search__field--half">
             <label htmlFor="yearTo" className="search__field__label">
               Year to
               <select
@@ -178,7 +184,7 @@ const AdSearch = () => {
                 name="bodyType"
                 className="search__field__select search__input shadow-aa"
               >
-                <option>--</option>
+                <option value="">--</option>
                 <option value="saloon">Saloon</option>
                 <option value="estate">Estate</option>
                 <option value="hatchback">Hatchback</option>
@@ -203,7 +209,7 @@ const AdSearch = () => {
                 name="fuelType"
                 className="search__field__select search__input shadow-aa"
               >
-                <option>--</option>
+                <option value="">--</option>
                 <option value="diesel">Diesel</option>
                 <option value="petrol">Petrol</option>
                 <option value="petrol/lpg">Petrol / LPG</option>

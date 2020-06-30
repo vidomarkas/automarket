@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.scss";
 import NavigationBar from "./layout/NavigationBar";
-
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm";
 import AdGrid from "./ads/AdGrid";
@@ -33,7 +32,6 @@ function App() {
       <div className="app">
         <NavigationBar />
         <div className="content">
-          {/* <Alerts /> */}
           <Switch>
             <Route exact path="/" component={Main}></Route>
             <PrivateRoute exact path="/myads" component={MyAds}></PrivateRoute>

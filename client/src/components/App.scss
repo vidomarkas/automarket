@@ -370,7 +370,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  background-color: #f1f2f4;
+  background-color: #f8f8f8;
 }
 
 .app {
@@ -440,13 +440,23 @@ ul {
       background-color: rgb(160, 34, 34);
     }
   }
+
+  &-delete {
+    background-color: rgb(226, 182, 182);
+
+    &:hover {
+      background-color: rgb(160, 34, 34);
+    }
+  }
+  &-edit {
+    background-color: #bfdffa;
+    text-align: center;
+
+    &:hover {
+      background-color: #108be9;
+    }
+  }
 }
-// select:hover,
-// input:hover {
-//   cursor: pointer;
-//   background-color: #f5f5f8c0;
-//   border: 1px solid #249af3;
-// }
 
 h1,
 h2,

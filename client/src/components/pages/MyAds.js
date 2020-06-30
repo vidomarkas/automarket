@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import Spinner from "../layout/Spinner";
 import AdContext from "../../context/ad/adContext";
 import MyAdItem from "../ads/MyAdItem";
 import { GoPlus } from "react-icons/go";
@@ -11,7 +12,7 @@ const MyAds = () => {
 
   useEffect(() => {
     getMyAds();
-    console.log(loading, myAds);
+
     // eslint-disable-next-line
   }, []);
   return (
@@ -28,7 +29,7 @@ const MyAds = () => {
               <h2>You have no adverts at the moment. Please add new one</h2>
 
               <br />
-              <Link class="btn btn-primary" to="/editing">
+              <Link className="btn btn-primary" to="/editing">
                 <GoPlus style={{ marginBottom: "-2px", marginRight: "4px" }} />
                 Post an ad
               </Link>

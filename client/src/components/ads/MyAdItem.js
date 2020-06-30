@@ -37,14 +37,22 @@ const MyAdItem = ({ myAd }) => {
 
   return (
     <div className="my-ad">
-      <div className="my-ad__image">
-        <img src={imageURL} alt="" />
-      </div>
-      <div className="my-ad__make">
+      {imageURL && (
+        <div
+          className="my-ad__image"
+          style={{ backgroundImage: `url(${imageURL})` }}
+        ></div>
+      )}
+
+      <div className="my-ad__main">
         <div>
           {make} {model}
         </div>
         <span> {dateManufactured}</span>
+        <span className="my-ad__main__featured">
+          {" "}
+          {featured ? "featured" : null}
+        </span>
       </div>
       <div className="my-ad__date-added">
         Added on: {displayDate()}{" "}
@@ -65,12 +73,12 @@ const MyAdItem = ({ myAd }) => {
         <Link
           to="/editing"
           onClick={() => setCurrent(myAd)}
-          className="btn btn-primary"
+          className="btn btn-edit"
         >
           Edit
         </Link>
 
-        <button onClick={onDelete} className="btn btn-danger ">
+        <button onClick={onDelete} className="btn btn-delete ">
           Delete
         </button>
       </div>

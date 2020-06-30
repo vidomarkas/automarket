@@ -6,7 +6,7 @@ import AdContext from "../../context/ad/adContext";
 
 const Main = () => {
   const adContext = useContext(AdContext);
-  const { foundAds, loading } = adContext;
+  const { foundAds } = adContext;
   return (
     <div>
       <Header />

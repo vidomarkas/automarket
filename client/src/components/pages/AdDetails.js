@@ -3,12 +3,12 @@ import AdContext from "../../context/ad/adContext";
 import "./AdDetails.scss";
 import fuelIcon from "../../assets/img/fuel.svg";
 import gearboxIcon from "../../assets/img/gearbox.svg";
+import bodytypeIcon from "../../assets/img/coupe.svg";
 import speedIcon from "../../assets/img/speed.svg";
 import damageIcon from "../../assets/img/smoke.svg";
 import wheelIcon from "../../assets/img/steering-wheel.svg";
 import powerIcon from "../../assets/img/turbo.svg";
 import colorIcon from "../../assets/img/paint.svg";
-import bodytypeIcon from "../../assets/img/coupe.svg";
 import doorIcon from "../../assets/img/car.svg";
 import yearIcon from "../../assets/img/calendar.svg";
 

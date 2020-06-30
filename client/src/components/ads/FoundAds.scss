@@ -3,21 +3,81 @@
     width: 1280px;
     margin: 10rem auto;
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 5px;
   }
 
   &__heading {
     border-bottom: 2px solid #e1e8ee;
     padding: 2rem 4rem;
     margin-bottom: 2rem;
+
     h2 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       color: #334150;
       margin-bottom: 2rem;
       margin: 0;
     }
   }
+
+  &__menu {
+    padding: 0 5rem;
+    display: flex;
+    justify-content: flex-end;
+    text-align: left;
+    color: #95a3b6;
+    font-size: 1.2rem;
+
+    &-item {
+      &--make {
+        flex-basis: 262px;
+      }
+      &--features {
+        flex-basis: 282px;
+      }
+      &--date {
+        flex-basis: 282px;
+      }
+      &--price {
+        flex-basis: 102px;
+      }
+    }
+  }
   &__list {
     padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
   }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4rem;
+    margin-bottom: 2rem;
+    &__list {
+      display: flex;
+      &-item {
+        button {
+          cursor: pointer;
+          border: 1px solid #249af3;
+          color: #249af3;
+          background-color: #fff;
+          padding: 0.8rem 1rem;
+          margin: 0.2rem;
+          border-radius: 3px;
+          font-size: 1.2rem;
+
+          &:hover {
+            color: #fff;
+            background-color: #249af3;
+          }
+        }
+      }
+    }
+  }
+}
+
+.activePage {
+  color: #fff !important;
+  background-color: #249af3 !important;
 }

@@ -44,11 +44,6 @@
     }
   }
 
-  &__technical-specs {
-    h2 {
-    }
-  }
-
   &__specs {
     display: flex;
     justify-content: space-between;
@@ -66,8 +61,8 @@
     border-bottom: 1px solid #e1e8ee;
     font-size: 1.4rem;
     img {
-      height: 24px;
-      width: 24px;
+      height: 16px;
+      width: 16px;
       margin-right: 1rem;
     }
 
