@@ -65,6 +65,7 @@ router.post(
       regNo,
       featured,
       sold,
+      dateUpdated,
     } = req.body;
 
     try {
@@ -92,6 +93,7 @@ router.post(
         regNo,
         featured,
         sold,
+        dateUpdated,
         user: req.user.id,
       });
       const ad = await newAd.save();
@@ -133,6 +135,7 @@ router.put("/:id", auth, async (req, res) => {
     imageURL,
     featured,
     sold,
+    dateUpdated,
   } = req.body;
 
   // Build ad body
@@ -160,6 +163,7 @@ router.put("/:id", auth, async (req, res) => {
   if (description) adFields.description = description;
   if (imageURL) adFields.imageURL = imageURL;
   if (regNo) adFields.regNo = regNo;
+  if (dateUpdated) adFields.dateUpdated = dateUpdated;
   if (featured !== undefined) adFields.featured = featured;
   if (sold !== undefined) adFields.sold = sold;
 

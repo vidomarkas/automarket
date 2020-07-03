@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.scss";
 import NavigationBar from "./layout/NavigationBar";
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm";
@@ -15,6 +14,8 @@ import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
 import Footer from "../components/layout/Footer";
+import "./normalize.scss";
+import "./App.scss";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

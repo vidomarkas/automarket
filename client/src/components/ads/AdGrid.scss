@@ -20,16 +20,13 @@
     transition: all 0.3s;
 
     &__image {
-      object-fit: cover;
-      width: 100%;
-      max-height: 163px;
+      width: 244px;
+      height: 163px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
-      &-wrapper {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        position: relative;
-      }
+      position: relative;
+      background-size: cover;
+      background-position: center center;
     }
 
     &__price {

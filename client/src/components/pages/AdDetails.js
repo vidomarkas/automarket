@@ -11,6 +11,7 @@ import powerIcon from "../../assets/img/turbo.svg";
 import colorIcon from "../../assets/img/paint.svg";
 import doorIcon from "../../assets/img/car.svg";
 import yearIcon from "../../assets/img/calendar.svg";
+import placeholderCar from "../../assets/img/placeholder-car.png";
 
 const AdDetails = (props) => {
   const adContext = useContext(AdContext);
@@ -24,21 +25,26 @@ const AdDetails = (props) => {
     // eslint-disable-next-line
   }, [props.match.params.id]);
 
-  // <h1>{adDetails.featured}</h1>
-  // <h1>{adDetails.sold}</h1>
-  // <h1>{adDetails.marked}</h1>
-
   return (
     <>
       {!loading && adDetails && (
         <div className="ad-details__container ">
           <div className="ad-details__main shadow-min">
-            <div
-              className="ad-details__main-image"
-              style={{ backgroundImage: `url(${adDetails.imageURL})` }}
-            >
-              <div className="ad-details__main-image--overlay"></div>
-            </div>
+            {adDetails.imageURL ? (
+              <div
+                className="ad-details__main-image"
+                style={{ backgroundImage: `url(${adDetails.imageURL})` }}
+              >
+                <div className="ad-details__main-image--overlay"></div>
+              </div>
+            ) : (
+              <div
+                className="ad-details__main-image"
+                style={{ backgroundImage: `url(${placeholderCar})` }}
+              >
+                <div className="ad-details__main-image--overlay"></div>
+              </div>
+            )}
 
             <div className="ad-details__section">
               <div className="ad-details__technical-specs">

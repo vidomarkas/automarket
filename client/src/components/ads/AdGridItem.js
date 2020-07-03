@@ -33,12 +33,10 @@ const AdGridItem = ({ ad }) => {
         <div className="ad-grid__item">
           <Link to={`ads/${_id}`}>
             {imageURL && (
-              <div className="ad-grid__item__image-wrapper">
-                <img
-                  className="ad-grid__item__image"
-                  src={imageURL}
-                  alt={make}
-                />
+              <div
+                className="ad-grid__item__image"
+                style={{ backgroundImage: `url(${imageURL})` }}
+              >
                 <div
                   className={
                     sold

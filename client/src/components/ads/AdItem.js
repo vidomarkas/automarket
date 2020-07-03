@@ -4,6 +4,7 @@ import ReactTimeAgo from "react-time-ago";
 import fuelIcon from "../../assets/img/fuel.svg";
 import gearboxIcon from "../../assets/img/gearbox.svg";
 import bodytypeIcon from "../../assets/img/coupe.svg";
+import placeholderCar from "../../assets/img/placeholder-car.png";
 import "./AdItem.scss";
 
 const AdItem = ({ ad }) => {
@@ -21,6 +22,7 @@ const AdItem = ({ ad }) => {
     featured,
     sold,
     dateAdded,
+    dateUpdated,
   } = ad;
 
   const displayPrice = () => {
@@ -35,10 +37,15 @@ const AdItem = ({ ad }) => {
   return (
     <Link to={`ads/${_id}`}>
       <div className={featured ? "ad-item ad-item--featured" : "ad-item"}>
-        {imageURL && (
+        {imageURL ? (
           <div
             className="ad-item__image shadow-min"
             style={{ backgroundImage: `url(${imageURL})` }}
+          ></div>
+        ) : (
+          <div
+            className="ad-item__image shadow-min"
+            style={{ backgroundImage: `url(${placeholderCar})` }}
           ></div>
         )}
 
@@ -70,7 +77,7 @@ const AdItem = ({ ad }) => {
         </div>
 
         <div className="ad-item__date-added">
-          <ReactTimeAgo date={Date.parse(dateAdded)} />
+          <ReactTimeAgo date={Date.parse(dateUpdated)} />
         </div>
 
         <div className="ad-item__price">{displayPrice()}</div>

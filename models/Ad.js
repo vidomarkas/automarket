@@ -18,6 +18,7 @@ const AdSchema = mongoose.Schema({
   VINnumber: { type: String, required: false },
   mileage: { type: Number, required: true },
   dateAdded: { type: Date, default: Date.now },
+  dateUpdated: { type: Date, default: Date.now },
   description: { type: String },
   phoneNumber: { type: String, required: true },
   featured: { type: Boolean, default: false },

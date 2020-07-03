@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AdContext from "../../context/ad/adContext";
+import placeholderCar from "../../assets/img/placeholder-car.png";
 
 const MyAdItem = ({ myAd }) => {
   const adContext = useContext(AdContext);
@@ -37,10 +38,15 @@ const MyAdItem = ({ myAd }) => {
 
   return (
     <div className="my-ad">
-      {imageURL && (
+      {imageURL ? (
         <div
           className="my-ad__image"
           style={{ backgroundImage: `url(${imageURL})` }}
+        ></div>
+      ) : (
+        <div
+          className="ad-item__image shadow-min"
+          style={{ backgroundImage: `url(${placeholderCar})` }}
         ></div>
       )}
 

@@ -48,6 +48,7 @@ const AdForm = (props) => {
     mileageUnit: "mi",
     featured: false,
     sold: false,
+    dateUpdated: "",
   };
 
   const [ad, setAd] = useState(initialState);
@@ -81,6 +82,7 @@ const AdForm = (props) => {
     regNo,
     featured,
     sold,
+    dateUpdated,
   } = ad;
 
   // Determine whether the ad is being updated or it is a new ad
@@ -144,7 +146,6 @@ const AdForm = (props) => {
     const index = emptyFields.indexOf(e.target.name);
     if (index !== -1) {
       emptyFieldsCopy.splice(index, 1);
-
       setEmptyFields([...emptyFieldsCopy]);
     }
   };
@@ -170,6 +171,7 @@ const AdForm = (props) => {
       price,
       color,
       regNo,
+      mileage,
     };
 
     const showFieldError = () => {
@@ -191,12 +193,18 @@ const AdForm = (props) => {
     }
   };
 
+  const createCurrentDate = () => {
+    const date = new Date();
+    return date.toISOString();
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("ad :>> ", ad);
+    setAd({ ...ad, dateUpdated: createCurrentDate() });
     if (fieldValidation()) {
       // Passed validation
       setPublishing(true);
+
       // If user added image
       if (ad.image) {
         uploadImage(ad.image);
@@ -211,14 +219,12 @@ const AdForm = (props) => {
 
   const onCancel = () => {
     setPublishing(false);
-    //setPublished(true);
     setAd(initialState);
     clearCurrent();
     props.history.push("/myads");
   };
 
   const onChangeSoldStatus = () => {
-    console.log("sold :>> ", sold);
     setAd({ ...ad, sold: !sold });
   };
 
@@ -265,6 +271,7 @@ const AdForm = (props) => {
             ) : null}
           </div>
           <Alerts />
+
           <form
             className="ad-form__form"
             onSubmit={onSubmit}
@@ -600,7 +607,10 @@ const AdForm = (props) => {
                 </div>
                 <div className="ad-form__field">
                   <label htmlFor="mileage" className="ad-form__field__label">
-                    Mileage
+                    <span>
+                      Mileage
+                      <span className="ad-form__field__label--required">*</span>
+                    </span>
                     <div className="ad-form__field__input--split">
                       <input
                         type="number"

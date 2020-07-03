@@ -10,15 +10,29 @@ import Pagination from "../Pagination";
 const FoundAds = () => {
   const adContext = useContext(AdContext);
   const paginationContext = useContext(PaginationContext);
-  const { foundAds, loading } = adContext;
-  const { currentPage, setCurrentPage, clearCurrentPage } = paginationContext;
+  const { foundAds, loading, setSortedAds, sortedAds } = adContext;
+  const { currentPage } = paginationContext;
+
+  useEffect(() => {
+    if (sortedAds) {
+      setSortedAds(sortedAds);
+    } else {
+      setSortedAds(foundAds);
+    }
+  }, [sortedAds, foundAds]);
 
   const [adsPerPage] = useState(10);
 
-  // Get current posts
+  // Get current ads
   const indexOfLastAd = currentPage * adsPerPage;
   const indexOfFirstAd = indexOfLastAd - adsPerPage;
-  const currentAds = foundAds.slice(indexOfFirstAd, indexOfLastAd);
+  const currentAds = sortedAds.slice(indexOfFirstAd, indexOfLastAd);
+
+  const sortByPrice = () => {
+    console.log("sortbyprice");
+    const sorted = [...sortedAds].sort((a, b) => a.price - b.price);
+    setSortedAds(sorted);
+  };
 
   if (foundAds === null) {
     return null;
@@ -41,9 +55,12 @@ const FoundAds = () => {
               Features
             </li>
             <li className="found-ads__menu-item found-ads__menu-item--date">
-              Added
+              Updated
             </li>
-            <li className="found-ads__menu-item found-ads__menu-item--price">
+            <li
+              className="found-ads__menu-item found-ads__menu-item--price"
+              onClick={() => sortByPrice()}
+            >
               Price
             </li>
           </ul>
@@ -55,11 +72,7 @@ const FoundAds = () => {
             )}
           </div>
           {foundAds.length <= adsPerPage ? null : (
-            <Pagination
-              adsPerPage={adsPerPage}
-              totalAds={foundAds.length}
-              currentPage={currentPage[0]}
-            />
+            <Pagination adsPerPage={adsPerPage} totalAds={foundAds.length} />
           )}
         </>
       )}
