@@ -10,6 +10,7 @@ import TermsConditions from "./pages/TermsConditions";
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
 import DemoUserLogin from "../components/auth/DemoUserLogin";
+import UserProfile from "../components/auth/UserProfile";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
@@ -46,6 +47,11 @@ function App() {
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/demo" component={DemoUserLogin}></Route>
             <Route exact path="/featured" component={AdGrid}></Route>
+            <PrivateRoute
+              exact
+              path="/profile"
+              component={UserProfile}
+            ></PrivateRoute>
             <Route
               exact
               path="/terms-and-conditions"

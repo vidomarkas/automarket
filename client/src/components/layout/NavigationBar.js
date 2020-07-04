@@ -19,14 +19,14 @@ const NavigationBar = () => {
     setDropdown(!dropdown);
   };
 
-  const container = useRef();
+  const dropdownRef = useRef();
 
   const onLogout = () => {
     logout();
     clearMyAds();
   };
   const handleClickOutside = (event) => {
-    if (container.current && !container.current.contains(event.target)) {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropdown(false);
     }
   };
@@ -52,10 +52,10 @@ const NavigationBar = () => {
       </div>
 
       {dropdown && (
-        <ul className="navbar__dropdown">
-          {/* <li className="navbar__dropdown-item">
-            <button>Account settings</button>{" "}
-          </li> */}
+        <ul className="navbar__dropdown" ref={dropdownRef}>
+          <li className="navbar__dropdown-item">
+            <Link to="profile">Account settings</Link>
+          </li>
           <li className="navbar__dropdown-item">
             <button className="btn btn-block btn-danger" onClick={onLogout}>
               Logout
@@ -86,7 +86,7 @@ const NavigationBar = () => {
   );
   return (
     <nav className="navbar">
-      <div className="navbar__container" ref={container}>
+      <div className="navbar__container">
         <Link className="navbar__logo" to="/">
           <h2>
             {"///"}AutoMarket <span>&reg;</span>
