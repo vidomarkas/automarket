@@ -15,7 +15,6 @@ import {
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
-  SET_SORTED_ADS,
 } from "../types";
 
 export default (state, action) => {
@@ -82,8 +81,6 @@ export default (state, action) => {
         foundAds: null,
         error: null,
       };
-    case SET_SORTED_ADS:
-      return { ...state, sortedAds: action.payload };
     default:
       return state;
   }

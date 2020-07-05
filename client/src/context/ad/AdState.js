@@ -15,11 +15,9 @@ import {
   GET_MY_ADS,
   CLEAR_MY_ADS,
   UPLOAD_IMAGES,
-  ERROR_UPLOADING_IMAGES,
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
-  SET_SORTED_ADS,
 } from "../types";
 
 const AdState = (props) => {
@@ -33,7 +31,6 @@ const AdState = (props) => {
     adDetails: null,
     featuredAds: null,
     loading: true,
-    sortedAds: [],
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
@@ -77,7 +74,7 @@ const AdState = (props) => {
       const res = await axios.post("api/images", formData, config);
       dispatch({ type: UPLOAD_IMAGES, payload: res.data.data[0].url });
     } catch (err) {
-      dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.message });
+      // todo  dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.message });
       console.log(err);
     }
   };
@@ -153,11 +150,6 @@ const AdState = (props) => {
     dispatch({ type: CLEAR_AD_DETAILS });
   };
 
-  // sort ads
-  const setSortedAds = (ads) => {
-    dispatch({ type: SET_SORTED_ADS, payload: ads });
-  };
-
   return (
     <AdContext.Provider
       value={{
@@ -170,7 +162,6 @@ const AdState = (props) => {
         currentImg: state.currentImg,
         adDetails: state.adDetails,
         loading: state.loading,
-        sortedAds: state.sortedAds,
         getMyAds,
         postAd,
         deleteAd,
@@ -185,7 +176,6 @@ const AdState = (props) => {
         getAdDetails,
         clearAdDetails,
         getAdGroup,
-        setSortedAds,
       }}
     >
       {props.children}

@@ -10,29 +10,15 @@ import Pagination from "../Pagination";
 const FoundAds = () => {
   const adContext = useContext(AdContext);
   const paginationContext = useContext(PaginationContext);
-  const { foundAds, loading, setSortedAds, sortedAds } = adContext;
+  const { foundAds, loading } = adContext;
   const { currentPage } = paginationContext;
-
-  useEffect(() => {
-    if (sortedAds) {
-      setSortedAds(sortedAds);
-    } else {
-      setSortedAds(foundAds);
-    }
-  }, [sortedAds, foundAds]);
 
   const [adsPerPage] = useState(10);
 
   // Get current ads
   const indexOfLastAd = currentPage * adsPerPage;
   const indexOfFirstAd = indexOfLastAd - adsPerPage;
-  const currentAds = sortedAds.slice(indexOfFirstAd, indexOfLastAd);
-
-  const sortByPrice = () => {
-    console.log("sortbyprice");
-    const sorted = [...sortedAds].sort((a, b) => a.price - b.price);
-    setSortedAds(sorted);
-  };
+  const currentAds = foundAds.slice(indexOfFirstAd, indexOfLastAd);
 
   if (foundAds === null) {
     return null;
@@ -57,10 +43,7 @@ const FoundAds = () => {
             <li className="found-ads__menu-item found-ads__menu-item--date">
               Updated
             </li>
-            <li
-              className="found-ads__menu-item found-ads__menu-item--price"
-              onClick={() => sortByPrice()}
-            >
+            <li className="found-ads__menu-item found-ads__menu-item--price">
               Price
             </li>
           </ul>

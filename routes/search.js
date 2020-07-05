@@ -8,7 +8,7 @@ const multiPropsFilter = require("../utils/multiPropsFilter");
 // Access       Public
 router.post("/", async (req, res) => {
   try {
-    const allAds = await Ad.find({}).sort({
+    const allAds = await Ad.find({ sold: false }).sort({
       date: -1,
     });
     const criteria = req.body.criteria;
