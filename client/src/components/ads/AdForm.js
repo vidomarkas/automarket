@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import carMakes from "../../assets/carMakes.json";
 import AlertContext from "../../context/alert/alertContext";
 import AdContext from "../../context/ad/adContext";
 import Alerts from "../layout/Alerts";
 import Spinner from "../layout/Spinner";
 import "./AdForm.scss";
+import AdPublished from "./AdPublished";
 
 const AdForm = (props) => {
   const adContext = useContext(AdContext);
@@ -52,7 +53,7 @@ const AdForm = (props) => {
   };
 
   const [ad, setAd] = useState(initialState);
-  const [publishing, setPublishing] = useState(false);
+  const [publishing, setPublishing] = useState(true);
   const [published, setPublished] = useState(false);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -122,15 +123,15 @@ const AdForm = (props) => {
   }, [imageURL, publishing]);
 
   // Ad published, redirecting to /myads
-  useEffect(() => {
-    if (published && !publishing) {
-      const timer = setTimeout(() => {
-        props.history.push("/myads");
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-    // eslint-disable-next-line
-  }, [published, publishing]);
+  // useEffect(() => {
+  //   if (published && !publishing) {
+  //     const timer = setTimeout(() => {
+  //       props.history.push("/myads");
+  //     }, 3000);
+  //     return () => clearTimeout(timer);
+  //   }
+  //   // eslint-disable-next-line
+  // }, [published, publishing]);
 
   useEffect(() => {
     if (image) {
@@ -769,11 +770,7 @@ const AdForm = (props) => {
           <h2> Publishing...</h2>
         </>
       ) : (
-        <>
-          <h2>Your ad is now published</h2>
-          <p>Redirecting to your ads page...</p>
-          <Link to="/myads">My ads</Link>
-        </>
+        <AdPublished />
       )}
     </div>
   );
