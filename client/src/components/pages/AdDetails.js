@@ -30,21 +30,19 @@ const AdDetails = (props) => {
       {!loading && adDetails && (
         <div className="ad-details__container ">
           <div className="ad-details__main shadow-min">
-            {adDetails.imageURL ? (
-              <div
-                className="ad-details__main-image"
-                style={{ backgroundImage: `url(${adDetails.imageURL})` }}
-              >
-                <div className="ad-details__main-image--overlay"></div>
-              </div>
-            ) : (
-              <div
-                className="ad-details__main-image"
-                style={{ backgroundImage: `url(${placeholderCar})` }}
-              >
-                <div className="ad-details__main-image--overlay"></div>
-              </div>
-            )}
+            <div
+              className="ad-details__main-image"
+              style={{
+                backgroundImage: adDetails.imageURL
+                  ? `url(${adDetails.imageURL})`
+                  : `url(${placeholderCar})`,
+              }}
+            >
+              <div className="ad-details__main-image--overlay"></div>
+              {adDetails.sold && (
+                <div className="ad-details__main-image--sold">Sold</div>
+              )}
+            </div>
 
             <div className="ad-details__section">
               <div className="ad-details__technical-specs">
