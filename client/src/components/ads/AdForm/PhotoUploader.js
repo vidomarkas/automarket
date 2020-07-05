@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdUploader = (props) => {
+const PhotoUploader = (props) => {
   return (
     <div className="ad-form__section">
       <h2 className="ad-form__section__heading">Photos</h2>
@@ -15,4 +15,4 @@ const AdUploader = (props) => {
   );
 };
 
-export default AdUploader;
+export default PhotoUploader;
