@@ -53,7 +53,7 @@ const AdForm = (props) => {
   };
 
   const [ad, setAd] = useState(initialState);
-  const [publishing, setPublishing] = useState(true);
+  const [publishing, setPublishing] = useState(false);
   const [published, setPublished] = useState(false);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -123,15 +123,15 @@ const AdForm = (props) => {
   }, [imageURL, publishing]);
 
   // Ad published, redirecting to /myads
-  // useEffect(() => {
-  //   if (published && !publishing) {
-  //     const timer = setTimeout(() => {
-  //       props.history.push("/myads");
-  //     }, 3000);
-  //     return () => clearTimeout(timer);
-  //   }
-  //   // eslint-disable-next-line
-  // }, [published, publishing]);
+  useEffect(() => {
+    if (published && !publishing) {
+      const timer = setTimeout(() => {
+        props.history.push("/myads");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line
+  }, [published, publishing]);
 
   useEffect(() => {
     if (image) {
@@ -765,10 +765,10 @@ const AdForm = (props) => {
           </form>
         </>
       ) : publishing && !published ? (
-        <>
+        <div className="ad-publishing">
           <Spinner />
           <h2> Publishing...</h2>
-        </>
+        </div>
       ) : (
         <AdPublished />
       )}

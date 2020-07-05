@@ -9,7 +9,7 @@ const multiPropsFilter = require("../utils/multiPropsFilter");
 router.post("/", async (req, res) => {
   try {
     const allAds = await Ad.find({ sold: false }).sort({
-      date: -1,
+      featured: -1,
     });
     const criteria = req.body.criteria;
     const filteredAds = await multiPropsFilter(allAds, criteria);
