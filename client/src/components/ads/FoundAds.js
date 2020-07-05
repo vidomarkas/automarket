@@ -51,7 +51,9 @@ const FoundAds = () => {
             {foundAds && foundAds.length > 0 ? (
               currentAds.map((ad) => <AdItem key={ad._id} ad={ad} />)
             ) : (
-              <h4>Nothing found matching your criteria</h4>
+              <h4 className="found-ads__nothing-found">
+                No ads found matching your criteria
+              </h4>
             )}
           </div>
           {foundAds.length <= adsPerPage ? null : (

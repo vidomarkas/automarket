@@ -75,9 +75,16 @@
       }
     }
   }
+
+  &__nothing-found {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
-.activePage {
-  color: #fff !important;
-  background-color: #249af3 !important;
-}
+// .activePage {
+//   color: #fff !important;
+//   background-color: #249af3 !important;
+// }

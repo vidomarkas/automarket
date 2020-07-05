@@ -4,7 +4,11 @@ import spinner from "./spinner.gif";
 const Spinner = () => {
   return (
     <>
-      <img src={spinner} alt="Loading..." />
+      <img
+        src={spinner}
+        alt="Loading..."
+        style={{ margin: "auto", display: "block" }}
+      />
     </>
   );
 };

@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-
-import carMakes from "../../assets/carMakes.json";
-import AlertContext from "../../context/alert/alertContext";
-import AdContext from "../../context/ad/adContext";
-import Alerts from "../layout/Alerts";
-import Spinner from "../layout/Spinner";
+import carMakes from "../../../assets/carMakes.json";
+import AlertContext from "../../../context/alert/alertContext";
+import AdContext from "../../../context/ad/adContext";
+import Alerts from "../../layout/Alerts";
+import Spinner from "../../layout/Spinner";
 import "./AdForm.scss";
 import AdPublished from "./AdPublished";
+import AdUploader from "./AdUploader";
 
 const AdForm = (props) => {
   const adContext = useContext(AdContext);
@@ -673,16 +673,8 @@ const AdForm = (props) => {
                 </div>
               </div>
             </div>
-            <div className="ad-form__section">
-              <h2 className="ad-form__section__heading">Photos</h2>
-              <label htmlFor="image" className="ad-form__field__label">
-                Upload image
-                <input type="file" name="image" onChange={onImageSelect} />
-              </label>
-              {imageURL && (
-                <img src={imageURL} style={{ width: "80%" }} alt="" />
-              )}
-            </div>
+            <AdUploader onImageSelect={onImageSelect} imageURL={imageURL} />
+
             <div className="ad-form__section">
               <h2 className="ad-form__section__heading">Extra services</h2>
               <p className="ad-form__section__text">
