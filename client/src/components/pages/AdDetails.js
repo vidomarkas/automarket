@@ -15,7 +15,18 @@ import placeholderCar from "../../assets/img/placeholder-car.png";
 
 const AdDetails = (props) => {
   const adContext = useContext(AdContext);
-  const { adDetails, clearAdDetails, getAdDetails, loading } = adContext;
+  const {
+    adDetails,
+    clearAdDetails,
+    getAdDetails,
+    loading,
+    countSeen,
+  } = adContext;
+
+  useEffect(() => {
+    countSeen(props.match.params.id);
+    console.log(props.match.params.id);
+  }, []);
 
   useEffect(() => {
     getAdDetails(props.match.params.id);
@@ -197,6 +208,11 @@ const AdDetails = (props) => {
               </div>
 
               <h1>{adDetails.postcode}</h1>
+            </div>
+            <div className="ad-details__stats shadow-min">
+              Seen by {adDetails.seenCount}
+              <br />
+              Saved by {adDetails.savedCount}
             </div>
           </div>
         </div>

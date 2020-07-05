@@ -18,6 +18,8 @@ import {
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
+  COUNT_SEEN,
+  COUNT_SEEN_ERROR,
 } from "../types";
 
 const AdState = (props) => {
@@ -150,6 +152,19 @@ const AdState = (props) => {
     dispatch({ type: CLEAR_AD_DETAILS });
   };
 
+  const countSeen = async (id) => {
+    try {
+      const res = await axios.post(`/ads/${id}`);
+      dispatch({ type: COUNT_SEEN });
+    } catch (err) {
+      console.log("Error adding view");
+      dispatch({
+        type: COUNT_SEEN_ERROR,
+        payload: err.response,
+      });
+    }
+  };
+
   return (
     <AdContext.Provider
       value={{
@@ -176,6 +191,7 @@ const AdState = (props) => {
         getAdDetails,
         clearAdDetails,
         getAdGroup,
+        countSeen,
       }}
     >
       {props.children}
