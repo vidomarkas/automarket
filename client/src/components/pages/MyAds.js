@@ -16,16 +16,16 @@ const MyAds = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div className="my-ads">
-      <div className="my-ads__container shadow-md">
-        <div className="my-ads__heading">
+    <div className="my-cars">
+      <div className="my-cars__container shadow-md">
+        <div className="my-cars__heading">
           <h1>My cars for sale</h1>
         </div>
-        <div className="my-ads__ads">
+        <div className="my-cars__cars">
           {!loading && myAds && myAds.length > 0 ? (
             myAds.map((ad) => <MyAdItem key={ad._id} myAd={ad} />)
           ) : (
-            <div className="my-ads__no-ads">
+            <div className="my-cars__no-cars">
               <h2>You have no adverts at the moment. Please add new one</h2>
 
               <br />

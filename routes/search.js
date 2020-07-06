@@ -8,12 +8,12 @@ const multiPropsFilter = require("../utils/multiPropsFilter");
 // Access       Public
 router.post("/", async (req, res) => {
   try {
-    const allAds = await Ad.find({ sold: false }).sort({
+    const allResults = await Ad.find({ sold: false }).sort({
       featured: -1,
     });
     const criteria = req.body.criteria;
-    const filteredAds = await multiPropsFilter(allAds, criteria);
-    res.json(filteredAds);
+    const filteredResults = await multiPropsFilter(allResults, criteria);
+    res.json(filteredResults);
   } catch (error) {
     console.error(error.message);
     res.status(500).json("Server error serving ads");

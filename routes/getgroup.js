@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Ad = require("../models/Ad");
-const multiPropsFilter = require("../utils/multiPropsFilter");
 
 // Route        POST api/ads
 // Description  Search all ads with criteria

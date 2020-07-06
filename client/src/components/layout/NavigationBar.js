@@ -44,7 +44,7 @@ const NavigationBar = () => {
         <GoPlus style={{ marginBottom: "-2px", marginRight: "4px" }} /> Post an
         ad
       </Link>
-      <Link to="/myads" className="navbar-link">
+      <Link to="/mycars" className="navbar-link">
         My adverts
       </Link>
       <div onClick={handleDropdown} className="navbar__avatar">
@@ -54,7 +54,7 @@ const NavigationBar = () => {
       {dropdown && (
         <ul className="navbar__dropdown" ref={dropdownRef}>
           <li className="navbar__dropdown-item">
-            <Link to="profile">Account settings</Link>
+            <Link to="/profile">Account settings</Link>
           </li>
           <li className="navbar__dropdown-item">
             <button className="btn btn-block btn-danger" onClick={onLogout}>

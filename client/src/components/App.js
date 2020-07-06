@@ -36,7 +36,7 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/" component={Main}></Route>
-            <PrivateRoute exact path="/myads" component={MyAds}></PrivateRoute>
+            <PrivateRoute exact path="/mycars" component={MyAds}></PrivateRoute>
             <Route exact path="/ads/:id" component={AdDetails}></Route>
             <PrivateRoute
               exact

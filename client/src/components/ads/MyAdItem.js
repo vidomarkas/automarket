@@ -37,42 +37,39 @@ const MyAdItem = ({ myAd }) => {
   };
 
   return (
-    <div className="my-ad">
-      {imageURL ? (
-        <div
-          className="my-ad__image"
-          style={{ backgroundImage: `url(${imageURL})` }}
-        ></div>
-      ) : (
-        <div
-          className="ad-item__image shadow-min"
-          style={{ backgroundImage: `url(${placeholderCar})` }}
-        ></div>
-      )}
+    <div className="my-car">
+      <div
+        className="my-car__image"
+        style={{
+          backgroundImage: imageURL
+            ? `url(${imageURL})`
+            : `url(${placeholderCar})`,
+        }}
+      ></div>
 
-      <div className="my-ad__main">
+      <div className="my-car__main">
         <div>
           {make} {model}
         </div>
         <span> {dateManufactured}</span>
-        <span className="my-ad__main__featured">
+        <span className="my-car__main__featured">
           {" "}
           {featured ? "featured" : null}
         </span>
       </div>
-      <div className="my-ad__date-added">
+      <div className="my-car__date-added">
         Added on: {displayDate()}{" "}
-        <div className="my-ad__status">
+        <div className="my-car__status">
           Status:{" "}
           {sold ? (
-            <span className="my-ad__sold">sold</span>
+            <span className="my-car__sold">sold</span>
           ) : (
-            <span className="my-ad__for-sale">for sale</span>
+            <span className="my-car__for-sale">for sale</span>
           )}
         </div>
       </div>
-      <div className="my-ad__price">{displayPrice()}</div>
-      <div className="my-ad__controls">
+      <div className="my-car__price">{displayPrice()}</div>
+      <div className="my-car__controls">
         <Link className="btn btn-secondary" to={`/ads/${_id}`}>
           Visit ad
         </Link>
