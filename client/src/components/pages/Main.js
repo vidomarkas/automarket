@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import FoundAds from "../ads/FoundAds";
+import SearchResults from "../ads/SearchResults";
 import Header from "../layout/Header";
 import AdGrid from "../ads/AdGrid";
 import AdContext from "../../context/ad/adContext";
@@ -11,7 +11,7 @@ const Main = () => {
     <div>
       <Header />
 
-      {foundAds ? <FoundAds /> : <AdGrid />}
+      {foundAds ? <SearchResults /> : <AdGrid />}
     </div>
   );
 };

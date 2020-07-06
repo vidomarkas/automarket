@@ -5,9 +5,9 @@ import fuelIcon from "../../assets/img/fuel.svg";
 import gearboxIcon from "../../assets/img/gearbox.svg";
 import bodytypeIcon from "../../assets/img/coupe.svg";
 import placeholderCar from "../../assets/img/placeholder-car.png";
-import "./AdItem.scss";
+import "./SearchResult.scss";
 
-const AdItem = ({ ad }) => {
+const SearchResult = ({ ad }) => {
   const {
     make,
     model,
@@ -36,54 +36,58 @@ const AdItem = ({ ad }) => {
 
   return (
     <Link to={`ads/${_id}`}>
-      <div className={featured ? "ad-item ad-item--featured" : "ad-item"}>
+      <div
+        className={
+          featured ? "search-result search-result--featured" : "search-result"
+        }
+      >
         {imageURL ? (
           <div
-            className="ad-item__image shadow-min"
+            className="search-result__image shadow-min"
             style={{ backgroundImage: `url(${imageURL})` }}
           ></div>
         ) : (
           <div
-            className="ad-item__image shadow-min"
+            className="search-result__image shadow-min"
             style={{ backgroundImage: `url(${placeholderCar})` }}
           ></div>
         )}
 
-        <div className="ad-item__main">
+        <div className="search-result__main">
           <div>
             {make} {model}
           </div>
           <span> {dateManufactured}</span>
-          <span className="ad-item__main__featured">
+          <span className="search-result__main__featured">
             {" "}
             {featured ? "featured" : null}
           </span>
         </div>
-        <div className="ad-item__features">
-          <div className="ad-item__features__item">
+        <div className="search-result__features">
+          <div className="search-result__features__item">
             <img src={fuelIcon} alt="" />
             {fuelType}
           </div>
 
-          <div className="ad-item__features__item">
+          <div className="search-result__features__item">
             {" "}
             <img src={gearboxIcon} alt="" /> {gearbox}
           </div>
 
-          <div className="ad-item__features__item">
+          <div className="search-result__features__item">
             {" "}
             <img src={bodytypeIcon} alt="" /> {bodyType}
           </div>
         </div>
 
-        <div className="ad-item__date-added">
+        <div className="search-result__date-added">
           <ReactTimeAgo date={Date.parse(dateUpdated)} />
         </div>
 
-        <div className="ad-item__price">{displayPrice()}</div>
+        <div className="search-result__price">{displayPrice()}</div>
       </div>
     </Link>
   );
 };
 
-export default AdItem;
+export default SearchResult;

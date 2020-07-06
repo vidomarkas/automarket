@@ -1,4 +1,4 @@
-.found-ads {
+.search-results {
   &__container {
     width: 1280px;
     margin: 10rem auto;
@@ -84,7 +84,8 @@
   }
 }
 
-// .activePage {
-//   color: #fff !important;
-//   background-color: #249af3 !important;
-// }
+// for pagination
+.activePage {
+  color: #fff !important;
+  background-color: #249af3 !important;
+}

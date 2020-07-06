@@ -11,10 +11,10 @@ const Pagination = ({ adsPerPage, totalAds }) => {
   }
 
   return (
-    <div className="found-ads__pagination">
-      <ul className="found-ads__pagination__list">
+    <div className="search-results__pagination">
+      <ul className="search-results__pagination__list">
         {pageNumbers.map((number) => (
-          <li key={number} className="found-ads__pagination__list-item">
+          <li key={number} className="search-results__pagination__list-item">
             <button
               onClick={() => setCurrentPage(number)}
               className={currentPage === number ? "activePage" : null}

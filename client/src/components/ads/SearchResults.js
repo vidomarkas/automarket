@@ -1,13 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import AdContext from "../../context/ad/adContext";
 import PaginationContext from "../../context/pagination/paginationContext";
-import AdItem from "./AdItem";
+import SearchResult from "./SearchResult";
 import Spinner from "../layout/Spinner";
-import "./FoundAds.scss";
+import "./SearchResults.scss";
 import Pagination from "../Pagination";
 
 // change this component to featured ads
-const FoundAds = () => {
+const SearchResults = () => {
   const adContext = useContext(AdContext);
   const paginationContext = useContext(PaginationContext);
   const { foundAds, loading } = adContext;
@@ -25,33 +25,33 @@ const FoundAds = () => {
   }
 
   return (
-    <div className="found-ads__container shadow-md">
+    <div className="search-results__container shadow-md">
       {loading ? (
         <Spinner />
       ) : (
         <>
-          <div className="found-ads__heading">
+          <div className="search-results__heading">
             <h2>Search results ({foundAds.length})</h2>
           </div>
-          <ul className="found-ads__menu">
-            <li className="found-ads__menu-item found-ads__menu-item--make">
+          <ul className="search-results__menu">
+            <li className="search-results__menu-item search-results__menu-item--make">
               Make
             </li>
-            <li className="found-ads__menu-item found-ads__menu-item--features">
+            <li className="search-results__menu-item search-results__menu-item--features">
               Features
             </li>
-            <li className="found-ads__menu-item found-ads__menu-item--date">
+            <li className="search-results__menu-item search-results__menu-item--date">
               Updated
             </li>
-            <li className="found-ads__menu-item found-ads__menu-item--price">
+            <li className="search-results__menu-item search-results__menu-item--price">
               Price
             </li>
           </ul>
-          <div className="found-ads__list">
+          <div className="search-results__list">
             {foundAds && foundAds.length > 0 ? (
-              currentAds.map((ad) => <AdItem key={ad._id} ad={ad} />)
+              currentAds.map((ad) => <SearchResult key={ad._id} ad={ad} />)
             ) : (
-              <h4 className="found-ads__nothing-found">
+              <h4 className="search-results__nothing-found">
                 No ads found matching your criteria
               </h4>
             )}
@@ -65,4 +65,4 @@ const FoundAds = () => {
   );
 };
 
-export default FoundAds;
+export default SearchResults;
