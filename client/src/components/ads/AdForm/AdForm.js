@@ -116,7 +116,7 @@ const AdForm = (props) => {
   useEffect(() => {
     if (published && !publishing) {
       const timer = setTimeout(() => {
-        props.history.push("/myads");
+        props.history.push("/mycars");
       }, 3000);
       return () => clearTimeout(timer);
     }
