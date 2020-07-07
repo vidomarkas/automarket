@@ -31,7 +31,7 @@ const AdGridItem = ({ ad }) => {
     <>
       {!sold ? (
         <div className="ad-grid__item">
-          <Link to={`ads/${_id}`}>
+          <Link to={`/cars/${_id}`}>
             {imageURL && (
               <div
                 className="ad-grid__item__image"

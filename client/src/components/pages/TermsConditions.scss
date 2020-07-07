@@ -1,0 +1,26 @@
+.tc {
+  &__container {
+    margin: 6rem auto;
+    width: 1280px;
+    border-radius: 4px;
+    position: relative;
+    background-color: #fff;
+    padding: 4rem;
+    font-size: 1.2rem;
+    color: rgb(56, 56, 56);
+    line-height: 2rem;
+
+    h2 {
+      font-size: 2.4rem;
+      margin-bottom: 2.4rem;
+    }
+    h3 {
+      font-size: 2.1rem;
+      margin-bottom: 2.1rem;
+    }
+
+    p {
+      margin-bottom: 1.6rem;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Spinner from "../layout/Spinner";
 import AdContext from "../../context/ad/adContext";
-import MyAdItem from "../ads/MyAdItem";
+import MyAdItem from "./MyAdItem";
 import { GoPlus } from "react-icons/go";
 import { Link } from "react-router-dom";
 import "./MyAds.scss";

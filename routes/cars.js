@@ -14,7 +14,7 @@ router.get("/:id", async (req, res) => {
     }
     res.json(ad);
   } catch (error) {
-    res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Error getting the ad details" });
   }
 });
 // Route        POST api/ads/id
@@ -37,7 +37,7 @@ router.post("/:id", async (req, res) => {
 
     res.json(ad);
   } catch (error) {
-    res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Error updating the ad" });
   }
 });
 

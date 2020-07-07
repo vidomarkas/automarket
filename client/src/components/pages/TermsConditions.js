@@ -1,8 +1,9 @@
 import React from "react";
+import "./TermsConditions.scss";
 
 const TermsConditions = () => {
   return (
-    <div>
+    <div className="tc__container shadow-min">
       <h2>
         <strong>Terms and Conditions</strong>
       </h2>
@@ -18,16 +19,7 @@ const TermsConditions = () => {
       <p>
         By accessing this website we assume you accept these terms and
         conditions. Do not continue to use AutoMarket if you do not agree to
-        take all of the terms and conditions stated on this page. Our Terms and
-        Conditions were created with the help of the{" "}
-        <a href="https://www.termsandconditionsgenerator.com">
-          Terms And Conditions Generator
-        </a>{" "}
-        and the{" "}
-        <a href="https://www.privacypolicyonline.com/terms-conditions-generator/">
-          Free Terms & Conditions Generator
-        </a>
-        .
+        take all of the terms and conditions stated on this page.
       </p>
 
       <p>
@@ -63,26 +55,6 @@ const TermsConditions = () => {
         website. Some of our affiliate/advertising partners may also use
         cookies.
       </p>
-
-      <h3>
-        <strong>License</strong>
-      </h3>
-
-      <p>
-        Unless otherwise stated, AutoMarket and/or its licensors own the
-        intellectual property rights for all material on AutoMarket. All
-        intellectual property rights are reserved. You may access this from
-        AutoMarket for your own personal use subjected to restrictions set in
-        these terms and conditions.
-      </p>
-
-      <p>You must not:</p>
-      <ul>
-        <li>Republish material from AutoMarket</li>
-        <li>Sell, rent or sub-license material from AutoMarket</li>
-        <li>Reproduce, duplicate or copy material from AutoMarket</li>
-        <li>Redistribute content from AutoMarket</li>
-      </ul>
 
       <p>This Agreement shall begin on the date hereof.</p>
 

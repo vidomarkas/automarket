@@ -49,21 +49,20 @@ const AdState = (props) => {
   // Get ad details
   const getAdDetails = async (id) => {
     try {
-      const res = await axios.get(`/api/ads/${id}`);
-      console.log("getting ad details");
+      const res = await axios.get(`/api/cars/${id}`);
       dispatch({ type: GET_AD_DETAILS, payload: res.data });
     } catch (err) {
-      dispatch({ type: AD_ERROR, payload: err.response.msg });
+      dispatch({ type: AD_ERROR, payload: err.response.data.msg });
     }
   };
-  // Post ad
+  // Post an ad
   const postAd = async (ad) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
       const res = await axios.post("/api/myads", ad, config);
       dispatch({ type: POST_AD, payload: res.data });
     } catch (err) {
-      dispatch({ type: AD_ERROR, payload: err.response.msg });
+      dispatch({ type: AD_ERROR, payload: err.response.data.msg });
     }
   };
 
@@ -76,7 +75,7 @@ const AdState = (props) => {
       const res = await axios.post("api/images", formData, config);
       dispatch({ type: UPLOAD_IMAGES, payload: res.data.data[0].url });
     } catch (err) {
-      // todo  dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.message });
+      // todo  dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.data.msg });
       console.log(err);
     }
   };
@@ -87,7 +86,7 @@ const AdState = (props) => {
       await axios.delete(`/api/myads/${id}`);
       dispatch({ type: DELETE_AD, payload: id });
     } catch (err) {
-      dispatch({ type: AD_ERROR, payload: err.response.msg });
+      dispatch({ type: AD_ERROR, payload: err.response.data.msg });
     }
   };
   // Set current ad
@@ -105,7 +104,7 @@ const AdState = (props) => {
       const res = await axios.put(`/api/myads/${ad._id}`, ad, config);
       dispatch({ type: UPDATE_AD, payload: res.data });
     } catch (err) {
-      dispatch({ type: AD_ERROR, payload: err.response.msg });
+      dispatch({ type: AD_ERROR, payload: err.response.data.msg });
     }
   };
   // Search ads
@@ -117,7 +116,7 @@ const AdState = (props) => {
     } catch (err) {
       dispatch({
         type: AD_ERROR,
-        payload: err.response,
+        payload: err.response.data.msg,
       });
     }
   };
@@ -130,7 +129,7 @@ const AdState = (props) => {
     } catch (err) {
       dispatch({
         type: AD_ERROR,
-        payload: err.response,
+        payload: err.response.data.msg,
       });
     }
   };
@@ -154,13 +153,13 @@ const AdState = (props) => {
 
   const countSeen = async (id) => {
     try {
-      const res = await axios.post(`/api/ads/${id}`);
+      const res = await axios.post(`/api/cars/${id}`);
       dispatch({ type: COUNT_SEEN });
     } catch (err) {
       console.log("Error adding view");
       dispatch({
         type: COUNT_SEEN_ERROR,
-        payload: err.response,
+        payload: err.response.data.msg,
       });
     }
   };

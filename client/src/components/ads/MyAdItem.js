@@ -70,7 +70,7 @@ const MyAdItem = ({ myAd }) => {
       </div>
       <div className="my-car__price">{displayPrice()}</div>
       <div className="my-car__controls">
-        <Link className="btn btn-secondary" to={`/ads/${_id}`}>
+        <Link className="btn btn-secondary" to={`/cars/${_id}`}>
           Visit ad
         </Link>
         <Link

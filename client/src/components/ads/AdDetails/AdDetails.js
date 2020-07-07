@@ -41,27 +41,27 @@ const AdDetails = (props) => {
     <>
       {!loading && adDetails && (
         <>
-          <div className="ad-details__container ">
-            <div className="ad-details__info shadow-min">
+          <div className="car-details__container ">
+            <div className="car-details__info shadow-min">
               Seen by {adDetails.seenCount}
               Saved by {adDetails.savedCount}
             </div>
-            <div className="ad-details__content ">
-              <div className="ad-details__main shadow-min">
+            <div className="car-details__content ">
+              <div className="car-details__main shadow-min">
                 <div
-                  className="ad-details__main-image"
+                  className="car-details__main-image"
                   style={{
                     backgroundImage: adDetails.imageURL
                       ? `url(${adDetails.imageURL})`
                       : `url(${placeholderCar})`,
                   }}
                 >
-                  <div className="ad-details__main-image--overlay"></div>
+                  <div className="car-details__main-image--overlay"></div>
                   {adDetails.sold && (
-                    <div className="ad-details__main-image--sold">Sold</div>
+                    <div className="car-details__main-image--sold">Sold</div>
                   )}
                 </div>
-                <div className="ad-details__section">
+                <div className="car-details__section">
                   <h1>{adDetails.make}</h1>
                   <h2>{adDetails.model}</h2>
                   <h3>{adDetails.dateManufactured}</h3>
@@ -72,122 +72,122 @@ const AdDetails = (props) => {
                   <h2> Description</h2>
                   <p>{adDetails.description}</p>
                 </div>
-                <div className="ad-details__section">
-                  <div className="ad-details__technical-specs">
+                <div className="car-details__section">
+                  <div className="car-details__technical-specs">
                     <h2>Technical Specs</h2>
-                    <div className="ad-details__specs">
-                      <ul className="ad-details__specs--left">
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                    <div className="car-details__specs">
+                      <ul className="car-details__specs--left">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={fuelIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Fuel type
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.fuelType}
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={gearboxIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Gearbox
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.gearbox}
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={speedIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Mileage
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.mileage} miles
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={bodytypeIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Body type
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.bodyType}
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={wheelIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Steering wheel
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.steeringWheel === "LHD"
                               ? "Left"
                               : "Right"}
                           </p>
                         </li>
                       </ul>
-                      <div className="ad-details__specs--right">
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                      <div className="car-details__specs--right">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={damageIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Damage
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.damage}
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={colorIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Color
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.color}
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={powerIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Power
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.power} hp
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={doorIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Doors
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.doors}
                           </p>
                         </li>
-                        <li className="ad-details__spec-item">
-                          <div className="ad-details__spec-item__atribute">
+                        <li className="car-details__spec-item">
+                          <div className="car-details__spec-item__atribute">
                             <img src={yearIcon} alt="" />
-                            <p className="ad-details__spec-item--secondary">
+                            <p className="car-details__spec-item--secondary">
                               Year
                             </p>
                           </div>
-                          <p className="ad-details__spec-item--primary">
+                          <p className="car-details__spec-item--primary">
                             {adDetails.dateManufactured}
                           </p>
                         </li>
@@ -196,9 +196,9 @@ const AdDetails = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="ad-details__aside">
-                <div className="ad-details__contact shadow-min">
-                  <div className="ad-details__contact__action-buttons">
+              <div className="car-details__aside">
+                <div className="car-details__contact shadow-min">
+                  <div className="car-details__contact__action-buttons">
                     <a
                       className="btn btn-primary btn-block"
                       value={adDetails.phoneNumber}
@@ -218,7 +218,7 @@ const AdDetails = (props) => {
               </div>
             </div>
           </div>
-          <div className="ad-details__back-container">
+          <div className="car-details__back-container">
             <button className="btn btn-primary" onClick={props.history.goBack}>
               Back
             </button>

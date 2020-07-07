@@ -5,7 +5,7 @@ import Main from "./pages/Main";
 import AdForm from "./ads/AdForm/AdForm";
 import AdGrid from "./ads/AdGrid";
 import AdDetails from "./ads/AdDetails/AdDetails";
-import MyAds from "./pages/MyAds";
+import MyAds from "./ads/MyAds";
 import TermsConditions from "./pages/TermsConditions";
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
@@ -37,7 +37,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Main}></Route>
             <PrivateRoute exact path="/mycars" component={MyAds}></PrivateRoute>
-            <Route exact path="/ads/:id" component={AdDetails}></Route>
+            <Route exact path="/cars/:id" component={AdDetails}></Route>
             <PrivateRoute
               exact
               path="/editing"

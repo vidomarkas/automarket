@@ -35,7 +35,7 @@ const SearchResult = ({ ad }) => {
   };
 
   return (
-    <Link to={`ads/${_id}`}>
+    <Link to={`/cars/${_id}`}>
       <div
         className={
           featured ? "search-result search-result--featured" : "search-result"

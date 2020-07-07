@@ -15,7 +15,7 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/search", require("./routes/search"));
 app.use("/api/getgroup", require("./routes/getgroup"));
-app.use("/api/ads", require("./routes/ads"));
+app.use("/api/cars", require("./routes/cars"));
 app.use("/api/myads", require("./routes/myads"));
 app.use("/api/images", require("./routes/images"));
 

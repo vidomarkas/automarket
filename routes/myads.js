@@ -186,9 +186,9 @@ router.put("/:id", auth, async (req, res) => {
   if (imageURL) adFields.imageURL = imageURL;
   if (regNo) adFields.regNo = regNo;
   if (dateUpdated) adFields.dateUpdated = dateUpdated;
-  if (await coords) adFields.coords = await coords;
   if (featured !== undefined) adFields.featured = featured;
   if (sold !== undefined) adFields.sold = sold;
+  if (await coords) adFields.coords = coords;
 
   try {
     let ad = await Ad.findById(req.params.id);
