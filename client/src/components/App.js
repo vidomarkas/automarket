@@ -4,7 +4,7 @@ import NavigationBar from "./layout/NavigationBar";
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm/AdForm";
 import AdGrid from "./ads/AdGrid";
-import AdDetails from "./pages/AdDetails";
+import AdDetails from "./ads/AdDetails/AdDetails";
 import MyAds from "./pages/MyAds";
 import TermsConditions from "./pages/TermsConditions";
 import Register from "../components/auth/Register";

@@ -1,10 +1,20 @@
 .ad-details {
+  &__info {
+    margin: 7rem auto 1rem auto;
+    background-color: #fff;
+    height: 4rem;
+    border-radius: 4px;
+  }
   &__container {
     max-width: 1280px;
     width: 80%;
-    margin: 6rem auto;
+    margin: 2rem auto;
+  }
+
+  &__content {
     display: flex;
     justify-content: space-evenly;
+    border: 1px solid red;
   }
 
   &__section {
@@ -16,8 +26,9 @@
   &__main {
     flex-basis: 66%;
     background-color: #fff;
-    margin-right: 2rem;
+    margin-right: 1rem;
     border-radius: 4px;
+    border: 1px solid blue;
   }
 
   &__main-image {
@@ -92,24 +103,19 @@
     }
   }
 
-  // ===========Left side =============
+  // =========== Right side =============
 
   &__aside {
     flex-basis: 34%;
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
   }
 
-  &__summary {
+  &__contact {
     background-color: #fff;
     padding: 4rem;
     border-radius: 4px;
-
-    &__description {
-      p {
-        color: #95a3b6;
-        font-size: 1.6rem;
-        line-height: 2.4rem;
-      }
-    }
 
     &__action-buttons {
       button {
@@ -119,10 +125,16 @@
     }
   }
 
-  &__stats {
-    margin-top: 2rem;
+  &__map {
+    margin-top: 1rem;
     background-color: #fff;
     padding: 4rem;
     border-radius: 4px;
+  }
+  &__back-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
   }
 }

@@ -1,10 +1,28 @@
 const express = require("express");
 const router = express.Router();
-
+const axios = require("axios");
 const User = require("../models/User");
 const Ad = require("../models/Ad");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
+
+const getCoords = async (postcode) => {
+  try {
+    const response = await axios.get(
+      `https://api.postcodes.io/postcodes/${postcode}`
+    );
+
+    console.log(response.data);
+
+    return {
+      longitude: response.data.result.longitude,
+      latitude: response.data.result.latitude,
+      locationName: response.data.result.nuts,
+    };
+  } catch (error) {
+    console.log("Error getting coordinates from postcode", error);
+  }
+};
 
 // Route        GET api/myads
 // Description  Get my ads
@@ -67,7 +85,8 @@ router.post(
       sold,
       dateUpdated,
     } = req.body;
-
+    console.log("postcode from new post", postcode);
+    const coords = await getCoords(postcode);
     try {
       const newAd = new Ad({
         make,
@@ -95,6 +114,7 @@ router.post(
         sold,
         dateUpdated,
         user: req.user.id,
+        coords,
       });
       const ad = await newAd.save();
 
@@ -137,6 +157,8 @@ router.put("/:id", auth, async (req, res) => {
     sold,
     dateUpdated,
   } = req.body;
+  console.log("postcode from update", postcode);
+  const coords = await getCoords(postcode);
 
   // Build ad body
 
@@ -164,6 +186,7 @@ router.put("/:id", auth, async (req, res) => {
   if (imageURL) adFields.imageURL = imageURL;
   if (regNo) adFields.regNo = regNo;
   if (dateUpdated) adFields.dateUpdated = dateUpdated;
+  if (await coords) adFields.coords = await coords;
   if (featured !== undefined) adFields.featured = featured;
   if (sold !== undefined) adFields.sold = sold;
 

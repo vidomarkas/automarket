@@ -32,6 +32,7 @@ const AdSchema = mongoose.Schema({
   savedCount: { type: Number, default: 0 },
   seenCount: { type: Number, default: 0 },
   imageURL: { type: String },
+  coords: { type: mongoose.Schema.Types.Mixed },
 });
 
 module.exports = mongoose.model("ad", AdSchema);
