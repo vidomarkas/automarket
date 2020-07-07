@@ -15,9 +15,9 @@ const AdPublished = () => {
         </div>
       </div>
       <h2 className="ad-published__heading">Your ad is now published</h2>
-      <p className="ad-published__text">Redirecting to your ads page...</p>
-      <Link className="btn btn-primary" to="/myads">
-        My ads
+      <p className="ad-published__text">Redirecting to your cars page...</p>
+      <Link className="btn btn-primary" to="/mycars">
+        My cars
         <FaArrowAltCircleRight
           style={{ marginBottom: "-2px", marginLeft: "4px" }}
         />

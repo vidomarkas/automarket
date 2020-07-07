@@ -40,7 +40,7 @@ const AdState = (props) => {
   // Get my ads
   const getMyAds = async () => {
     try {
-      const res = await axios.get("api/myads");
+      const res = await axios.get("/api/myads");
       dispatch({ type: GET_MY_ADS, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -49,8 +49,8 @@ const AdState = (props) => {
   // Get ad details
   const getAdDetails = async (id) => {
     try {
-      const res = await axios.get(`${id}`);
-
+      const res = await axios.get(`/api/ads/${id}`);
+      console.log("getting ad details");
       dispatch({ type: GET_AD_DETAILS, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -60,7 +60,7 @@ const AdState = (props) => {
   const postAd = async (ad) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.post("api/myads", ad, config);
+      const res = await axios.post("/api/myads", ad, config);
       dispatch({ type: POST_AD, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -84,7 +84,7 @@ const AdState = (props) => {
   // Delete ad
   const deleteAd = async (id) => {
     try {
-      await axios.delete(`api/myads/${id}`);
+      await axios.delete(`/api/myads/${id}`);
       dispatch({ type: DELETE_AD, payload: id });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -102,7 +102,7 @@ const AdState = (props) => {
   const updateAd = async (ad) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.put(`api/myads/${ad._id}`, ad, config);
+      const res = await axios.put(`/api/myads/${ad._id}`, ad, config);
       dispatch({ type: UPDATE_AD, payload: res.data });
     } catch (err) {
       dispatch({ type: AD_ERROR, payload: err.response.msg });
@@ -112,7 +112,7 @@ const AdState = (props) => {
   const searchAds = async (criteria) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.post("api/search", criteria, config);
+      const res = await axios.post("/api/search", criteria, config);
       dispatch({ type: SEARCH_ADS, payload: res.data });
     } catch (err) {
       dispatch({
@@ -125,7 +125,7 @@ const AdState = (props) => {
   const getAdGroup = async (criteria) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.post("api/getgroup", criteria, config);
+      const res = await axios.post("/api/getgroup", criteria, config);
       dispatch({ type: GET_AD_GROUP, payload: res.data });
     } catch (err) {
       dispatch({
@@ -154,7 +154,7 @@ const AdState = (props) => {
 
   const countSeen = async (id) => {
     try {
-      const res = await axios.post(`/ads/${id}`);
+      const res = await axios.post(`/api/ads/${id}`);
       dispatch({ type: COUNT_SEEN });
     } catch (err) {
       console.log("Error adding view");
