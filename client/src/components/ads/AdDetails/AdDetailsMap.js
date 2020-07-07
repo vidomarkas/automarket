@@ -1,21 +1,40 @@
 import React, { useEffect } from "react";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
-const AdDetailsMap = ({ postcode }) => {
-  useEffect(() => {
-    const fetchLocation = async () => {
-      const locationObj = await fetch(
-        `https://api.postcodes.io/postcodes/${postcode}`
-      );
-      console.log(locationObj);
-    };
-    fetchLocation();
-  }, []);
-
+const AdDetailsMap = ({ coords }) => {
+  const position = [coords.latitude, coords.longitude];
   return (
-    <div style={{ border: "1px solid pink", height: "200px", width: "200px" }}>
-      Map
-      <h1>{postcode}</h1>
-    </div>
+    <>
+      <div
+        style={{ border: "1px solid pink", height: "200px", width: "200px" }}
+      >
+        {coords ? coords.locationName : null}
+      </div>
+      <div>
+        {coords ? (
+          <Map
+            center={position}
+            zoom={10}
+            style={{ width: "100%", height: "400px" }}
+          >
+            <TileLayer
+              attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={position}>
+              <Popup>
+                <span>coords.locationName</span>
+                <br />
+                <span>BATTALION: </span>
+                <br />
+              </Popup>
+            </Marker>
+          </Map>
+        ) : (
+          "Data is loading..."
+        )}
+      </div>
+    </>
   );
 };
 

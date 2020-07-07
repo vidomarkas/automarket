@@ -199,22 +199,22 @@ const AdDetails = (props) => {
               <div className="ad-details__aside">
                 <div className="ad-details__contact shadow-min">
                   <div className="ad-details__contact__action-buttons">
-                    <button
+                    <a
                       className="btn btn-primary btn-block"
                       value={adDetails.phoneNumber}
+                      href={"tel:" + adDetails.phoneNumber}
                     >
                       Call seller
-                    </button>
+                    </a>
                     <button
                       className="btn-block btn btn-secondary"
                       value={adDetails.user}
                     >
                       Message seller
                     </button>
-                    {adDetails.coords ? adDetails.coords.locationName : null}
                   </div>
                 </div>
-                <AdDetailsMap postcode={adDetails.postcode} />
+                <AdDetailsMap coords={adDetails.coords} />
               </div>
             </div>
           </div>
