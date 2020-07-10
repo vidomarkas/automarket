@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AdContext from "../../context/ad/adContext";
-import PaginationContext from "../../context/pagination/paginationContext";
+import GeneralContext from "../../context/general/generalContext";
 import SearchResult from "./SearchResult";
 import Spinner from "../layout/Spinner";
 import "./SearchResults.scss";
@@ -9,9 +9,9 @@ import Pagination from "../Pagination";
 // change this component to featured ads
 const SearchResults = () => {
   const adContext = useContext(AdContext);
-  const paginationContext = useContext(PaginationContext);
   const { foundAds, loading } = adContext;
-  const { currentPage } = paginationContext;
+  const generalContext = useContext(GeneralContext);
+  const { currentPage } = generalContext;
 
   const [adsPerPage] = useState(10);
 
@@ -19,10 +19,6 @@ const SearchResults = () => {
   const indexOfLastAd = currentPage * adsPerPage;
   const indexOfFirstAd = indexOfLastAd - adsPerPage;
   const currentAds = foundAds.slice(indexOfFirstAd, indexOfLastAd);
-
-  if (foundAds === null) {
-    return null;
-  }
 
   return (
     <div className="search-results__container shadow-md">

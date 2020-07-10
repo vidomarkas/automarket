@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
 import carMakes from "../../assets/carMakes.json";
 import AdContext from "../../context/ad/adContext";
-import PaginationContext from "../../context/pagination/paginationContext";
+import GeneralContext from "../../context/general/generalContext";
 import "./AdSearch.scss";
 
 const AdSearch = () => {
   const adContext = useContext(AdContext);
   const { searchAds, clearFilter, foundAds } = adContext;
 
-  const paginationContext = useContext(PaginationContext);
-  const { clearCurrentPage } = paginationContext;
+  const generalContext = useContext(GeneralContext);
+  const { clearCurrentPage } = generalContext;
   const initialState = {
     exactFields: { make: "", model: "", bodyType: "", fuelType: "" },
     rangeFields: { yearFrom: "", yearTo: "", priceFrom: "", priceTo: "" },

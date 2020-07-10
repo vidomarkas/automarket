@@ -16,7 +16,8 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/search", require("./routes/search"));
 app.use("/api/getgroup", require("./routes/getgroup"));
 app.use("/api/cars", require("./routes/cars"));
-app.use("/api/myads", require("./routes/myads"));
+app.use("/api/mycars", require("./routes/mycars"));
+app.use("/api/mycars/postcodeValidation", require("./routes/mycars"));
 app.use("/api/images", require("./routes/images"));
 
 // Serve static assets in production

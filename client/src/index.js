@@ -4,7 +4,7 @@ import App from "./components/App";
 import AuthState from "./context/auth/AuthState";
 import AdState from "./context/ad/AdState";
 import AlertState from "./context/alert/AlertState";
-import PaginationState from "./context/pagination/PaginationState";
+import GeneralState from "./context/general/GeneralState";
 
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -16,13 +16,13 @@ JavascriptTimeAgo.addLocale(ru);
 ReactDOM.render(
   <React.StrictMode>
     <AuthState>
-      <AdState>
-        <AlertState>
-          <PaginationState>
+      <GeneralState>
+        <AdState>
+          <AlertState>
             <App />
-          </PaginationState>
-        </AlertState>
-      </AdState>
+          </AlertState>
+        </AdState>
+      </GeneralState>
     </AuthState>
   </React.StrictMode>,
   document.getElementById("root")

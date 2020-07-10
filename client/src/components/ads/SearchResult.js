@@ -18,10 +18,7 @@ const SearchResult = ({ ad }) => {
     fuelType,
     imageURL,
     gearbox,
-    postcode,
     featured,
-    sold,
-    dateAdded,
     dateUpdated,
   } = ad;
 

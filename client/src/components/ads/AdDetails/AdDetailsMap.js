@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 const AdDetailsMap = ({ coords }) => {

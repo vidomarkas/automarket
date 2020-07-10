@@ -12,6 +12,7 @@ const AdGrid = () => {
     getAdGroup({
       featured: true,
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

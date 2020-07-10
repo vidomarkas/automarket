@@ -22,7 +22,9 @@ const MyAds = () => {
           <h1>My cars for sale</h1>
         </div>
         <div className="my-cars__cars">
-          {!loading && myAds && myAds.length > 0 ? (
+          {loading ? (
+            <Spinner />
+          ) : !loading && myAds && myAds.length > 0 ? (
             myAds.map((ad) => <MyAdItem key={ad._id} myAd={ad} />)
           ) : (
             <div className="my-cars__no-cars">

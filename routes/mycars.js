@@ -11,18 +11,31 @@ const getCoords = async (postcode) => {
     const response = await axios.get(
       `https://api.postcodes.io/postcodes/${postcode}`
     );
-
-    console.log(response.data);
-
     return {
       longitude: response.data.result.longitude,
       latitude: response.data.result.latitude,
-      locationName: response.data.result.nuts,
+      locationName: response.data.result.admin_district,
     };
   } catch (error) {
     console.log("Error getting coordinates from postcode", error);
   }
 };
+
+// Route        GET api/myads/postcodeValidation
+// Description  Validate postcode
+// Access       Private
+router.get("/postcodeValidation/:postcode", auth, async (req, res) => {
+  const postcode = req.params.postcode;
+  try {
+    const response = await axios.get(
+      `https://api.postcodes.io/postcodes/${postcode}/validate`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json("Server error");
+  }
+});
 
 // Route        GET api/myads
 // Description  Get my ads
@@ -85,7 +98,7 @@ router.post(
       sold,
       dateUpdated,
     } = req.body;
-    console.log("postcode from new post", postcode);
+
     const coords = await getCoords(postcode);
     try {
       const newAd = new Ad({

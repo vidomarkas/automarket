@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import PaginationContext from "../context/pagination/paginationContext";
+import GeneralContext from "../context/general/generalContext";
 
 const Pagination = ({ adsPerPage, totalAds }) => {
   const pageNumbers = [];
-  const paginationContext = useContext(PaginationContext);
-  const { currentPage, setCurrentPage } = paginationContext;
+  const generalContext = useContext(GeneralContext);
+  const { currentPage, setCurrentPage } = generalContext;
 
   for (let i = 1; i <= Math.ceil(totalAds / adsPerPage); i++) {
     pageNumbers.push(i);

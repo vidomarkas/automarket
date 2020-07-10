@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-
 import AlertContext from "../../../context/alert/alertContext";
 import AdContext from "../../../context/ad/adContext";
+import GeneralContext from "../../../context/general/generalContext";
 import Alerts from "../../layout/Alerts";
 import Spinner from "../../layout/Spinner";
 import "./AdForm.scss";
@@ -12,7 +12,6 @@ import FormDescription from "./FormDescription";
 
 const AdForm = (props) => {
   const adContext = useContext(AdContext);
-  const alertContext = useContext(AlertContext);
   const {
     postAd,
     updateAd,
@@ -21,7 +20,12 @@ const AdForm = (props) => {
     clearCurrent,
     currentImg,
   } = adContext;
+
+  const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
+
+  const generalContext = useContext(GeneralContext);
+  const { postcodeValidation } = generalContext;
 
   const initialState = {
     // required fields
@@ -55,9 +59,10 @@ const AdForm = (props) => {
   };
 
   const [ad, setAd] = useState(initialState);
+
   const [publishing, setPublishing] = useState(false);
   const [published, setPublished] = useState(false);
-  const [emptyFields, setEmptyFields] = useState([]);
+  const [errorFields, setErrorFields] = useState([]);
 
   // Determine whether the ad is being updated or it is a new ad
   useEffect(() => {
@@ -133,11 +138,11 @@ const AdForm = (props) => {
   // On change in inputs, update ad state
   const onChange = (e) => {
     setAd({ ...ad, [e.target.name]: e.target.value });
-    const emptyFieldsCopy = emptyFields.slice();
-    const index = emptyFields.indexOf(e.target.name);
+    const errorFieldsCopy = errorFields.slice();
+    const index = errorFields.indexOf(e.target.name);
     if (index !== -1) {
-      emptyFieldsCopy.splice(index, 1);
-      setEmptyFields([...emptyFieldsCopy]);
+      errorFieldsCopy.splice(index, 1);
+      setErrorFields([...errorFieldsCopy]);
     }
   };
 
@@ -150,50 +155,77 @@ const AdForm = (props) => {
     setAd({ ...ad, [e.target.name]: e.target.checked });
   };
 
-  const fieldValidation = () => {
-    let failedFields = [];
-    // Object of required fields
-    const reqFields = {
-      make,
-      model,
-      dateManufactured,
-      phoneNumber,
-      postcode,
-      price,
-      color,
-      regNo,
-      mileage,
-    };
-
-    const showFieldError = () => {
-      setAlert("Please enter required fields", "danger");
-      for (let field in reqFields) {
-        if (reqFields[field] === "") {
-          failedFields.push(field);
-        }
-      }
-      setEmptyFields([...failedFields]);
-    };
-
-    if (Object.values(reqFields).some((field) => field === "")) {
-      showFieldError();
-      return false;
-    } else {
-      // passed validation
-      return true;
-    }
-  };
-
   const createCurrentDate = () => {
     const date = new Date();
     return date.toISOString();
   };
 
-  const onSubmit = (e) => {
+  // ======================= Start of validation ====================
+
+  const validation = async () => {
+    // Empty fields
+    const emptyFields = [];
+    const validateEmptyFields = () => {
+      // Required fields
+      const reqFields = {
+        make,
+        model,
+        dateManufactured,
+        phoneNumber,
+        postcode,
+        price,
+        color,
+        regNo,
+        mileage,
+      };
+
+      const emptyFieldError = () => {
+        setAlert("Please enter required fields", "danger");
+        for (let field in reqFields) {
+          if (reqFields[field] === "") {
+            emptyFields.push(field);
+          }
+        }
+        setErrorFields([...emptyFields]);
+      };
+
+      if (Object.values(reqFields).some((field) => field === "")) {
+        emptyFieldError();
+
+        return false;
+      } else {
+        return true;
+      }
+    };
+
+    const validatePostcode = async (postcode) => {
+      const res = await postcodeValidation(postcode);
+
+      if (res === false) {
+        setAlert("Please enter a valid postcode", "danger");
+        setErrorFields([...emptyFields, "postcode"]);
+      }
+      return res;
+    };
+
+    // if both true, validation passed
+    if (validateEmptyFields() && (await validatePostcode(postcode))) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // ======================= End of validation ====================
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setAd({ ...ad, dateUpdated: createCurrentDate() });
-    if (fieldValidation()) {
+
+    const validated = await validation();
+
+    if (validated) {
       // Passed validation
+      setAd({ ...ad, dateUpdated: createCurrentDate() });
       setPublishing(true);
 
       // If user added image
@@ -212,7 +244,7 @@ const AdForm = (props) => {
     setPublishing(false);
     setAd(initialState);
     clearCurrent();
-    props.history.push("/myads");
+    props.history.push("/mycars");
   };
 
   const onChangeSoldStatus = () => {
@@ -257,7 +289,7 @@ const AdForm = (props) => {
             <FormMainInfo
               onChange={onChange}
               ad={ad}
-              emptyFields={emptyFields}
+              emptyFields={errorFields}
             />
             <div className="ad-form__section">
               <h2 className="ad-form__section__heading">
@@ -308,7 +340,7 @@ const AdForm = (props) => {
                       value={phoneNumber}
                       onChange={onChange}
                       className={
-                        emptyFields.indexOf("phoneNumber") === -1
+                        errorFields.indexOf("phoneNumber") === -1
                           ? "ad-form__field__input ad-form__field__input--mr"
                           : "ad-form__field__input ad-form__field__input--mr ad-form__field__input--failed"
                       }
@@ -327,7 +359,7 @@ const AdForm = (props) => {
                       value={postcode}
                       onChange={onChange}
                       className={
-                        emptyFields.indexOf("postcode") === -1
+                        errorFields.indexOf("postcode") === -1
                           ? "ad-form__field__input"
                           : "ad-form__field__input ad-form__field__input--failed"
                       }
@@ -339,7 +371,11 @@ const AdForm = (props) => {
             <div className="ad-form__controls">
               <input
                 type="submit"
-                className="btn btn-primary ad-form__controls__btn--mr"
+                className={
+                  errorFields.length > 0
+                    ? "btn btn-danger ad-form__controls__btn--mr"
+                    : "btn btn-primary ad-form__controls__btn--mr"
+                }
                 value={current ? "Update" : "Publish"}
               />
               <input

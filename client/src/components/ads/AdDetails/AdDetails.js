@@ -26,7 +26,7 @@ const AdDetails = (props) => {
 
   useEffect(() => {
     countSeen(props.match.params.id);
-    console.log(props.match.params.id);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
