@@ -29,6 +29,18 @@
       background-position: center center;
     }
 
+    &__updated {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateY(40%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
+      text-transform: capitalize;
+    }
+
     &__price {
       position: absolute;
       bottom: 0;

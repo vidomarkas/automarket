@@ -222,10 +222,10 @@ const AdForm = (props) => {
     e.preventDefault();
 
     const validated = await validation();
-
+    setAd({ ...ad, dateUpdated: createCurrentDate() });
     if (validated) {
       // Passed validation
-      setAd({ ...ad, dateUpdated: createCurrentDate() });
+
       setPublishing(true);
 
       // If user added image

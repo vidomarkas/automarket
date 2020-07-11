@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ReactTimeAgo from "react-time-ago";
 import fuelIcon from "../../assets/img/fuel.svg";
 import speedIcon from "../../assets/img/speed.svg";
 import yearIcon from "../../assets/img/calendar.svg";
@@ -17,6 +18,7 @@ const AdGridItem = ({ ad }) => {
     gearbox,
     sold,
     mileage,
+    dateUpdated,
   } = ad;
 
   const displayPrice = () => {
@@ -37,6 +39,11 @@ const AdGridItem = ({ ad }) => {
                 className="ad-grid__item__image"
                 style={{ backgroundImage: `url(${imageURL})` }}
               >
+                {dateUpdated && (
+                  <div className="ad-grid__item__updated">
+                    <ReactTimeAgo date={Date.parse(dateUpdated)} />
+                  </div>
+                )}
                 <div
                   className={
                     sold

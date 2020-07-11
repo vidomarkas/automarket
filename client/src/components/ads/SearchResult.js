@@ -76,10 +76,11 @@ const SearchResult = ({ ad }) => {
             <img src={bodytypeIcon} alt="" /> {bodyType}
           </div>
         </div>
-
-        <div className="search-result__date-added">
-          <ReactTimeAgo date={Date.parse(dateUpdated)} />
-        </div>
+        {dateUpdated && (
+          <div className="search-result__date-added">
+            <ReactTimeAgo date={Date.parse(dateUpdated)} />
+          </div>
+        )}
 
         <div className="search-result__price">{displayPrice()}</div>
       </div>
