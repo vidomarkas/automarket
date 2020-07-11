@@ -14,11 +14,15 @@
   &__content {
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid red;
   }
 
   &__section {
-    padding: 4rem;
+    padding: 4rem 4rem 4rem 4rem;
+    border-bottom: 1px solid rgba(240, 240, 240, 0.384);
+    &--split {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   // =========== Main ===================
@@ -28,7 +32,33 @@
     background-color: #fff;
     margin-right: 1rem;
     border-radius: 4px;
-    border: 1px solid blue;
+  }
+
+  &__heading {
+    font-size: 3rem;
+    color: #000 !important;
+    margin-bottom: 1rem;
+  }
+  &__subheading {
+    font-size: 1.6rem;
+    color: #000 !important;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  &__price {
+    color: #249af3;
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+    h2 {
+      font-size: 1.8rem;
+    }
   }
 
   &__main-image {
@@ -67,10 +97,17 @@
     }
   }
 
+  &__technical-specs {
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+
   &__specs {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     &--left,
     &--right {
       flex-basis: 45%;
@@ -107,7 +144,6 @@
 
   &__aside {
     flex-basis: 34%;
-    border: 1px solid green;
     display: flex;
     flex-direction: column;
   }
@@ -116,6 +152,18 @@
     background-color: #fff;
     padding: 4rem;
     border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: center;
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      text-align: left;
+      color: #7f8fa4;
+    }
 
     &__action-buttons {
       a,

@@ -23,7 +23,7 @@ const MyAdItem = ({ myAd }) => {
     clearCurrent();
   };
 
-  const displayPrice = () => {
+  const displayPrice = (price) => {
     const priceFormatter = new Intl.NumberFormat("en-UK", {
       style: "currency",
       currency: "GBP",
@@ -68,7 +68,7 @@ const MyAdItem = ({ myAd }) => {
           )}
         </div>
       </div>
-      <div className="my-car__price">{displayPrice()}</div>
+      <div className="my-car__price">{displayPrice(price)}</div>
       <div className="my-car__controls">
         <Link className="btn btn-secondary" to={`/cars/${_id}`}>
           Visit ad

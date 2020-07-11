@@ -339,6 +339,7 @@ const AdForm = (props) => {
                       name="phoneNumber"
                       value={phoneNumber}
                       onChange={onChange}
+                      min="0"
                       className={
                         errorFields.indexOf("phoneNumber") === -1
                           ? "ad-form__field__input ad-form__field__input--mr"

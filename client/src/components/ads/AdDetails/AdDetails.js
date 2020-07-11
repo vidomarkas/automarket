@@ -24,6 +24,15 @@ const AdDetails = (props) => {
     countSeen,
   } = adContext;
 
+  const displayPrice = (price) => {
+    const priceFormatter = new Intl.NumberFormat("en-UK", {
+      style: "currency",
+      currency: "GBP",
+    });
+
+    return priceFormatter.format(price).slice(0, -3);
+  };
+
   useEffect(() => {
     countSeen(props.match.params.id);
     // eslint-disable-next-line
@@ -62,16 +71,33 @@ const AdDetails = (props) => {
                   )}
                 </div>
                 <div className="car-details__section">
-                  <h1>{adDetails.make}</h1>
-                  <h2>{adDetails.model}</h2>
-                  <h3>{adDetails.dateManufactured}</h3>
-
-                  <h1>£{adDetails.price}</h1>
-
-                  {/* todo conditional description */}
-                  <h2> Description</h2>
-                  <p>{adDetails.description}</p>
+                  <div className="car-details__section--split">
+                    <div>
+                      <h1 className="car-details__heading">
+                        {adDetails.make} {adDetails.model}
+                      </h1>
+                      <div className="car-details__subheading">
+                        {adDetails.dateManufactured} &bull; {adDetails.mileage}
+                        <span style={{ textTransform: "lowercase" }}>
+                          mi
+                        </span>{" "}
+                        &bull; {adDetails.fuelType} &bull; {adDetails.bodyType}
+                      </div>
+                    </div>
+                    <div className="car-details__price">
+                      {displayPrice(adDetails.price)}
+                    </div>
+                  </div>
                 </div>
+                {adDetails.description ? (
+                  <div className="car-details__section">
+                    <div className="car-details__description">
+                      <h2> Description</h2>
+                      <p>{adDetails.description}</p>
+                    </div>
+                  </div>
+                ) : null}
+
                 <div className="car-details__section">
                   <div className="car-details__technical-specs">
                     <h2>Technical Specs</h2>
@@ -198,20 +224,21 @@ const AdDetails = (props) => {
               </div>
               <div className="car-details__aside">
                 <div className="car-details__contact shadow-min">
+                  <h2>Contact seller</h2>
+                  <p>
+                    {adDetails.coords
+                      ? "Location: " + adDetails.coords.locationName
+                      : null}
+                  </p>
+                  <p></p>
                   <div className="car-details__contact__action-buttons">
                     <a
                       className="btn btn-primary btn-block"
                       value={adDetails.phoneNumber}
                       href={"tel:" + adDetails.phoneNumber}
                     >
-                      Call seller
+                      {adDetails.phoneNumber}
                     </a>
-                    <button
-                      className="btn-block btn btn-secondary"
-                      value={adDetails.user}
-                    >
-                      Message seller
-                    </button>
                   </div>
                 </div>
                 <AdDetailsMap coords={adDetails.coords} />

@@ -291,6 +291,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
             <input
               type="number"
               name="price"
+              min="0"
               onChange={onChange}
               value={price}
               className={
@@ -308,6 +309,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
             Engine capacity, cc
             <input
               type="number"
+              min="0"
               name="engineCapacity"
               onChange={onChange}
               placeholder="E.g. 1400"
@@ -322,6 +324,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
             <div className="ad-form__field__input--split">
               <input
                 type="number"
+                min="0"
                 name="power"
                 onChange={onChange}
                 value={power}
@@ -361,6 +364,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
             <div className="ad-form__field__input--split">
               <input
                 type="number"
+                min="0"
                 name="mileage"
                 onChange={onChange}
                 value={mileage}

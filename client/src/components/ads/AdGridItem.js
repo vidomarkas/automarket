@@ -21,7 +21,7 @@ const AdGridItem = ({ ad }) => {
     dateUpdated,
   } = ad;
 
-  const displayPrice = () => {
+  const displayPrice = (price) => {
     const priceFormatter = new Intl.NumberFormat("en-UK", {
       style: "currency",
       currency: "GBP",
@@ -54,7 +54,7 @@ const AdGridItem = ({ ad }) => {
                   {sold ? (
                     <span>Sold {displayPrice()}</span>
                   ) : (
-                    <span>{displayPrice()}</span>
+                    <span>{displayPrice(price)}</span>
                   )}
                 </div>
               </div>

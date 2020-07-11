@@ -5,11 +5,6 @@ const AdDetailsMap = ({ coords }) => {
   const position = [coords.latitude, coords.longitude];
   return (
     <>
-      <div
-        style={{ border: "1px solid pink", height: "200px", width: "200px" }}
-      >
-        {coords ? coords.locationName : null}
-      </div>
       <div>
         {coords ? (
           <Map
