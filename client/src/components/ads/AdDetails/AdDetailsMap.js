@@ -5,7 +5,7 @@ const AdDetailsMap = ({ coords }) => {
   const position = [coords.latitude, coords.longitude];
   return (
     <>
-      <div>
+      <div className="car-details__map shadow-min">
         {coords ? (
           <Map
             center={position}

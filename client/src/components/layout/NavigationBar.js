@@ -67,7 +67,7 @@ const NavigationBar = () => {
   );
   const guestLinks = (
     <>
-      <Link to="/demo" className="navbar__demo-link">
+      <Link to="/demo" className="navbar__demo-link pulse">
         Demo User
       </Link>
       <Link
@@ -94,19 +94,12 @@ const NavigationBar = () => {
         </Link>
         <ul className="navbar__menu-links">
           <li className="navbar__menu-link">
-            <Link to="/featured">Featured</Link>
+            <Link to="/featured">Featured Cars</Link>
           </li>
+
           <li className="navbar__menu-link">
             {" "}
-            <Link to="/detailed-search">Detailed Search</Link>
-          </li>
-          <li className="navbar__menu-link">
-            {" "}
-            <Link to="/help">Help</Link>
-          </li>
-          <li className="navbar__menu-link">
-            {" "}
-            <Link to="/news">News</Link>
+            <Link to="/terms-and-conditions">T&Cs</Link>
           </li>
         </ul>
 

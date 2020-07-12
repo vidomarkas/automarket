@@ -1,5 +1,8 @@
 import React, { useContext, useEffect } from "react";
+import ReactTimeAgo from "react-time-ago";
 import AdContext from "../../../context/ad/adContext";
+import AdDetailsMap from "./AdDetailsMap";
+import Spinner from "../../layout/Spinner";
 import "./AdDetails.scss";
 import fuelIcon from "../../../assets/img/fuel.svg";
 import gearboxIcon from "../../../assets/img/gearbox.svg";
@@ -12,7 +15,6 @@ import colorIcon from "../../../assets/img/paint.svg";
 import doorIcon from "../../../assets/img/car.svg";
 import yearIcon from "../../../assets/img/calendar.svg";
 import placeholderCar from "../../../assets/img/placeholder-car.png";
-import AdDetailsMap from "./AdDetailsMap";
 
 const AdDetails = (props) => {
   const adContext = useContext(AdContext);
@@ -48,13 +50,9 @@ const AdDetails = (props) => {
 
   return (
     <>
-      {!loading && adDetails && (
+      {!loading && adDetails ? (
         <>
           <div className="car-details__container ">
-            <div className="car-details__info shadow-min">
-              Seen by {adDetails.seenCount}
-              Saved by {adDetails.savedCount}
-            </div>
             <div className="car-details__content ">
               <div className="car-details__main shadow-min">
                 <div
@@ -237,20 +235,37 @@ const AdDetails = (props) => {
                       value={adDetails.phoneNumber}
                       href={"tel:" + adDetails.phoneNumber}
                     >
-                      {adDetails.phoneNumber}
+                      Call {adDetails.phoneNumber}
                     </a>
                   </div>
                 </div>
                 <AdDetailsMap coords={adDetails.coords} />
+                <div className="car-details__info shadow-min">
+                  <h2>Statistics</h2>
+                  <p>{adDetails.seenCount} views</p>
+
+                  <p>
+                    Ad created:{" "}
+                    <ReactTimeAgo date={Date.parse(adDetails.dateAdded)} />{" "}
+                  </p>
+                  <p>
+                    Last updated:{" "}
+                    <ReactTimeAgo date={Date.parse(adDetails.dateUpdated)} />
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div className="car-details__back-container">
+          <div className="car-details__back-button-container">
             <button className="btn btn-primary" onClick={props.history.goBack}>
               Back
             </button>
           </div>
         </>
+      ) : (
+        <div className="car-details__container ">
+          <Spinner />
+        </div>
       )}
     </>
   );

@@ -139,3 +139,32 @@
     }
   }
 }
+
+.pulse {
+  color: #9ea1a5;
+  animation-name: pulse;
+  animation-duration: 5s;
+  animation-iteration-count: 3;
+  animation-delay: 5s;
+}
+
+@keyframes pulse {
+  48% {
+    color: #9ea1a5;
+  }
+  49% {
+    color: #ffffff;
+  }
+  50% {
+    color: #9ea1a5;
+  }
+  52% {
+    color: #9ea1a5;
+  }
+  53% {
+    color: #ffffff;
+  }
+  54% {
+    color: #9ea1a5;
+  }
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./layout/NavigationBar";
 import Main from "./pages/Main";
+import PageNotFound from "./pages/PageNotFound";
 import AdForm from "./ads/AdForm/AdForm";
 import AdGrid from "./ads/AdGrid";
 import AdDetails from "./ads/AdDetails/AdDetails";
@@ -57,6 +58,7 @@ function App() {
               path="/terms-and-conditions"
               component={TermsConditions}
             ></Route>
+            <Route component={PageNotFound} />
           </Switch>
         </div>
         <Footer />

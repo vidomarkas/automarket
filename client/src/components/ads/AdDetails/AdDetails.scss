@@ -1,14 +1,8 @@
 .car-details {
-  &__info {
-    margin: 7rem auto 1rem auto;
-    background-color: #fff;
-    height: 4rem;
-    border-radius: 4px;
-  }
   &__container {
     max-width: 1280px;
     width: 80%;
-    margin: 2rem auto;
+    margin: 7rem auto 1rem auto;
   }
 
   &__content {
@@ -151,9 +145,9 @@
   &__contact {
     background-color: #fff;
     padding: 4rem;
+    text-align: center;
     border-radius: 4px;
     margin-bottom: 1rem;
-    text-align: center;
     h2 {
       font-size: 1.8rem;
       margin-bottom: 1rem;
@@ -175,15 +169,32 @@
   }
 
   &__map {
-    margin-top: 1rem;
     background-color: #fff;
-    padding: 4rem;
     border-radius: 4px;
+    margin-bottom: 1rem;
   }
-  &__back-container {
+  &__back-button-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
+  }
+
+  &__info {
+    background-color: #fff;
+    padding: 4rem;
+    text-align: center;
+
+    border-radius: 4px;
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      text-align: left;
+      color: #7f8fa4;
+    }
   }
 }
