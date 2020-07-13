@@ -15,6 +15,7 @@ import UserProfile from "../components/auth/UserProfile";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
+
 import Footer from "../components/layout/Footer";
 import "./normalize.scss";
 import "./App.scss";

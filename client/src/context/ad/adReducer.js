@@ -15,6 +15,7 @@ import {
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
+  SET_AD_GROUP,
 } from "../types";
 
 export default (state, action) => {
@@ -53,6 +54,11 @@ export default (state, action) => {
         ...state,
         adGroup: action.payload,
         loading: false,
+      };
+    case SET_AD_GROUP:
+      return {
+        ...state,
+        adGroupType: action.payload,
       };
     case CLEAR_FILTER:
       return { ...state, foundAds: null };

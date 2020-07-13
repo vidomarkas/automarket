@@ -168,7 +168,9 @@ const AdDetails = (props) => {
                             </p>
                           </div>
                           <p className="car-details__spec-item--primary">
-                            {adDetails.damage}
+                            {adDetails.damage === "noDamage"
+                              ? "No damage"
+                              : adDetails.damage}
                           </p>
                         </li>
                         <li className="car-details__spec-item">
@@ -182,17 +184,20 @@ const AdDetails = (props) => {
                             {adDetails.color}
                           </p>
                         </li>
-                        <li className="car-details__spec-item">
-                          <div className="car-details__spec-item__atribute">
-                            <img src={powerIcon} alt="" />
-                            <p className="car-details__spec-item--secondary">
-                              Power
+                        {adDetails.power ? (
+                          <li className="car-details__spec-item">
+                            <div className="car-details__spec-item__atribute">
+                              <img src={powerIcon} alt="" />
+                              <p className="car-details__spec-item--secondary">
+                                Power
+                              </p>
+                            </div>
+                            <p className="car-details__spec-item--primary">
+                              {adDetails.power} hp
                             </p>
-                          </div>
-                          <p className="car-details__spec-item--primary">
-                            {adDetails.power} hp
-                          </p>
-                        </li>
+                          </li>
+                        ) : null}
+
                         <li className="car-details__spec-item">
                           <div className="car-details__spec-item__atribute">
                             <img src={doorIcon} alt="" />

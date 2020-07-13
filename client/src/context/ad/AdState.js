@@ -20,6 +20,7 @@ import {
   GET_AD_GROUP,
   COUNT_SEEN,
   COUNT_SEEN_ERROR,
+  SET_AD_GROUP,
 } from "../types";
 
 const AdState = (props) => {
@@ -33,6 +34,7 @@ const AdState = (props) => {
     adDetails: null,
     adGroup: null,
     loading: true,
+    adGroupType: "featured",
   };
 
   const [state, dispatch] = useReducer(AdReducer, initialState);
@@ -120,12 +122,17 @@ const AdState = (props) => {
       });
     }
   };
+  // Set the type (featured, new, expensive, popular) of the ad group on the front page
+  const setAdGroupType = (type) => {
+    dispatch({ type: SET_AD_GROUP, payload: type });
+  };
   // Get ad group (featured, recently added, most popular, new cars, most expensive )
   const getAdGroup = async (criteria) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
       const res = await axios.post("/api/getgroup", criteria, config);
       console.log("res", res.data);
+      console.log("criteria :>> ", criteria);
       dispatch({ type: GET_AD_GROUP, payload: res.data });
     } catch (err) {
       dispatch({
@@ -177,6 +184,7 @@ const AdState = (props) => {
         currentImg: state.currentImg,
         adDetails: state.adDetails,
         loading: state.loading,
+        adGroupType: state.adGroupType,
         getMyAds,
         postAd,
         deleteAd,
@@ -192,6 +200,7 @@ const AdState = (props) => {
         clearAdDetails,
         getAdGroup,
         countSeen,
+        setAdGroupType,
       }}
     >
       {props.children}

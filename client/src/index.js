@@ -5,6 +5,7 @@ import AuthState from "./context/auth/AuthState";
 import AdState from "./context/ad/AdState";
 import AlertState from "./context/alert/AlertState";
 import GeneralState from "./context/general/GeneralState";
+import UserState from "./context/user/UserState";
 
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -19,7 +20,9 @@ ReactDOM.render(
       <GeneralState>
         <AdState>
           <AlertState>
-            <App />
+            <UserState>
+              <App />
+            </UserState>
           </AlertState>
         </AdState>
       </GeneralState>

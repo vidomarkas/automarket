@@ -6,10 +6,17 @@ import "./AdGrid.scss";
 
 const AdGrid = () => {
   const adContext = useContext(AdContext);
-  const { getAdGroup, loading, adGroup } = adContext;
-  const [currentTab, setCurrentTab] = useState("featured");
+  const {
+    getAdGroup,
+    loading,
+    adGroup,
+    adGroupType,
+    setAdGroupType,
+  } = adContext;
+  const [currentTab, setCurrentTab] = useState(adGroupType);
 
   useEffect(() => {
+    setAdGroupType(currentTab);
     getAdGroup({
       type: currentTab,
     });
@@ -27,7 +34,11 @@ const AdGrid = () => {
         <>
           <ul className="ad-grid__tabs shadow-min">
             <li
-              className="ad-grid__tab ad-grid__tab--active"
+              className={
+                currentTab === "featured"
+                  ? "ad-grid__tab ad-grid__tab--active"
+                  : "ad-grid__tab"
+              }
               onClick={() => {
                 setCurrentTab("featured");
               }}
@@ -35,7 +46,11 @@ const AdGrid = () => {
               Featured
             </li>
             <li
-              className="ad-grid__tab"
+              className={
+                currentTab === "popular"
+                  ? "ad-grid__tab ad-grid__tab--active"
+                  : "ad-grid__tab"
+              }
               onClick={() => {
                 setCurrentTab("popular");
               }}
@@ -43,7 +58,11 @@ const AdGrid = () => {
               Most popular
             </li>
             <li
-              className="ad-grid__tab"
+              className={
+                currentTab === "new"
+                  ? "ad-grid__tab ad-grid__tab--active"
+                  : "ad-grid__tab"
+              }
               onClick={() => {
                 setCurrentTab("new");
               }}
@@ -51,7 +70,11 @@ const AdGrid = () => {
               Brand new
             </li>
             <li
-              className="ad-grid__tab"
+              className={
+                currentTab === "expensive"
+                  ? "ad-grid__tab ad-grid__tab--active"
+                  : "ad-grid__tab"
+              }
               onClick={() => {
                 setCurrentTab("expensive");
               }}
