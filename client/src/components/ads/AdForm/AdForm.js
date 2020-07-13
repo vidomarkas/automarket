@@ -334,12 +334,15 @@ const AdForm = (props) => {
                       Phone number
                       <span className="ad-form__field__label--required">*</span>
                     </span>
+
                     <input
-                      type="number"
+                      type="tel"
+                      pattern="[0-9]{11}"
+                      maxLength="11"
+                      title="i.e. 07123456789"
                       name="phoneNumber"
                       value={phoneNumber}
                       onChange={onChange}
-                      min="0"
                       className={
                         errorFields.indexOf("phoneNumber") === -1
                           ? "ad-form__field__input ad-form__field__input--mr"

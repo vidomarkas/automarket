@@ -1,9 +1,32 @@
 .ad-grid {
   &__container {
     width: 1280px;
-    margin: 10rem auto;
+    margin: 8rem auto;
   }
 
+  &__tabs {
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    display: flex;
+    padding: 1rem 2rem;
+  }
+
+  &__tab {
+    font-size: 1.6rem;
+    padding: 1rem;
+    margin-right: 2rem;
+    &:hover {
+      color: #249af3;
+      border-bottom: 2px solid #249af3;
+      cursor: pointer;
+    }
+
+    &--active {
+      color: #249af3;
+      border-bottom: 2px solid #249af3;
+    }
+  }
   &__grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -46,7 +69,7 @@
       bottom: 0;
       right: 0;
       transform: translateY(40%);
-      background: #2c8bd4;
+      background: #249af3;
       color: #fff;
       font-size: 2.2rem;
       padding: 0.3rem 0.6rem;

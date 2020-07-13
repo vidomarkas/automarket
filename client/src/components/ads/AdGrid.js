@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AdContext from "../../context/ad/adContext";
 import AdGridItem from "./AdGridItem";
 import Spinner from "../layout/Spinner";
@@ -6,14 +6,18 @@ import "./AdGrid.scss";
 
 const AdGrid = () => {
   const adContext = useContext(AdContext);
-  const { getAdGroup, loading, featuredAds } = adContext;
+  const { getAdGroup, loading, adGroup } = adContext;
+  const [currentTab, setCurrentTab] = useState("featured");
 
   useEffect(() => {
     getAdGroup({
-      featured: true,
+      type: currentTab,
     });
+    console.log("adGroup", adGroup);
+    console.log("currentTab", currentTab);
+
     // eslint-disable-next-line
-  }, []);
+  }, [currentTab, setCurrentTab]);
 
   return (
     <div className="ad-grid__container">
@@ -21,14 +25,45 @@ const AdGrid = () => {
         <Spinner />
       ) : (
         <>
-          <div className="ad-grid__">
-            <h2>Featured </h2>
-          </div>
+          <ul className="ad-grid__tabs shadow-min">
+            <li
+              className="ad-grid__tab ad-grid__tab--active"
+              onClick={() => {
+                setCurrentTab("featured");
+              }}
+            >
+              Featured
+            </li>
+            <li
+              className="ad-grid__tab"
+              onClick={() => {
+                setCurrentTab("popular");
+              }}
+            >
+              Most popular
+            </li>
+            <li
+              className="ad-grid__tab"
+              onClick={() => {
+                setCurrentTab("new");
+              }}
+            >
+              Brand new
+            </li>
+            <li
+              className="ad-grid__tab"
+              onClick={() => {
+                setCurrentTab("expensive");
+              }}
+            >
+              Most expensive
+            </li>
+          </ul>
           <div className="ad-grid__grid">
-            {featuredAds && featuredAds.length > 0 ? (
-              featuredAds.map((ad) => <AdGridItem key={ad._id} ad={ad} />)
+            {adGroup && adGroup.length > 0 ? (
+              adGroup.map((ad) => <AdGridItem key={ad._id} ad={ad} />)
             ) : (
-              <h4>No featured ads</h4>
+              <h4>No ads found</h4>
             )}
           </div>
         </>

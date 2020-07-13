@@ -51,7 +51,7 @@ export default (state, action) => {
     case GET_AD_GROUP:
       return {
         ...state,
-        featuredAds: action.payload,
+        adGroup: action.payload,
         loading: false,
       };
     case CLEAR_FILTER:

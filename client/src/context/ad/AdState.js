@@ -31,7 +31,7 @@ const AdState = (props) => {
     error: null,
     currentImg: null,
     adDetails: null,
-    featuredAds: null,
+    adGroup: null,
     loading: true,
   };
 
@@ -125,6 +125,7 @@ const AdState = (props) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
       const res = await axios.post("/api/getgroup", criteria, config);
+      console.log("res", res.data);
       dispatch({ type: GET_AD_GROUP, payload: res.data });
     } catch (err) {
       dispatch({
@@ -171,7 +172,7 @@ const AdState = (props) => {
         myAds: state.myAds,
         current: state.current,
         foundAds: state.foundAds,
-        featuredAds: state.featuredAds,
+        adGroup: state.adGroup,
         error: state.error,
         currentImg: state.currentImg,
         adDetails: state.adDetails,
