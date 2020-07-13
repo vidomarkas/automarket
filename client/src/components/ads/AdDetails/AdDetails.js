@@ -1,8 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import ReactTimeAgo from "react-time-ago";
 import AdContext from "../../../context/ad/adContext";
+import UserContext from "../../../context/user/userContext";
+import AlertContext from "../../../context/alert/alertContext";
 import AdDetailsMap from "./AdDetailsMap";
 import Spinner from "../../layout/Spinner";
+import Alerts from "../../layout/Alerts";
 import "./AdDetails.scss";
 import fuelIcon from "../../../assets/img/fuel.svg";
 import gearboxIcon from "../../../assets/img/gearbox.svg";
@@ -26,6 +29,11 @@ const AdDetails = (props) => {
     countSeen,
   } = adContext;
 
+  const userContext = useContext(UserContext);
+  const { saveAd, saveAdError, clearSaveAdError } = userContext;
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
+
   const displayPrice = (price) => {
     const priceFormatter = new Intl.NumberFormat("en-UK", {
       style: "currency",
@@ -37,8 +45,21 @@ const AdDetails = (props) => {
 
   useEffect(() => {
     countSeen(props.match.params.id);
+
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    if (adDetails) {
+      console.log("ad id", adDetails._id);
+    }
+    // eslint-disable-next-line
+  }, [adDetails]);
+  useEffect(() => {
+    if (saveAdError) {
+      setAlert(saveAdError, "danger");
+    }
+    // eslint-disable-next-line
+  }, [saveAdError]);
 
   useEffect(() => {
     getAdDetails(props.match.params.id);
@@ -48,11 +69,24 @@ const AdDetails = (props) => {
     // eslint-disable-next-line
   }, [props.match.params.id]);
 
+  const onSaveAd = () => {
+    saveAd(adDetails._id);
+    // todo set alert "Ad saved."
+  };
+
+  useEffect(() => {
+    console.log("saveAdError changed", saveAdError);
+  }, [saveAdError]);
+
   return (
     <>
       {!loading && adDetails ? (
         <>
           <div className="car-details__container ">
+            <Alerts />
+            <button className="btn btn-danger" onClick={onSaveAd}>
+              Save
+            </button>
             <div className="car-details__content ">
               <div className="car-details__main shadow-min">
                 <div

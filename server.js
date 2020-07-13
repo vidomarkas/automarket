@@ -19,6 +19,7 @@ app.use("/api/cars", require("./routes/cars"));
 app.use("/api/mycars", require("./routes/mycars"));
 app.use("/api/mycars/postcodeValidation", require("./routes/mycars"));
 app.use("/api/images", require("./routes/images"));
+app.use("/api/savedcars", require("./routes/savedcars"));
 
 // Serve static assets in production
 

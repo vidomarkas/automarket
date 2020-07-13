@@ -20,9 +20,6 @@ const AdGrid = () => {
     getAdGroup({
       type: currentTab,
     });
-    console.log("adGroup", adGroup);
-    console.log("currentTab", currentTab);
-
     // eslint-disable-next-line
   }, [currentTab, setCurrentTab]);
 

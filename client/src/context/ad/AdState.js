@@ -77,8 +77,7 @@ const AdState = (props) => {
       const res = await axios.post("api/images", formData, config);
       dispatch({ type: UPLOAD_IMAGES, payload: res.data.data[0].url });
     } catch (err) {
-      // todo  dispatch({ type: ERROR_UPLOADING_IMAGES, payload: err.response.data.msg });
-      console.log(err);
+      dispatch({ type: AD_ERROR, payload: err.response.data.msg });
     }
   };
 
@@ -131,8 +130,6 @@ const AdState = (props) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
       const res = await axios.post("/api/getgroup", criteria, config);
-      console.log("res", res.data);
-      console.log("criteria :>> ", criteria);
       dispatch({ type: GET_AD_GROUP, payload: res.data });
     } catch (err) {
       dispatch({
