@@ -54,7 +54,9 @@ const NavigationBar = () => {
       {dropdown && (
         <ul className="navbar__dropdown" ref={dropdownRef}>
           <li className="navbar__dropdown-item">
-            <Link to="/profile">Account settings</Link>
+            <Link to="/profile" onClick={handleDropdown}>
+              Account settings
+            </Link>
           </li>
           <li className="navbar__dropdown-item">
             <button className="btn btn-block btn-danger" onClick={onLogout}>

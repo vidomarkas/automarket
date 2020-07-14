@@ -149,7 +149,7 @@ const AdSearch = () => {
           </div>
           <div className=" search__field--half">
             <label htmlFor="priceFrom" className="search__field__label">
-              Price from, £
+              Min price
               <input
                 type="number"
                 name="priceFrom"
@@ -162,7 +162,7 @@ const AdSearch = () => {
           </div>
           <div className=" search__field--half">
             <label htmlFor="priceTo" className="search__field__label">
-              Price to, £
+              Max price
               <input
                 type="number"
                 name="priceTo"

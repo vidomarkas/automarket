@@ -26,7 +26,6 @@ router.post("/", auth, async (req, res) => {
   const AdID = req.body.AdID;
   console.log("Saving ad... Ad id - ", AdID);
   try {
-    throw Error;
     const user = await User.findByIdAndUpdate(
       req.user.id,
       {
