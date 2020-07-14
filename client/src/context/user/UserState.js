@@ -12,7 +12,7 @@ import {
 const UserState = (props) => {
   const initialState = {
     savedAds: [],
-    saveAdError: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(UserReducer, initialState);
@@ -22,8 +22,6 @@ const UserState = (props) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
       const res = await axios.post("/api/savedcars", { AdID: AdID }, config);
-
-      console.log("response from API, saved ads", res.data);
       dispatch({ type: SAVE_AD, payload: res.data });
     } catch (err) {
       dispatch({
@@ -34,18 +32,24 @@ const UserState = (props) => {
   };
 
   // Remove ad from saved
-  const removeAd = (id) => {
-    // remove ad from saved
+  const removeAd = async (AdID) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    try {
+      const res = await axios.delete(`/api/savedcars/${AdID}`, config);
+      dispatch({ type: REMOVE_AD_FROM_SAVED, payload: res.data });
+    } catch (err) {
+      console.log("Error deleting the ad from favorites", err);
+    }
   };
 
   // Get saved ads
   const getSavedAds = async () => {
     try {
       const res = await axios.get("/api/savedcars");
-      console.log("response from API, geting saved ads", res.data);
       dispatch({ type: GET_SAVED_ADS, payload: res.data });
     } catch (err) {
       //todo error handling
+      console.log("error getting the ads");
       // dispatch({
       //   type: SAVE_AD_ERROR,
       //   payload: err.response.data.msg,
@@ -61,10 +65,12 @@ const UserState = (props) => {
     <UserContext.Provider
       value={{
         savedAds: state.savedAds,
-        saveAdError: state.saveAdError,
+        loading: state.loading,
+        // saveAdError: state.saveAdError,
         saveAd,
         getSavedAds,
         removeAd,
+
         // clearSaveAdError,
       }}
     >

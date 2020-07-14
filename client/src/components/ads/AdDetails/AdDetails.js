@@ -1,11 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactTimeAgo from "react-time-ago";
 import AdContext from "../../../context/ad/adContext";
 import UserContext from "../../../context/user/userContext";
-import AlertContext from "../../../context/alert/alertContext";
 import AdDetailsMap from "./AdDetailsMap";
 import Spinner from "../../layout/Spinner";
-import Alerts from "../../layout/Alerts";
 import "./AdDetails.scss";
 import fuelIcon from "../../../assets/img/fuel.svg";
 import gearboxIcon from "../../../assets/img/gearbox.svg";
@@ -18,6 +16,8 @@ import colorIcon from "../../../assets/img/paint.svg";
 import doorIcon from "../../../assets/img/car.svg";
 import yearIcon from "../../../assets/img/calendar.svg";
 import placeholderCar from "../../../assets/img/placeholder-car.png";
+import displayPrice from "../../../utils/displayPrice";
+import LikeButton from "../../layout/LikeButton";
 
 const AdDetails = (props) => {
   const adContext = useContext(AdContext);
@@ -30,36 +30,29 @@ const AdDetails = (props) => {
   } = adContext;
 
   const userContext = useContext(UserContext);
-  const { saveAd, saveAdError, clearSaveAdError } = userContext;
-  const alertContext = useContext(AlertContext);
-  const { setAlert } = alertContext;
+  const { saveAd, removeAd, savedAds } = userContext;
 
-  const displayPrice = (price) => {
-    const priceFormatter = new Intl.NumberFormat("en-UK", {
-      style: "currency",
-      currency: "GBP",
-    });
-
-    return priceFormatter.format(price).slice(0, -3);
-  };
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     countSeen(props.match.params.id);
-
     // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
-    if (adDetails) {
-      console.log("ad id", adDetails._id);
+    // Set initial  save state
+    console.log("Set initial  save state");
+    if (adDetails && !userContext.loading) {
+      if (savedAds.includes(adDetails._id)) {
+        console.log("ALREADY SAVED TO FAVORITES");
+        setIsSaved(true);
+      } else {
+        console.log("THIS AD IS NOT SAVED");
+        // setIsSaved(false);
+      }
     }
-    // eslint-disable-next-line
-  }, [adDetails]);
-  useEffect(() => {
-    if (saveAdError) {
-      setAlert(saveAdError, "danger");
-    }
-    // eslint-disable-next-line
-  }, [saveAdError]);
+    console.log("====================================");
+  }, [adDetails, userContext.loading]);
 
   useEffect(() => {
     getAdDetails(props.match.params.id);
@@ -70,23 +63,22 @@ const AdDetails = (props) => {
   }, [props.match.params.id]);
 
   const onSaveAd = () => {
+    console.log("SAVING AD...");
     saveAd(adDetails._id);
-    // todo set alert "Ad saved."
+    setIsSaved(true);
   };
-
-  useEffect(() => {
-    console.log("saveAdError changed", saveAdError);
-  }, [saveAdError]);
+  // Remove ad from saved ads list
+  const onRemoveAd = () => {
+    console.log("REMOVING AD...");
+    removeAd(adDetails._id);
+    setIsSaved(false);
+  };
 
   return (
     <>
       {!loading && adDetails ? (
         <>
           <div className="car-details__container ">
-            <Alerts />
-            <button className="btn btn-danger" onClick={onSaveAd}>
-              Save
-            </button>
             <div className="car-details__content ">
               <div className="car-details__main shadow-min">
                 <div
@@ -108,13 +100,21 @@ const AdDetails = (props) => {
                       <h1 className="car-details__heading">
                         {adDetails.make} {adDetails.model}
                       </h1>
-                      <div className="car-details__subheading">
-                        {adDetails.dateManufactured} &bull; {adDetails.mileage}
-                        <span style={{ textTransform: "lowercase" }}>
-                          mi
-                        </span>{" "}
-                        &bull; {adDetails.fuelType} &bull; {adDetails.bodyType}
-                      </div>
+                      <ul className="car-details__subheading">
+                        <li className="car-details__subheading--bullet">
+                          {" "}
+                          {adDetails.dateManufactured}
+                        </li>
+                        <li className="car-details__subheading--bullet">
+                          {adDetails.mileage} mi
+                        </li>
+                        <li className="car-details__subheading--bullet">
+                          {adDetails.fuelType}
+                        </li>
+                        <li className="car-details__subheading--bullet">
+                          {adDetails.bodyType}
+                        </li>
+                      </ul>
                     </div>
                     <div className="car-details__price">
                       {displayPrice(adDetails.price)}
@@ -260,6 +260,20 @@ const AdDetails = (props) => {
                 </div>
               </div>
               <div className="car-details__aside">
+                <div className="car-details__save shadow-min">
+                  <div>
+                    <LikeButton />
+                  </div>
+                  {/* {isSaved && !userContext.loading ? (
+                    <button className="btn btn-danger" onClick={onRemoveAd}>
+                      Remove from saved
+                    </button>
+                  ) : (
+                    <button className="btn btn-danger" onClick={onSaveAd}>
+                      Save
+                    </button>
+                  )} */}
+                </div>
                 <div className="car-details__contact shadow-min">
                   <h2>Contact seller</h2>
                   <p>

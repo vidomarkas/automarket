@@ -15,6 +15,7 @@ import UserProfile from "../components/auth/UserProfile";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
+import UserContext from "../context/user/userContext";
 
 import Footer from "../components/layout/Footer";
 import "./normalize.scss";
@@ -26,9 +27,11 @@ if (localStorage.token) {
 
 function App() {
   const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     authContext.loadUser();
+    userContext.getSavedAds();
     // eslint-disable-next-line
   }, []);
   return (

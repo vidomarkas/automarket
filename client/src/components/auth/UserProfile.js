@@ -6,13 +6,15 @@ const UserProfile = () => {
   const authContext = useContext(AuthContext);
   const userContext = useContext(UserContext);
   const { user } = authContext;
-  const { savedAds, removeAd, getSavedAds, saveAdError } = userContext;
+  const { savedAds, removeAd, getSavedAds } = userContext;
 
   useEffect(() => {
     getSavedAds();
   }, []);
 
+  // Remove ad from saved ads list
   const onRemoveAd = (id) => {
+    console.log("REMOVING AD...", id);
     removeAd(id);
   };
 

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AdContext from "../../context/ad/adContext";
 import placeholderCar from "../../assets/img/placeholder-car.png";
+import displayPrice from "../../utils/displayPrice";
 
 const MyAdItem = ({ myAd }) => {
   const adContext = useContext(AdContext);
@@ -21,15 +22,6 @@ const MyAdItem = ({ myAd }) => {
   const onDelete = () => {
     deleteAd(_id);
     clearCurrent();
-  };
-
-  const displayPrice = (price) => {
-    const priceFormatter = new Intl.NumberFormat("en-UK", {
-      style: "currency",
-      currency: "GBP",
-    });
-
-    return priceFormatter.format(price).slice(0, -3);
   };
 
   const displayDate = () => {

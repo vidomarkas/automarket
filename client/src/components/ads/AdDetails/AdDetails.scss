@@ -36,8 +36,15 @@
   &__subheading {
     font-size: 1.6rem;
     color: #000 !important;
-    text-transform: uppercase;
+
     margin-bottom: 1rem;
+    display: flex;
+    &--bullet {
+      background-color: #f2f4f6;
+      padding: 0.2rem 0.8rem;
+      border-radius: 4px;
+      margin-right: 0.4rem;
+    }
   }
 
   &__price {
@@ -167,6 +174,14 @@
       }
     }
   }
+  &__save {
+    background-color: #fff;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+  }
 
   &__map {
     background-color: #fff;
@@ -178,6 +193,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
+    margin-top: 2rem;
   }
 
   &__info {

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const auth = require("../middleware/auth");
+const mongoose = require("mongoose");
 
 // Route        GET api/savedcars
 // Description  Get saved ads
@@ -47,24 +48,26 @@ router.post("/", auth, async (req, res) => {
 // Route        DELETE api/savedcars
 // Description  Remove an ad from favorites
 // Access       Private
-// router.delete("/:id", auth, async (req, res) => {
-//   try {
-//     let ad = await Ad.findById(req.params.id);
+router.delete("/:id", auth, async (req, res) => {
+  const AdID = req.params.id;
 
-//     if (!ad) {
-//       res.status(404).json({ msg: "Not found" });
-//     }
-//     //Make sure user owns the ad
-//     if (ad.user.toString() !== req.user.id) {
-//       return res.status(401).json({ msg: "Not authorized" });
-//     }
+  const userId = req.user.id;
+  console.log("AdID is this", AdID);
 
-//     await Ad.findByIdAndRemove(req.params.id);
-
-//     res.json({ msg: "Removed" });
-//   } catch (error) {
-//     res.status(500).json({ msg: "Server error" });
-//   }
-// });
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      { _id: userId },
+      { $pull: { savedAds: AdID } },
+      { new: true }
+    );
+    console.log("REMOVING AD");
+    console.log("updatedUser", updatedUser);
+    console.log("updatedUser", updatedUser.savedAds);
+    console.log("==========================");
+    res.json({ msg: "removed" });
+  } catch (error) {
+    res.status(500).json({ msg: "Server error" });
+  }
+});
 
 module.exports = router;

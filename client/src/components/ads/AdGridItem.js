@@ -6,6 +6,7 @@ import speedIcon from "../../assets/img/speed.svg";
 import yearIcon from "../../assets/img/calendar.svg";
 import gearboxIcon from "../../assets/img/gearbox.svg";
 import placeholderCar from "../../assets/img/placeholder-car.png";
+import displayPrice from "../../utils/displayPrice";
 
 const AdGridItem = ({ ad }) => {
   const {
@@ -22,14 +23,6 @@ const AdGridItem = ({ ad }) => {
     dateUpdated,
   } = ad;
 
-  const displayPrice = (price) => {
-    const priceFormatter = new Intl.NumberFormat("en-UK", {
-      style: "currency",
-      currency: "GBP",
-    });
-
-    return priceFormatter.format(price).slice(0, -3);
-  };
   return (
     <>
       <div className="ad-grid__item">
