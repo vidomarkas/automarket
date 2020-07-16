@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const Ad = require("../models/Ad");
 const auth = require("../middleware/auth");
-const mongoose = require("mongoose");
 
 // Route        GET api/savedcars
 // Description  Get saved ads
@@ -10,7 +10,6 @@ const mongoose = require("mongoose");
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
-    console.log("Getting saved ads...", user.savedAds);
 
     res.json(user.savedAds);
   } catch (error) {
@@ -25,7 +24,7 @@ router.get("/", auth, async (req, res) => {
 
 router.post("/", auth, async (req, res) => {
   const AdID = req.body.AdID;
-  console.log("Saving ad... Ad id - ", AdID);
+
   try {
     const user = await User.findByIdAndUpdate(
       req.user.id,
@@ -35,7 +34,6 @@ router.post("/", auth, async (req, res) => {
       { new: true }
     );
 
-    console.log("Updated: savedAds", user.savedAds);
     res.json(user.savedAds);
   } catch (error) {
     console.error(error.message);
@@ -50,9 +48,7 @@ router.post("/", auth, async (req, res) => {
 // Access       Private
 router.delete("/:id", auth, async (req, res) => {
   const AdID = req.params.id;
-
   const userId = req.user.id;
-  console.log("AdID is this", AdID);
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
@@ -60,13 +56,64 @@ router.delete("/:id", auth, async (req, res) => {
       { $pull: { savedAds: AdID } },
       { new: true }
     );
-    console.log("REMOVING AD");
-    console.log("updatedUser", updatedUser);
-    console.log("updatedUser", updatedUser.savedAds);
-    console.log("==========================");
     res.json({ msg: "removed" });
   } catch (error) {
     res.status(500).json({ msg: "Server error" });
+  }
+});
+
+// ====== Increment / Decrement / Get ad's counter ===========
+
+// Route        POST api/savedcars/inc
+// Description  Increment the counter of saves for ad
+// Access       Private
+
+router.post("/inc", auth, async (req, res) => {
+  const AdID = req.body.id;
+
+  try {
+    let ad = await Ad.findById(AdID);
+    if (!ad) {
+      res.status(404).json({ msg: "Ad not found" });
+    }
+
+    ad = await Ad.findByIdAndUpdate(
+      AdID,
+      {
+        $inc: { savedCount: 1 },
+      },
+      { new: true }
+    );
+    console.log("inc count", ad.savedCount);
+    res.json(ad.savedCount);
+  } catch (error) {
+    res.status(500).json({ msg: "Error saving the ad" });
+  }
+});
+// Route        POST api/savedcars/dec
+// Description  Decrement the counter of saves for ad
+// Access       Private
+
+router.post("/dec", auth, async (req, res) => {
+  const AdID = req.body.id;
+
+  try {
+    let ad = await Ad.findById(AdID);
+    if (!ad) {
+      res.status(404).json({ msg: "Ad not found" });
+    }
+
+    ad = await Ad.findByIdAndUpdate(
+      AdID,
+      {
+        $inc: { savedCount: -1 },
+      },
+      { new: true }
+    );
+    console.log("decrement count", ad.savedCount);
+    res.json(ad.savedCount);
+  } catch (error) {
+    res.status(500).json({ msg: "Error removing the ad" });
   }
 });
 

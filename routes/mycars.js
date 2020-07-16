@@ -5,37 +5,7 @@ const User = require("../models/User");
 const Ad = require("../models/Ad");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
-
-const getCoords = async (postcode) => {
-  try {
-    const response = await axios.get(
-      `https://api.postcodes.io/postcodes/${postcode}`
-    );
-    return {
-      longitude: response.data.result.longitude,
-      latitude: response.data.result.latitude,
-      locationName: response.data.result.admin_district,
-    };
-  } catch (error) {
-    console.log("Error getting coordinates from postcode", error);
-  }
-};
-
-// Route        GET api/myads/postcodeValidation
-// Description  Validate postcode
-// Access       Private
-router.get("/postcodeValidation/:postcode", auth, async (req, res) => {
-  const postcode = req.params.postcode;
-  try {
-    const response = await axios.get(
-      `https://api.postcodes.io/postcodes/${postcode}/validate`
-    );
-    res.json(response.data);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json("Server error");
-  }
-});
+const getCoords = require("../utils/getCoords");
 
 // Route        GET api/myads
 // Description  Get my ads
@@ -170,7 +140,6 @@ router.put("/:id", auth, async (req, res) => {
     sold,
     dateUpdated,
   } = req.body;
-  console.log("postcode from update", postcode);
   const coords = await getCoords(postcode);
 
   // Build ad body
@@ -249,6 +218,22 @@ router.delete("/:id", auth, async (req, res) => {
     res.json({ msg: "Removed" });
   } catch (error) {
     res.status(500).json({ msg: "Server error" });
+  }
+});
+
+// Route        GET api/myads/postcodeValidation
+// Description  Validate postcode
+// Access       Private
+router.get("/postcodeValidation/:postcode", auth, async (req, res) => {
+  const postcode = req.params.postcode;
+  try {
+    const response = await axios.get(
+      `https://api.postcodes.io/postcodes/${postcode}/validate`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json("Server error");
   }
 });
 

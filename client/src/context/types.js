@@ -32,6 +32,9 @@ export const GET_AD_GROUP = "GET_AD_GROUP";
 export const SET_AD_GROUP = "SET_AD_GROUP";
 export const COUNT_SEEN = "COUNT_SEEN";
 export const COUNT_SEEN_ERROR = "COUNT_SEEN_ERROR";
+export const INC_COUNT_SAVED = "INC_COUNT_SAVED";
+export const DEC_COUNT_SAVED = "DEC_COUNT_SAVED";
+export const COUNT_SAVED_ERROR = "COUNT_SAVED_ERROR";
 
 // General context
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";

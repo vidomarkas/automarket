@@ -21,6 +21,9 @@ import {
   COUNT_SEEN,
   COUNT_SEEN_ERROR,
   SET_AD_GROUP,
+  INC_COUNT_SAVED,
+  DEC_COUNT_SAVED,
+  COUNT_SAVED_ERROR,
 } from "../types";
 
 const AdState = (props) => {
@@ -168,6 +171,34 @@ const AdState = (props) => {
       });
     }
   };
+  const incrementSavedCount = async (id) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    try {
+      const res = await axios.post("/api/savedcars/inc", { id }, config);
+      dispatch({ type: INC_COUNT_SAVED, payload: res.data });
+    } catch (err) {
+      // todo finish error handling
+      console.log("Error saving");
+      // dispatch({
+      //   type: COUNT_SAVED_ERROR,
+      //   payload: err.response.data.msg,
+      // });
+    }
+  };
+  const decrementSavedCount = async (id) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    try {
+      const res = await axios.post("/api/savedcars/dec", { id }, config);
+      dispatch({ type: DEC_COUNT_SAVED, payload: res.data });
+    } catch (err) {
+      // todo finish error handling
+      console.log("Error unsaving");
+      // dispatch({
+      //   type: COUNT_SAVED_ERROR,
+      //   payload: err.response.data.msg,
+      // });
+    }
+  };
 
   return (
     <AdContext.Provider
@@ -182,6 +213,7 @@ const AdState = (props) => {
         adDetails: state.adDetails,
         loading: state.loading,
         adGroupType: state.adGroupType,
+        savedCount: state.savedCount,
         getMyAds,
         postAd,
         deleteAd,
@@ -198,6 +230,8 @@ const AdState = (props) => {
         getAdGroup,
         countSeen,
         setAdGroupType,
+        incrementSavedCount,
+        decrementSavedCount,
       }}
     >
       {props.children}

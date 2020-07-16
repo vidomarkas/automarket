@@ -17,7 +17,8 @@ import doorIcon from "../../../assets/img/car.svg";
 import yearIcon from "../../../assets/img/calendar.svg";
 import placeholderCar from "../../../assets/img/placeholder-car.png";
 import displayPrice from "../../../utils/displayPrice";
-import LikeButton from "../../layout/LikeButton";
+import { FaCheck } from "react-icons/fa";
+import { IoIosCall } from "react-icons/io";
 
 const AdDetails = (props) => {
   const adContext = useContext(AdContext);
@@ -27,6 +28,8 @@ const AdDetails = (props) => {
     getAdDetails,
     loading,
     countSeen,
+    incrementSavedCount,
+    decrementSavedCount,
   } = adContext;
 
   const userContext = useContext(UserContext);
@@ -35,23 +38,24 @@ const AdDetails = (props) => {
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
+    if (adDetails) {
+      console.log("adDetails.savedCount", adDetails.savedCount);
+    }
+  }, [adDetails]);
+
+  useEffect(() => {
     countSeen(props.match.params.id);
+
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     // Set initial  save state
-    console.log("Set initial  save state");
     if (adDetails && !userContext.loading) {
       if (savedAds.includes(adDetails._id)) {
-        console.log("ALREADY SAVED TO FAVORITES");
         setIsSaved(true);
-      } else {
-        console.log("THIS AD IS NOT SAVED");
-        // setIsSaved(false);
       }
     }
-    console.log("====================================");
   }, [adDetails, userContext.loading]);
 
   useEffect(() => {
@@ -65,12 +69,14 @@ const AdDetails = (props) => {
   const onSaveAd = () => {
     console.log("SAVING AD...");
     saveAd(adDetails._id);
+    incrementSavedCount(adDetails._id);
     setIsSaved(true);
   };
   // Remove ad from saved ads list
   const onRemoveAd = () => {
     console.log("REMOVING AD...");
     removeAd(adDetails._id);
+    decrementSavedCount(adDetails._id);
     setIsSaved(false);
   };
 
@@ -261,18 +267,22 @@ const AdDetails = (props) => {
               </div>
               <div className="car-details__aside">
                 <div className="car-details__save shadow-min">
-                  <div>
-                    <LikeButton />
-                  </div>
-                  {/* {isSaved && !userContext.loading ? (
-                    <button className="btn btn-danger" onClick={onRemoveAd}>
-                      Remove from saved
+                  {isSaved && !userContext.loading ? (
+                    <button
+                      className="btn btn-block  btn-success"
+                      onClick={onRemoveAd}
+                    >
+                      <FaCheck />
+                      Saved
                     </button>
                   ) : (
-                    <button className="btn btn-danger" onClick={onSaveAd}>
+                    <button
+                      className="btn btn-block btn-secondary"
+                      onClick={onSaveAd}
+                    >
                       Save
                     </button>
-                  )} */}
+                  )}
                 </div>
                 <div className="car-details__contact shadow-min">
                   <h2>Contact seller</h2>
@@ -288,7 +298,7 @@ const AdDetails = (props) => {
                       value={adDetails.phoneNumber}
                       href={"tel:" + adDetails.phoneNumber}
                     >
-                      Call {adDetails.phoneNumber}
+                      <IoIosCall /> {adDetails.phoneNumber}
                     </a>
                   </div>
                 </div>
@@ -296,6 +306,7 @@ const AdDetails = (props) => {
                 <div className="car-details__info shadow-min">
                   <h2>Statistics</h2>
                   <p>{adDetails.seenCount} views</p>
+                  <p>{adDetails.savedCount} saves</p>
 
                   <p>
                     Ad created:{" "}

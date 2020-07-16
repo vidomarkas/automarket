@@ -15,6 +15,9 @@ import {
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
   SET_AD_GROUP,
+  INC_COUNT_SAVED,
+  DEC_COUNT_SAVED,
+  COUNT_SAVED_ERROR,
 } from "../types";
 
 export default (state, action) => {
@@ -85,6 +88,13 @@ export default (state, action) => {
         current: null,
         foundAds: null,
         error: null,
+      };
+
+    case INC_COUNT_SAVED:
+    case DEC_COUNT_SAVED:
+      return {
+        ...state,
+        adDetails: { ...state.adDetails, savedCount: action.payload },
       };
     default:
       return state;
