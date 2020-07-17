@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactTimeAgo from "react-time-ago";
 import AdContext from "../../../context/ad/adContext";
 import UserContext from "../../../context/user/userContext";
+import AuthContext from "../../../context/auth/authContext";
 import AdDetailsMap from "./AdDetailsMap";
 import Spinner from "../../layout/Spinner";
 import "./AdDetails.scss";
@@ -33,30 +34,28 @@ const AdDetails = (props) => {
   } = adContext;
 
   const userContext = useContext(UserContext);
+
+  // todo savedAds not refreshing
   const { saveAd, removeAd, savedAds } = userContext;
+
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
 
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    if (adDetails) {
-      console.log("adDetails.savedCount", adDetails.savedCount);
-    }
-  }, [adDetails]);
-
-  useEffect(() => {
     countSeen(props.match.params.id);
-
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    // Set initial  save state
-    if (adDetails && !userContext.loading) {
-      if (savedAds.includes(adDetails._id)) {
-        setIsSaved(true);
-      }
-    }
-  }, [adDetails, userContext.loading]);
+  // useEffect(() => {
+  //   // Set initial  save state
+  //   if (adDetails && !userContext.loading && savedAds) {
+  //     if (savedAds.includes(adDetails._id)) {
+  //       setIsSaved(true);
+  //     }
+  //   }
+  // }, [adDetails, userContext.loading, savedAds]);
 
   useEffect(() => {
     getAdDetails(props.match.params.id);
@@ -67,14 +66,12 @@ const AdDetails = (props) => {
   }, [props.match.params.id]);
 
   const onSaveAd = () => {
-    console.log("SAVING AD...");
     saveAd(adDetails._id);
     incrementSavedCount(adDetails._id);
     setIsSaved(true);
   };
   // Remove ad from saved ads list
   const onRemoveAd = () => {
-    console.log("REMOVING AD...");
     removeAd(adDetails._id);
     decrementSavedCount(adDetails._id);
     setIsSaved(false);
@@ -266,24 +263,27 @@ const AdDetails = (props) => {
                 </div>
               </div>
               <div className="car-details__aside">
-                <div className="car-details__save shadow-min">
-                  {isSaved && !userContext.loading ? (
-                    <button
-                      className="btn btn-block  btn-success"
-                      onClick={onRemoveAd}
-                    >
-                      <FaCheck />
-                      Saved
-                    </button>
-                  ) : (
-                    <button
-                      className="btn btn-block btn-secondary"
-                      onClick={onSaveAd}
-                    >
-                      Save
-                    </button>
-                  )}
-                </div>
+                {isAuthenticated && (
+                  <div className="car-details__save shadow-min">
+                    {isSaved && !userContext.loading ? (
+                      <button
+                        className="btn btn-block  btn-success"
+                        onClick={onRemoveAd}
+                      >
+                        <FaCheck />
+                        Saved
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-block btn-secondary"
+                        onClick={onSaveAd}
+                      >
+                        Save
+                      </button>
+                    )}
+                  </div>
+                )}
+
                 <div className="car-details__contact shadow-min">
                   <h2>Contact seller</h2>
                   <p>

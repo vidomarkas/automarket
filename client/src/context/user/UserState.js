@@ -13,6 +13,7 @@ const UserState = (props) => {
   const initialState = {
     savedAds: [],
     loading: true,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(UserReducer, initialState);
@@ -22,6 +23,7 @@ const UserState = (props) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
       const res = await axios.post("/api/savedcars", { AdID: AdID }, config);
+
       dispatch({ type: SAVE_AD, payload: res.data });
     } catch (err) {
       dispatch({
@@ -32,33 +34,31 @@ const UserState = (props) => {
   };
 
   // Remove ad from saved
-  const removeAd = async (AdID) => {
+  const removeAd = (AdID) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      const res = await axios.delete(`/api/savedcars/${AdID}`, config);
-      dispatch({ type: REMOVE_AD_FROM_SAVED, payload: res.data });
+      axios.delete(`/api/savedcars/${AdID}`, config);
+      dispatch({ type: REMOVE_AD_FROM_SAVED, payload: AdID });
     } catch (err) {
-      console.log("Error deleting the ad from favorites", err);
+      dispatch({
+        type: SAVE_AD_ERROR,
+        payload: err.response.data.msg,
+      });
     }
   };
 
-  // Get saved ads
+  // Get saved ads list of the user
   const getSavedAds = async () => {
     try {
       const res = await axios.get("/api/savedcars");
       dispatch({ type: GET_SAVED_ADS, payload: res.data });
     } catch (err) {
-      //todo error handling
-      console.log("error getting the ads");
-      // dispatch({
-      //   type: SAVE_AD_ERROR,
-      //   payload: err.response.data.msg,
-      // });
+      console.log("Error getSavedAds, message:", err.response.data.msg);
+      dispatch({
+        type: SAVE_AD_ERROR,
+        payload: err.response.data.msg,
+      });
     }
-  };
-  // Clear save ad error
-  const clearSaveAdError = async () => {
-    // todo clear save ad error
   };
 
   return (
@@ -66,11 +66,10 @@ const UserState = (props) => {
       value={{
         savedAds: state.savedAds,
         loading: state.loading,
-        // saveAdError: state.saveAdError,
         saveAd,
         getSavedAds,
         removeAd,
-
+        // saveAdError: state.saveAdError,
         // clearSaveAdError,
       }}
     >

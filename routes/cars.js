@@ -4,7 +4,7 @@ const router = express.Router();
 const Ad = require("../models/Ad");
 
 // Route        GET api/cars/id
-// Description  Get particular ad details
+// Description  Get ad details
 // Access       Public
 router.get("/:id", async (req, res) => {
   try {
@@ -17,6 +17,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ msg: "Error getting the ad details" });
   }
 });
+
 // Route        POST api/cars/id
 // Description  Track how many views the ad has
 // Access       Public

@@ -5,16 +5,15 @@ const Ad = require("../models/Ad");
 const auth = require("../middleware/auth");
 
 // Route        GET api/savedcars
-// Description  Get saved ads
+// Description  Get saved ads list of the user
 // Access       Private
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
-
+    console.log("Saved Ads:", user.savedAds);
     res.json(user.savedAds);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json("Server error");
+    res.status(500).json({ msg: "Error geting the saved ads list" });
   }
 });
 
@@ -51,12 +50,12 @@ router.delete("/:id", auth, async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
       { _id: userId },
       { $pull: { savedAds: AdID } },
       { new: true }
     );
-    res.json({ msg: "removed" });
+    res.json(user.savedAds);
   } catch (error) {
     res.status(500).json({ msg: "Server error" });
   }
@@ -72,11 +71,6 @@ router.post("/inc", auth, async (req, res) => {
   const AdID = req.body.id;
 
   try {
-    let ad = await Ad.findById(AdID);
-    if (!ad) {
-      res.status(404).json({ msg: "Ad not found" });
-    }
-
     ad = await Ad.findByIdAndUpdate(
       AdID,
       {
@@ -98,11 +92,6 @@ router.post("/dec", auth, async (req, res) => {
   const AdID = req.body.id;
 
   try {
-    let ad = await Ad.findById(AdID);
-    if (!ad) {
-      res.status(404).json({ msg: "Ad not found" });
-    }
-
     ad = await Ad.findByIdAndUpdate(
       AdID,
       {

@@ -164,11 +164,7 @@ const AdState = (props) => {
       axios.post(`/api/cars/${id}`);
       dispatch({ type: COUNT_SEEN });
     } catch (err) {
-      console.log("Error adding view");
-      dispatch({
-        type: COUNT_SEEN_ERROR,
-        payload: err.response.data.msg,
-      });
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
   const incrementSavedCount = async (id) => {
@@ -177,12 +173,7 @@ const AdState = (props) => {
       const res = await axios.post("/api/savedcars/inc", { id }, config);
       dispatch({ type: INC_COUNT_SAVED, payload: res.data });
     } catch (err) {
-      // todo finish error handling
-      console.log("Error saving");
-      // dispatch({
-      //   type: COUNT_SAVED_ERROR,
-      //   payload: err.response.data.msg,
-      // });
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
   const decrementSavedCount = async (id) => {
@@ -191,12 +182,7 @@ const AdState = (props) => {
       const res = await axios.post("/api/savedcars/dec", { id }, config);
       dispatch({ type: DEC_COUNT_SAVED, payload: res.data });
     } catch (err) {
-      // todo finish error handling
-      console.log("Error unsaving");
-      // dispatch({
-      //   type: COUNT_SAVED_ERROR,
-      //   payload: err.response.data.msg,
-      // });
+      dispatch({ type: AD_ERROR, payload: err.response.msg });
     }
   };
 
