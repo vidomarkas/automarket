@@ -22,7 +22,7 @@ const UserProfile = () => {
     <div style={{ margin: "200px auto", width: "80%" }}>
       <h1>{user && user.email}</h1>
 
-      {savedAds.length > 0 && (
+      {savedAds && savedAds.length > 0 && (
         <>
           <h2>Saved ads: {savedAds.length}</h2>
           <ul>

@@ -34,11 +34,11 @@ const UserState = (props) => {
   };
 
   // Remove ad from saved
-  const removeAd = (AdID) => {
+  const removeAd = async (AdID) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
-      axios.delete(`/api/savedcars/${AdID}`, config);
-      dispatch({ type: REMOVE_AD_FROM_SAVED, payload: AdID });
+      const res = axios.delete(`/api/savedcars/${AdID}`, config);
+      dispatch({ type: REMOVE_AD_FROM_SAVED, payload: res.data });
     } catch (err) {
       dispatch({
         type: SAVE_AD_ERROR,

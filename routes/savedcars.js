@@ -10,7 +10,6 @@ const auth = require("../middleware/auth");
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
-    console.log("Saved Ads:", user.savedAds);
     res.json(user.savedAds);
   } catch (error) {
     res.status(500).json({ msg: "Error geting the saved ads list" });
@@ -55,6 +54,7 @@ router.delete("/:id", auth, async (req, res) => {
       { $pull: { savedAds: AdID } },
       { new: true }
     );
+
     res.json(user.savedAds);
   } catch (error) {
     res.status(500).json({ msg: "Server error" });
@@ -78,7 +78,7 @@ router.post("/inc", auth, async (req, res) => {
       },
       { new: true }
     );
-    console.log("inc count", ad.savedCount);
+
     res.json(ad.savedCount);
   } catch (error) {
     res.status(500).json({ msg: "Error saving the ad" });
@@ -99,7 +99,7 @@ router.post("/dec", auth, async (req, res) => {
       },
       { new: true }
     );
-    console.log("decrement count", ad.savedCount);
+
     res.json(ad.savedCount);
   } catch (error) {
     res.status(500).json({ msg: "Error removing the ad" });

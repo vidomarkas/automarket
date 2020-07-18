@@ -42,20 +42,21 @@ const AdDetails = (props) => {
   const { isAuthenticated } = authContext;
 
   const [isSaved, setIsSaved] = useState(false);
+  const [savedButtonText, setSavedButtonText] = useState("Added");
 
   useEffect(() => {
     countSeen(props.match.params.id);
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   // Set initial  save state
-  //   if (adDetails && !userContext.loading && savedAds) {
-  //     if (savedAds.includes(adDetails._id)) {
-  //       setIsSaved(true);
-  //     }
-  //   }
-  // }, [adDetails, userContext.loading, savedAds]);
+  useEffect(() => {
+    // Set initial  save state
+    if (adDetails && !userContext.loading && savedAds) {
+      if (savedAds.includes(adDetails._id)) {
+        setIsSaved(true);
+      }
+    }
+  }, [adDetails, userContext.loading, savedAds]);
 
   useEffect(() => {
     getAdDetails(props.match.params.id);
@@ -75,6 +76,14 @@ const AdDetails = (props) => {
     removeAd(adDetails._id);
     decrementSavedCount(adDetails._id);
     setIsSaved(false);
+  };
+
+  const onMouseOverSavedButton = () => {
+    setSavedButtonText("Remove");
+  };
+
+  const onMouseLeaveSavedButton = () => {
+    setSavedButtonText("Added");
   };
 
   return (
@@ -263,15 +272,17 @@ const AdDetails = (props) => {
                 </div>
               </div>
               <div className="car-details__aside">
-                {isAuthenticated && (
+                {isAuthenticated && !userContext.loading ? (
                   <div className="car-details__save shadow-min">
-                    {isSaved && !userContext.loading ? (
+                    {isSaved ? (
                       <button
                         className="btn btn-block  btn-success"
                         onClick={onRemoveAd}
+                        onMouseOver={onMouseOverSavedButton}
+                        onMouseLeave={onMouseLeaveSavedButton}
                       >
                         <FaCheck />
-                        Saved
+                        {savedButtonText}
                       </button>
                     ) : (
                       <button
@@ -282,7 +293,7 @@ const AdDetails = (props) => {
                       </button>
                     )}
                   </div>
-                )}
+                ) : null}
 
                 <div className="car-details__contact shadow-min">
                   <h2>Contact seller</h2>
