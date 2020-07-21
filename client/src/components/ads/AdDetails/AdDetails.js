@@ -46,6 +46,7 @@ const AdDetails = (props) => {
 
   useEffect(() => {
     countSeen(props.match.params.id);
+    window.scrollTo(0, 0);
     // eslint-disable-next-line
   }, []);
 

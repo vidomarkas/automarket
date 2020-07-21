@@ -12,6 +12,7 @@ const FormDescription = ({ onChange, description }) => {
           value={description}
           onChange={onChange}
           className="ad-form__description__textarea"
+          maxLength="1700"
         ></textarea>
         <div className="ad-form__description__comments">
           <p>Detailed comment can attract more attention to your ad.</p>

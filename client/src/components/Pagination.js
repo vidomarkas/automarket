@@ -10,13 +10,17 @@ const Pagination = ({ adsPerPage, totalAds }) => {
     pageNumbers.push(i);
   }
 
+  const onChangePage = (number) => {
+    setCurrentPage(number);
+  };
+
   return (
     <div className="search-results__pagination">
       <ul className="search-results__pagination__list">
         {pageNumbers.map((number) => (
           <li key={number} className="search-results__pagination__list-item">
             <button
-              onClick={() => setCurrentPage(number)}
+              onClick={() => onChangePage(number)}
               className={currentPage === number ? "activePage" : null}
             >
               {number}

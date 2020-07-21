@@ -292,6 +292,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
               type="number"
               name="price"
               min="0"
+              max="20000000"
               onChange={onChange}
               value={price}
               className={
@@ -325,6 +326,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
               <input
                 type="number"
                 min="0"
+                max="5000"
                 name="power"
                 onChange={onChange}
                 value={power}
@@ -365,6 +367,7 @@ const FormMainInfo = ({ emptyFields, onChange, ad }) => {
               <input
                 type="number"
                 min="0"
+                max="2000000"
                 name="mileage"
                 onChange={onChange}
                 value={mileage}
