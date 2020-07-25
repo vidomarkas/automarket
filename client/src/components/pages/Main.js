@@ -8,11 +8,10 @@ const Main = () => {
   const adContext = useContext(AdContext);
   const { foundAds } = adContext;
   return (
-    <div>
+    <>
       <Header />
-
       {foundAds ? <SearchResults /> : <AdGrid />}
-    </div>
+    </>
   );
 };
 

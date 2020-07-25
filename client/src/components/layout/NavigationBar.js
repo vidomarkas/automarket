@@ -40,14 +40,14 @@ const NavigationBar = () => {
 
   const authLinks = (
     <>
-      <Link to="/editing" className="btn btn-primary">
+      <Link to="/editing" className="btn btn-primary navbar__link">
         <GoPlus style={{ marginBottom: "-2px", marginRight: "4px" }} /> Post an
         ad
       </Link>
-      <Link to="/mycars" className="navbar-link">
+      <Link to="/mycars" className="navbar__link navbar-button-margin">
         My adverts
       </Link>
-      <div onClick={handleDropdown} className="navbar__avatar">
+      <div onClick={handleDropdown} className="navbar__avatar navbar__link">
         <FaUserCircle /> {user && user.name} <MdKeyboardArrowDown />
       </div>
 
@@ -68,23 +68,23 @@ const NavigationBar = () => {
     </>
   );
   const guestLinks = (
-    <>
-      <Link to="/demo" className="navbar__demo-link pulse">
+    <div className="navbar__links">
+      <Link to="/demo" className="navbar__demo-link pulse navbar__link">
         Demo User
       </Link>
       <Link
         to="/login"
-        className="btn navbar-button-secondary navbar-button-left-margin"
+        className="btn navbar-button-secondary navbar-button-margin navbar__link"
       >
         Log In
       </Link>
       <Link
         to="/register"
-        className="btn btn-primary navbar-button-left-margin"
+        className="btn btn-primary navbar-button-left-margin navbar__link"
       >
         Sign Up
       </Link>
-    </>
+    </div>
   );
   return (
     <nav className="navbar">
@@ -94,7 +94,7 @@ const NavigationBar = () => {
             {"///"}AutoMarket <span>&reg;</span>
           </h2>
         </Link>
-        <ul className="navbar__menu-links">
+        {/* <ul className="navbar__menu-links">
           <li className="navbar__menu-link">
             <Link to="/featured">Featured Cars</Link>
           </li>
@@ -103,9 +103,9 @@ const NavigationBar = () => {
             {" "}
             <Link to="/terms-and-conditions">T&Cs</Link>
           </li>
-        </ul>
+        </ul> */}
 
-        <div className="navbar__user-links">
+        <div className="navbar__links">
           {isAuthenticated ? authLinks : guestLinks}
         </div>
       </div>

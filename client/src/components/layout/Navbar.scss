@@ -1,6 +1,8 @@
+@import "../App.scss";
+
 .navbar {
   //background: rgb(255, 255, 255);
-  height: 48px;
+  // height: 48px;
   color: #334150;
   width: 100%;
   font-size: 1.6rem;
@@ -11,21 +13,96 @@
   left: 0;
   //height: 4rem;
   z-index: 99999;
+  white-space: nowrap;
   & a {
     color: #9ea1a5;
-    transition: all 0.2s;
+    transition: color 0.2s;
     &:hover {
       color: #ffffff;
     }
   }
 
   &__container {
-    width: 1280px;
+    max-width: 1280px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
+    @include maxw(1280) {
+      max-width: 96%;
+    }
+  }
+
+  &__logo {
+    font-weight: 600;
+    font-size: 1.8rem;
+    //font-style: italic;
+
+    & h2 {
+      color: rgb(230, 230, 230);
+      //transition: all 0.2s;
+      &:hover {
+        color: rgb(255, 255, 255);
+      }
+      & span {
+        font-size: 1.2rem;
+        vertical-align: text-top;
+        margin-left: -4px;
+      }
+    }
+  }
+
+  // &__menu-link {
+  //   & a {
+  //     padding: 0.5rem 2rem 2rem 2rem;
+  //     margin: 0 1rem;
+  //   }
+  // }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__link {
+    margin: 0.8rem;
+    // padding: 0.5rem 2rem 2rem 2rem;
+  }
+
+  &__demo-link {
+    border-right: 1px solid #616264;
+    padding-right: 1.5rem;
+    color: #334150;
+  }
+
+  &__avatar {
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: capitalize;
+    color: #9ea1a5;
+    cursor: pointer;
+    & svg {
+      margin-right: 0.6rem;
+    }
+    &:hover {
+      color: #ffffff;
+    }
+  }
+
+  &-button-margin {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  &-button-secondary {
+    border: 1px solid #616264;
+    &:hover {
+      border-color: #fff;
+    }
   }
 
   &__dropdown {
@@ -55,87 +132,6 @@
       &:last-child {
         border-bottom: 0;
       }
-    }
-  }
-  &__logo {
-    font-weight: 600;
-    font-size: 1.8rem;
-    //font-style: italic;
-
-    & h2 {
-      color: rgb(230, 230, 230);
-      //transition: all 0.2s;
-      &:hover {
-        color: rgb(255, 255, 255);
-      }
-      & span {
-        font-size: 1.2rem;
-        vertical-align: text-top;
-        margin-left: -4px;
-      }
-    }
-  }
-
-  &__menu-links {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  &__menu-link {
-    & a {
-      padding: 0.5rem 2rem 2rem 2rem;
-      margin: 0 1rem;
-    }
-  }
-
-  &__user-links {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  &__demo-link {
-    border-right: 1px solid #616264;
-    padding-right: 1.5rem;
-    color: #334150;
-  }
-
-  &-links {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &-link {
-    margin: 8px;
-    padding: 6px 16px;
-  }
-
-  &__avatar {
-    margin: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-transform: capitalize;
-    color: #9ea1a5;
-    cursor: pointer;
-    & svg {
-      margin-right: 0.6rem;
-    }
-    &:hover {
-      color: #ffffff;
-    }
-  }
-
-  &-button-left-margin {
-    margin-left: 2rem;
-  }
-
-  &-button-secondary {
-    border: 1px solid #616264;
-    &:hover {
-      border-color: #fff;
     }
   }
 }

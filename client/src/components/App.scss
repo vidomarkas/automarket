@@ -131,3 +131,16 @@ h6 {
 .shadow-aa {
   box-shadow: 0 0 2px 1px rgba(167, 169, 172, 0.2);
 }
+
+// Screen with max width
+@mixin maxw($screen) {
+  @media (max-width: $screen+"px") {
+    @content;
+  }
+}
+// Screen between min & max
+@mixin minmaxw($min, $max) {
+  @media screen and (min-width: $min+"px") and (max-width: $max+"px") {
+    @content;
+  }
+}

@@ -1,7 +1,14 @@
+@import "../App.scss";
+
 .search {
   background-color: rgb(255, 255, 255);
   padding: 2rem 4rem;
   border-radius: 5px;
+  margin-left: 2%;
+  margin-right: 2%;
+  @include maxw(500) {
+    padding: 2rem 1rem;
+  }
 
   &__heading {
     font-size: 2.2rem;
@@ -13,6 +20,9 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    @include maxw(500) {
+      flex-direction: column;
+    }
   }
 
   &__input {
@@ -29,10 +39,20 @@
 
   &__field {
     flex-basis: 49%;
+    border: 1px solid magenta;
+    // @include maxw(500) {
+    //   flex-basis: 100%;
+    // }
 
     &--half {
-      //flex-grow: 1;
-      flex-basis: 24%;
+      border: 1px solid rgb(0, 47, 255);
+      flex-basis: 49%;
+      label {
+        width: 100%;
+      }
+      @include maxw(500) {
+        display: flex;
+      }
     }
     &__label {
       display: flex;

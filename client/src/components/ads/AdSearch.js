@@ -132,8 +132,6 @@ const AdSearch = () => {
                 {calcYearFrom()}
               </select>
             </label>
-          </div>
-          <div className="search__field--half">
             <label htmlFor="yearTo" className="search__field__label">
               Year to
               <select
@@ -147,6 +145,7 @@ const AdSearch = () => {
               </select>
             </label>
           </div>
+
           <div className=" search__field--half">
             <label htmlFor="priceFrom" className="search__field__label">
               Min price
@@ -159,8 +158,6 @@ const AdSearch = () => {
                 className="search__field__number search__input shadow-aa"
               />
             </label>
-          </div>
-          <div className=" search__field--half">
             <label htmlFor="priceTo" className="search__field__label">
               Max price
               <input

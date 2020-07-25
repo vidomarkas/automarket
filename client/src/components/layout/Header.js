@@ -25,7 +25,7 @@ const Header = () => {
             <AdSearch />
           </div>
           <div className="header__right">
-            <img src={headerImg} alt="" />
+            <img src={headerImg} alt="Audi Q5" />
           </div>
         </div>
       </div>
