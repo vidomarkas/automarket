@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import AdContext from "../../context/ad/adContext";
@@ -14,12 +15,14 @@ const NavigationBar = () => {
   const { clearMyAds } = adContext;
 
   const [dropdown, setDropdown] = useState(false);
+  const [openMobileNav, setOpenMobileNav] = useState(false);
 
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
 
   const dropdownRef = useRef();
+  const mobileMenuRef = useRef();
 
   const onLogout = () => {
     logout();
@@ -29,6 +32,12 @@ const NavigationBar = () => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropdown(false);
     }
+    if (
+      mobileMenuRef.current &&
+      !mobileMenuRef.current.contains(event.target)
+    ) {
+      setOpenMobileNav(false);
+    }
   };
 
   useEffect(() => {
@@ -36,7 +45,7 @@ const NavigationBar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdown]);
+  }, [dropdown, openMobileNav]);
 
   const authLinks = (
     <>
@@ -94,19 +103,62 @@ const NavigationBar = () => {
             {"///"}AutoMarket <span>&reg;</span>
           </h2>
         </Link>
-        {/* <ul className="navbar__menu-links">
-          <li className="navbar__menu-link">
-            <Link to="/featured">Featured Cars</Link>
-          </li>
-
-          <li className="navbar__menu-link">
-            {" "}
-            <Link to="/terms-and-conditions">T&Cs</Link>
-          </li>
-        </ul> */}
 
         <div className="navbar__links">
           {isAuthenticated ? authLinks : guestLinks}
+        </div>
+        <div className="navbar__mobile" ref={mobileMenuRef}>
+          {user ? (
+            <div onClick={() => setOpenMobileNav(!openMobileNav)}>
+              {" "}
+              {user.name}
+            </div>
+          ) : (
+            <GiHamburgerMenu onClick={() => setOpenMobileNav(!openMobileNav)} />
+          )}
+
+          {openMobileNav ? (
+            <div className="navbar__mobile__menu shadow-md">
+              <div className="navbar__mobile__menu__container">
+                {isAuthenticated ? (
+                  <>
+                    <Link to="/editing" className="navbar__mobile__menu__item">
+                      Post an ad
+                    </Link>
+                    <Link to="/mycars" className="navbar__mobile__menu__item">
+                      My adverts
+                    </Link>
+
+                    <Link
+                      to="/profile"
+                      onClick={handleDropdown}
+                      className="navbar__mobile__menu__item"
+                    >
+                      Account settings
+                    </Link>
+                    <button
+                      className="btn btn-block btn-danger"
+                      onClick={onLogout}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/demo" className="navbar__mobile__menu__item">
+                      Demo User
+                    </Link>
+                    <Link to="/login" className="navbar__mobile__menu__item">
+                      Log In
+                    </Link>
+                    <Link to="/register" className="navbar__mobile__menu__item">
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </nav>

@@ -17,7 +17,6 @@ import {
   SET_AD_GROUP,
   INC_COUNT_SAVED,
   DEC_COUNT_SAVED,
-  COUNT_SAVED_ERROR,
 } from "../types";
 
 export default (state, action) => {

@@ -10,6 +10,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getSavedAds();
+    // eslint-disable-next-line
   }, []);
 
   // Remove ad from saved ads list

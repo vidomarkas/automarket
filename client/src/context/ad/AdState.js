@@ -19,11 +19,9 @@ import {
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
   COUNT_SEEN,
-  COUNT_SEEN_ERROR,
   SET_AD_GROUP,
   INC_COUNT_SAVED,
   DEC_COUNT_SAVED,
-  COUNT_SAVED_ERROR,
 } from "../types";
 
 const AdState = (props) => {
