@@ -6,11 +6,14 @@ import "./Header.scss";
 
 const Header = () => {
   return (
-    <div
-      className="header"
-      style={{ backgroundImage: `url(${headerBackground})` }}
-    >
-      <div className="header__overlay"></div>
+    <div className="header">
+      <div
+        className="header__background"
+        style={{ backgroundImage: `url(${headerBackground})` }}
+      >
+        <div className="header__overlay"></div>
+      </div>
+
       <div className="header__container">
         <div className="header__text-box">
           <h1 className="header__heading">
@@ -21,10 +24,8 @@ const Header = () => {
           </p>
         </div>
         <div className="header__main">
-          <div className="header__search">
-            <AdSearch />
-          </div>
-          <div className="header__right">
+          <AdSearch />
+          <div className="header__image">
             <img src={headerImg} alt="Audi Q5" />
           </div>
         </div>

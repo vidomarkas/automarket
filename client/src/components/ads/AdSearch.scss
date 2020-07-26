@@ -4,10 +4,17 @@
   background-color: rgb(255, 255, 255);
   padding: 2rem 4rem;
   border-radius: 5px;
-  margin-left: 2%;
-  margin-right: 2%;
-  @include maxw(500) {
+
+  width: 600px;
+  @include maxw(618) {
     padding: 2rem 1rem;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
   }
 
   &__heading {
@@ -17,11 +24,21 @@
   }
 
   &__section {
+    margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    @include maxw(500) {
+  }
+
+  &__field {
+    flex-basis: 49%;
+
+    &--half {
+      flex-basis: 49%;
+    }
+    &__label {
+      display: flex;
       flex-direction: column;
+      font-size: 1.8rem;
     }
   }
 
@@ -30,40 +47,11 @@
     border-radius: 4px;
     border: 1px solid #e1e8ee;
     height: 32px;
+    width: 100%;
     &:hover {
       cursor: pointer;
       background-color: #f5f5f8c0;
       border: 1px solid #249af3;
-    }
-  }
-
-  &__field {
-    flex-basis: 49%;
-    border: 1px solid magenta;
-    // @include maxw(500) {
-    //   flex-basis: 100%;
-    // }
-
-    &--half {
-      border: 1px solid rgb(0, 47, 255);
-      flex-basis: 49%;
-      label {
-        width: 100%;
-      }
-      @include maxw(500) {
-        display: flex;
-      }
-    }
-    &__label {
-      display: flex;
-      flex-direction: column;
-      font-size: 1.8rem;
-    }
-
-    &__select {
-    }
-    &__number {
-      width: 100%;
     }
   }
 

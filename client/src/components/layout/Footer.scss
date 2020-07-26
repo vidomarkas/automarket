@@ -1,3 +1,4 @@
+@import "../App.scss";
 .footer {
   color: #fefefe;
   font-size: 1.4rem;
@@ -18,6 +19,8 @@
   &__social {
     &__background {
       background-color: #108be9;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
 
     &__content {
@@ -40,8 +43,20 @@
     &__content {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
       padding-top: 4rem;
       padding-bottom: 4rem;
+
+      @include maxw(672) {
+        justify-content: space-around;
+      }
+
+      &__column {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        margin-bottom: 2rem;
+        flex-basis: 218px;
+      }
       h3 {
         border-bottom: 1px solid #108be9;
         font-size: 2rem;

@@ -2,8 +2,7 @@
 .ad-grid {
   &__container {
     max-width: 1280px;
-    margin: 8rem auto;
-    border: 1px dotted greenyellow;
+    margin: 4rem auto;
     @include maxw(1280) {
       max-width: 96%;
     }

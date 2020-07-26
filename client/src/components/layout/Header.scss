@@ -1,13 +1,18 @@
 @import "../App.scss";
 .header {
-  background-position: center center;
-  background-size: cover;
-  height: 50rem;
-  box-shadow: 0 1px 3px 1px rgba(160, 161, 188, 0.14);
   position: relative;
+  margin: 0 auto;
 
-  margin: 0 auto 24rem auto;
-  // border: 1px dotted magenta;
+  &__background {
+    background-position: center center;
+    background-size: cover;
+    height: 50rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
   &__overlay {
     position: absolute;
@@ -34,14 +39,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // border: 1px solid yellowgreen;
+    position: relative;
     @include maxw(1280) {
       justify-content: center;
     }
   }
 
-  &__search {
-  }
   &__text-box {
     display: flex;
     flex-direction: column;
@@ -49,6 +52,9 @@
     padding: 6rem;
     padding-top: 16rem;
     //border: 1px solid blue;
+    @include maxw(832) {
+      padding-top: 8rem;
+    }
     @include maxw(500) {
       padding: 2rem;
       padding-top: 8rem;
@@ -80,8 +86,7 @@
       font-weight: 400;
     }
   }
-  &__right {
-    //border: 1px solid pink;
+  &__image {
     @include maxw(1280) {
       display: none;
     }

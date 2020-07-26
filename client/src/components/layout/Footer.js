@@ -40,7 +40,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="footer__main__content">
-            <div>
+            <div className="footer__main__content__column">
               <h3>Get to know us</h3>
               <ul>
                 <li>Our history</li>
@@ -51,7 +51,7 @@ const Footer = () => {
                 <li>Blog</li>
               </ul>
             </div>
-            <div>
+            <div className="footer__main__content__column">
               <h3>Available services</h3>
               <ul>
                 <li>Why work with us?</li>
@@ -62,7 +62,7 @@ const Footer = () => {
                 <li>Get export expertise</li>
               </ul>
             </div>
-            <div>
+            <div className="footer__main__content__column">
               {" "}
               <h3>Products on sale</h3>
               <ul>
@@ -72,7 +72,7 @@ const Footer = () => {
                 <li>Margin vehicles</li>
               </ul>
             </div>
-            <div>
+            <div className="footer__main__content__column">
               <h3>Let us help you</h3>
               <ul>
                 <li>FAQ</li>
