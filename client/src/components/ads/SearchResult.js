@@ -51,38 +51,40 @@ const SearchResult = ({ ad }) => {
         )}
 
         <div className="search-result__main">
-          <div>
-            {make} {model}
+          <div className="search-result__info">
+            <div className="search-result__info__make">
+              {make} {model}
+            </div>
+            <div className="search-result__info__year">
+              <span> {dateManufactured}</span>
+              <span className="search-result__main__featured">
+                {featured ? "featured" : null}
+              </span>
+            </div>
           </div>
-          <span> {dateManufactured}</span>
-          <span className="search-result__main__featured">
-            {" "}
-            {featured ? "featured" : null}
-          </span>
+          <div className="search-result__features">
+            <div className="search-result__features__item">
+              <img src={fuelIcon} alt="" />
+              {fuelType}
+            </div>
+
+            <div className="search-result__features__item">
+              {" "}
+              <img src={gearboxIcon} alt="" /> {gearbox}
+            </div>
+
+            <div className="search-result__features__item">
+              {" "}
+              <img src={bodytypeIcon} alt="" /> {bodyType}
+            </div>
+          </div>
+          {dateUpdated && (
+            <div className="search-result__date-added">
+              Updated <ReactTimeAgo date={Date.parse(dateUpdated)} />
+            </div>
+          )}
+          <div className="search-result__price">{displayPrice()}</div>
         </div>
-        <div className="search-result__features">
-          <div className="search-result__features__item">
-            <img src={fuelIcon} alt="" />
-            {fuelType}
-          </div>
-
-          <div className="search-result__features__item">
-            {" "}
-            <img src={gearboxIcon} alt="" /> {gearbox}
-          </div>
-
-          <div className="search-result__features__item">
-            {" "}
-            <img src={bodytypeIcon} alt="" /> {bodyType}
-          </div>
-        </div>
-        {dateUpdated && (
-          <div className="search-result__date-added">
-            <ReactTimeAgo date={Date.parse(dateUpdated)} />
-          </div>
-        )}
-
-        <div className="search-result__price">{displayPrice()}</div>
       </div>
     </Link>
   );

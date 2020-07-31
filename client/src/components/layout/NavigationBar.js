@@ -145,13 +145,25 @@ const NavigationBar = () => {
                   </>
                 ) : (
                   <>
-                    <Link to="/demo" className="navbar__mobile__menu__item">
+                    <Link
+                      to="/demo"
+                      className="navbar__mobile__menu__item"
+                      onClick={() => setOpenMobileNav(false)}
+                    >
                       Demo User
                     </Link>
-                    <Link to="/login" className="navbar__mobile__menu__item">
+                    <Link
+                      to="/login"
+                      className="navbar__mobile__menu__item"
+                      onClick={() => setOpenMobileNav(false)}
+                    >
                       Log In
                     </Link>
-                    <Link to="/register" className="navbar__mobile__menu__item">
+                    <Link
+                      to="/register"
+                      className="navbar__mobile__menu__item"
+                      onClick={() => setOpenMobileNav(false)}
+                    >
                       Sign Up
                     </Link>
                   </>
