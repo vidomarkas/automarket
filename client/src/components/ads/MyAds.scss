@@ -1,13 +1,17 @@
+@import "../App.scss";
+
 .my-cars {
   &__container {
     max-width: 1280px;
-    width: 80%;
     margin: 6rem auto;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
     background-color: #fff;
     border-radius: 5px;
+    @include maxw(1280) {
+      width: 96%;
+    }
   }
 
   &__heading {
@@ -24,6 +28,9 @@
 
   &__cars {
     padding: 2rem 4rem;
+    @include maxw(618) {
+      padding: 1rem;
+    }
   }
 
   &__no-cars {
@@ -40,9 +47,13 @@
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
+  @include maxw(466) {
+    padding: 1rem 0;
+  }
   &__image {
     height: 100px;
     width: 150px;
+    flex-shrink: 0;
     background-position: center center;
     background-size: cover;
     border-radius: 4px;
@@ -58,6 +69,8 @@
     justify-content: center;
     align-self: flex-start;
     flex-basis: 160px;
+    padding-left: 1rem;
+    flex-shrink: 0;
 
     span {
       color: #95a3b6;
@@ -75,11 +88,17 @@
     color: #334150;
     align-self: flex-start;
     flex-basis: 180px;
+    @include maxw(794) {
+      display: none;
+    }
   }
 
   &__price {
     flex-basis: 100px;
     font-size: 1.6rem;
+    @include maxw(794) {
+      display: none;
+    }
   }
 
   &__status {
@@ -98,8 +117,8 @@
   &__controls {
     flex-direction: column;
     display: flex;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    //pointer-events: none;
     a {
       margin-bottom: 0.6rem;
     }

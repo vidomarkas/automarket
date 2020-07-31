@@ -25,7 +25,6 @@
   }
 
   &__menu {
-    border: 1px solid magenta;
     padding: 0 5rem;
     display: flex;
     justify-content: flex-end;
@@ -38,16 +37,16 @@
 
     &-item {
       &--make {
-        flex-basis: 262px;
+        flex-basis: 277px;
       }
       &--features {
-        flex-basis: 282px;
+        flex-basis: 316px;
       }
       &--date {
-        flex-basis: 282px;
+        flex-basis: 357px;
       }
       &--price {
-        flex-basis: 102px;
+        flex-basis: 60px;
       }
     }
   }

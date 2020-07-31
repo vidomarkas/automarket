@@ -39,10 +39,6 @@
       border-bottom-left-radius: 4px;
       padding: 2rem;
     }
-    @include maxw(500) {
-      //align-items: flex-start;
-      // min-height: 40rem;
-    }
   }
 
   &__text-box {
@@ -124,6 +120,9 @@
     bottom: 4rem;
     color: #95a3b6;
     font-size: 1.4rem;
+    @include maxw(445) {
+      bottom: 1rem;
+    }
     a {
       color: #249af3;
       &:hover {
