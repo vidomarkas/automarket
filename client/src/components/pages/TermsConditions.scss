@@ -1,7 +1,9 @@
+@import "../App.scss";
+
 .tc {
   &__container {
     margin: 6rem auto;
-    width: 1280px;
+    max-width: 1280px;
     border-radius: 4px;
     position: relative;
     background-color: #fff;
@@ -9,6 +11,12 @@
     font-size: 1.2rem;
     color: rgb(56, 56, 56);
     line-height: 2rem;
+    @include maxw(1280) {
+      width: 96%;
+    }
+    @include maxw(400) {
+      padding: 1.6rem;
+    }
 
     h2 {
       font-size: 2.4rem;

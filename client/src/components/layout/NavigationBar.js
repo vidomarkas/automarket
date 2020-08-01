@@ -118,7 +118,10 @@ const NavigationBar = () => {
           )}
 
           {openMobileNav ? (
-            <div className="navbar__mobile__menu shadow-md">
+            <div
+              className="navbar__mobile__menu shadow-md"
+              onClick={() => setOpenMobileNav(false)}
+            >
               <div className="navbar__mobile__menu__container">
                 {isAuthenticated ? (
                   <>

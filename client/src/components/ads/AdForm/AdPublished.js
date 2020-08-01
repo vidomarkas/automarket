@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AdPublished.scss";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const AdPublished = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="ad-published">
       <div className="success-checkmark">
