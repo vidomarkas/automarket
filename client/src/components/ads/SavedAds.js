@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import UserContext from "../../context/user/userContext";
+import "./SavedAds.scss";
 
 const SavedAds = () => {
   const authContext = useContext(AuthContext);
@@ -9,6 +10,10 @@ const SavedAds = () => {
   const { savedAds, removeAd, getSavedAds } = userContext;
   useEffect(() => {
     getSavedAds();
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   // Remove ad from saved ads list

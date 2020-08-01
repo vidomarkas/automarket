@@ -3,6 +3,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import AdContext from "../../context/ad/adContext";
@@ -56,6 +57,9 @@ const NavigationBar = () => {
       <Link to="/mycars" className="navbar__link navbar-button-margin">
         My adverts
       </Link>
+      <Link to="/saved" className="navbar__link navbar-button-margin">
+        Saved adverts
+      </Link>
       <div onClick={handleDropdown} className="navbar__avatar navbar__link">
         <FaUserCircle /> {user && user.name} <MdKeyboardArrowDown />
       </div>
@@ -64,7 +68,7 @@ const NavigationBar = () => {
         <ul className="navbar__dropdown" ref={dropdownRef}>
           <li className="navbar__dropdown-item">
             <Link to="/profile" onClick={handleDropdown}>
-              Account settings
+              User profile
             </Link>
           </li>
           <li className="navbar__dropdown-item">
@@ -114,7 +118,15 @@ const NavigationBar = () => {
               {user.name}
             </div>
           ) : (
-            <GiHamburgerMenu onClick={() => setOpenMobileNav(!openMobileNav)} />
+            <IconContext.Provider
+              value={openMobileNav ? { color: "#fff" } : { color: "#9ea1a5" }}
+            >
+              <div>
+                <GiHamburgerMenu
+                  onClick={() => setOpenMobileNav(!openMobileNav)}
+                />
+              </div>
+            </IconContext.Provider>
           )}
 
           {openMobileNav ? (
@@ -131,13 +143,16 @@ const NavigationBar = () => {
                     <Link to="/mycars" className="navbar__mobile__menu__item">
                       My adverts
                     </Link>
+                    <Link to="/saved" className="navbar__mobile__menu__item">
+                      Saved adverts
+                    </Link>
 
                     <Link
                       to="/profile"
                       onClick={handleDropdown}
                       className="navbar__mobile__menu__item"
                     >
-                      Account settings
+                      User profile
                     </Link>
                     <button
                       className="btn btn-block btn-danger"

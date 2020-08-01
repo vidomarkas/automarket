@@ -13,6 +13,10 @@ const Register = (props) => {
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/");
     }

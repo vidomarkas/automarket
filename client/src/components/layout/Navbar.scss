@@ -129,6 +129,8 @@
     // position: relative;
     @include maxw(550) {
       display: block;
+      margin: 1rem;
+      // margin-right: 1rem;
     }
 
     &__menu {

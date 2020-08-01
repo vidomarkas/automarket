@@ -7,6 +7,7 @@ import AdForm from "./ads/AdForm/AdForm";
 import AdGrid from "./ads/AdGrid";
 import AdDetails from "./ads/AdDetails/AdDetails";
 import MyAds from "./ads/MyAds";
+import SavedAds from "./ads/SavedAds";
 import TermsConditions from "./pages/TermsConditions";
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
@@ -56,6 +57,11 @@ function App() {
               exact
               path="/profile"
               component={UserProfile}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path="/saved"
+              component={SavedAds}
             ></PrivateRoute>
             <Route
               exact

@@ -14,6 +14,10 @@ const Login = (props) => {
   const { login, isAuthenticated } = authContext;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/");
     }
