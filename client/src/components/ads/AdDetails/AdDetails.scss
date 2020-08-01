@@ -1,21 +1,34 @@
+@import "../../App.scss";
+
 .car-details {
   &__container {
     max-width: 1280px;
-    width: 80%;
     margin: 7rem auto 1rem auto;
+    @include maxw(1280) {
+      width: 96%;
+    }
   }
 
   &__content {
     display: flex;
     justify-content: space-evenly;
+    @include maxw(835) {
+      flex-direction: column;
+    }
   }
 
   &__section {
-    padding: 4rem 4rem 4rem 4rem;
+    padding: 4rem;
     border-bottom: 1px solid rgba(240, 240, 240, 0.384);
+    @include maxw(527) {
+      padding: 1.6rem;
+    }
     &--split {
       display: flex;
       justify-content: space-between;
+      @include maxw(492) {
+        flex-direction: column;
+      }
     }
   }
 
@@ -26,12 +39,19 @@
     background-color: #fff;
     margin-right: 1rem;
     border-radius: 4px;
+    @include maxw(835) {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
   }
 
   &__heading {
     font-size: 3rem;
     color: #000 !important;
     margin-bottom: 1rem;
+    @include maxw(527) {
+      font-size: 1.8rem;
+    }
   }
   &__subheading {
     font-size: 1.6rem;
@@ -39,11 +59,15 @@
 
     margin-bottom: 1rem;
     display: flex;
+    @include maxw(417) {
+      font-size: 1.2rem;
+    }
     &--bullet {
       background-color: #f2f4f6;
       padding: 0.2rem 0.8rem;
       border-radius: 4px;
       margin-right: 0.4rem;
+      white-space: nowrap;
     }
   }
 
@@ -52,11 +76,18 @@
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    @include maxw(527) {
+      font-size: 2rem;
+    }
   }
 
   &__description {
     font-size: 1.6rem;
     line-height: 2.3rem;
+    @include maxw(527) {
+      font-size: 1.4rem;
+      line-height: 2.1rem;
+    }
     h2 {
       font-size: 1.8rem;
     }
@@ -69,6 +100,9 @@
     position: relative;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    @include maxw(527) {
+      height: 300px;
+    }
 
     &--overlay {
       position: absolute;
@@ -108,10 +142,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @include maxw(400) {
+      flex-direction: column;
+    }
 
     &--left,
     &--right {
       flex-basis: 45%;
+      @include maxw(400) {
+        flex-basis: 100%;
+        width: 100%;
+      }
     }
   }
 
@@ -121,6 +162,7 @@
     justify-content: space-between;
     border-bottom: 1px solid #e1e8ee;
     font-size: 1.4rem;
+
     img {
       height: 16px;
       width: 16px;

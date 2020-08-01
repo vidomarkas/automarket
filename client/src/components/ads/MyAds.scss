@@ -55,7 +55,8 @@
   &__container {
     display: flex;
     justify-content: space-between;
-    @include maxw(466) {
+    flex-grow: 2;
+    @include maxw(794) {
       justify-content: flex-start;
     }
   }
