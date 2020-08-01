@@ -291,7 +291,7 @@ const AdForm = (props) => {
               ad={ad}
               emptyFields={errorFields}
             />
-            <div className="ad-form__section">
+            {/* <div className="ad-form__section">
               <h2 className="ad-form__section__heading">
                 Aditional information
               </h2>
@@ -300,7 +300,7 @@ const AdForm = (props) => {
               <h2 className="ad-form__section__heading">
                 Features / Equipment
               </h2>
-            </div>
+            </div> */}
             <FormDescription onChange={onChange} description={description} />
             <PhotoUploader onImageSelect={onImageSelect} imageURL={imageURL} />
             <div className="ad-form__section">

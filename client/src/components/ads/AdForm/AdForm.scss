@@ -1,10 +1,15 @@
+@import "../../App.scss";
+
 .ad-form {
   &__container {
     max-width: 1280px;
-    width: 80%;
+
     margin: 6rem auto;
     background-color: #fff;
     border-radius: 4px;
+    @include maxw(1280) {
+      width: 96%;
+    }
   }
 
   &__top {
@@ -30,6 +35,9 @@
 
   &__form {
     padding: 0 4rem;
+    @include maxw(527) {
+      padding: 0 1.6rem;
+    }
   }
 
   &__section {
@@ -55,6 +63,9 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    @include maxw(754) {
+      flex-wrap: wrap;
+    }
 
     &--start {
       justify-content: flex-start;
@@ -63,6 +74,12 @@
 
   &__field {
     flex-basis: 24%;
+    @include maxw(754) {
+      flex-basis: 48%;
+    }
+    @include maxw(478) {
+      flex-basis: 100%;
+    }
     &__label {
       display: flex;
       flex-direction: column;
