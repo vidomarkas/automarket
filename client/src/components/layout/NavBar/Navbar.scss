@@ -1,4 +1,4 @@
-@import "../App.scss";
+@import "../../App.scss";
 
 .navbar {
   color: #9ea1a5;
@@ -60,6 +60,21 @@
 
   &__link {
     margin: 0.8rem;
+    position: relative;
+
+    &--badge {
+      position: absolute;
+      top: -8px;
+      right: -14px;
+      background-color: #249af3;
+      color: #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      text-align: center;
+      font-size: 1rem;
+      padding-top: 0.3rem;
+    }
   }
 
   &__demo-link {

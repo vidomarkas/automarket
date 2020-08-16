@@ -11,7 +11,7 @@ import {
 
 const UserState = (props) => {
   const initialState = {
-    savedAds: [],
+    savedAds: null,
     loading: true,
     error: null,
   };

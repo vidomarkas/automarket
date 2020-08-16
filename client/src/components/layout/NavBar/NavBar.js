@@ -5,15 +5,25 @@ import { GoPlus } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
-import AuthContext from "../../context/auth/authContext";
-import AdContext from "../../context/ad/adContext";
+import AuthContext from "../../../context/auth/authContext";
+import AdContext from "../../../context/ad/adContext";
+import UserContext from "../../../context/user/userContext";
 import "./Navbar.scss";
 
-const NavigationBar = () => {
+const NavBar = () => {
   const authContext = useContext(AuthContext);
   const adContext = useContext(AdContext);
-  const { isAuthenticated, logout, user } = authContext;
+  const userContext = useContext(UserContext);
+  const { savedAds, loading, getSavedAds } = userContext;
+
+  useEffect(() => {
+    getSavedAds();
+    //eslint-disable-next-line
+  }, []);
+
   const { clearMyAds } = adContext;
+
+  const { isAuthenticated, logout, user } = authContext;
 
   const [dropdown, setDropdown] = useState(false);
   const [openMobileNav, setOpenMobileNav] = useState(false);
@@ -48,6 +58,15 @@ const NavigationBar = () => {
     };
   }, [dropdown, openMobileNav]);
 
+  const [savedAdsNumber, setSavedAdsNumber] = useState(null);
+
+  useEffect(() => {
+    // Set initial  save state
+    if (!loading && savedAds && savedAds.length > 0) {
+      setSavedAdsNumber(savedAds.length);
+    }
+  }, [savedAds && savedAds.length, savedAds, loading]);
+
   const authLinks = (
     <>
       <Link to="/editing" className="btn btn-primary navbar__link">
@@ -59,6 +78,9 @@ const NavigationBar = () => {
       </Link>
       <Link to="/saved" className="navbar__link navbar-button-margin">
         Saved adverts
+        {savedAdsNumber > 0 ? (
+          <span className="navbar__link--badge">{savedAdsNumber}</span>
+        ) : null}
       </Link>
       <div onClick={handleDropdown} className="navbar__avatar navbar__link">
         <FaUserCircle /> {user && user.name} <MdKeyboardArrowDown />
@@ -195,4 +217,4 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+export default NavBar;

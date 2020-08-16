@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import NavigationBar from "./layout/NavigationBar";
+import NavBar from "./layout/NavBar/NavBar";
 import Main from "./pages/Main";
 import AdForm from "./ads/AdForm/AdForm";
 import AdGrid from "./ads/AdGrid/AdGrid";
 import AdDetails from "./ads/AdDetails/AdDetails";
-import MyAds from "./ads/MyAds";
+import MyAds from "./ads/MyAds/MyAds";
 import SavedAds from "./ads/SavedAds/SavedAds";
 import TermsConditions from "./pages/TermsConditions/TermsConditions";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
@@ -17,7 +17,7 @@ import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import AuthContext from "../context/auth/authContext";
 import UserContext from "../context/user/userContext";
-import Footer from "../components/layout/Footer";
+import Footer from "./layout/Footer/Footer";
 import "./normalize.scss";
 import "./App.scss";
 
@@ -37,7 +37,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <NavigationBar />
+        <NavBar />
         <div className="content">
           <Switch>
             <Route exact path="/" component={Main}></Route>

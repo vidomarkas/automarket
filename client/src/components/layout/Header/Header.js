@@ -1,7 +1,7 @@
 import React from "react";
-import AdSearch from "../ads/AdSearch";
-import headerBackground from "../../assets/img/header.jpg";
-import headerImg from "../../assets/img/header-right.png";
+import AdSearch from "../../ads/AdSearch/AdSearch";
+import headerBackground from "../../../assets/img/header.jpg";
+import headerImg from "../../../assets/img/header-right.png";
 import "./Header.scss";
 
 const Header = () => {

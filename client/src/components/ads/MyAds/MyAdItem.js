@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import AdContext from "../../context/ad/adContext";
-import placeholderCar from "../../assets/img/placeholder-car.png";
-import displayPrice from "../../utils/displayPrice";
+import AdContext from "../../../context/ad/adContext";
+import placeholderCar from "../../../assets/img/placeholder-car.png";
+import displayPrice from "../../../utils/displayPrice";
 
 const MyAdItem = ({ ad }) => {
   const adContext = useContext(AdContext);

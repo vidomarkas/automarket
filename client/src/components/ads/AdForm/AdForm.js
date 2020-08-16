@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AlertContext from "../../../context/alert/alertContext";
 import AdContext from "../../../context/ad/adContext";
 import GeneralContext from "../../../context/general/generalContext";
-import Alerts from "../../layout/Alerts";
+import Alerts from "../../layout/Alerts/Alerts";
 import Spinner from "../../layout/Spinner";
 import "./AdForm.scss";
 import AdPublished from "./AdPublished";

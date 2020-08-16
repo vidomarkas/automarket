@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import AdContext from "../../context/ad/adContext";
-import GeneralContext from "../../context/general/generalContext";
+import AdContext from "../../../context/ad/adContext";
+import GeneralContext from "../../../context/general/generalContext";
 import SearchResult from "./SearchResult";
-import Spinner from "../layout/Spinner";
+import Spinner from "../../layout/Spinner";
 import "./SearchResults.scss";
-import Pagination from "../Pagination";
+import Pagination from "../../Pagination";
 
 // change this component to featured ads
 const SearchResults = () => {

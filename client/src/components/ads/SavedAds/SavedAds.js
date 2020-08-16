@@ -6,21 +6,16 @@ import "./SavedAds.scss";
 
 const SavedAds = () => {
   const userContext = useContext(UserContext);
-  const { savedAds, removeAd, getSavedAds } = userContext;
+  const { savedAds, getSavedAds } = userContext;
   useEffect(() => {
     getSavedAds();
+
     //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // Remove ad from saved ads list
-  const onRemoveAd = (id) => {
-    console.log("REMOVING AD...", id);
-    removeAd(id);
-  };
 
   return (
     <div className="saved-cars__container ">

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import carMakes from "../../assets/carMakes.json";
-import AdContext from "../../context/ad/adContext";
-import GeneralContext from "../../context/general/generalContext";
+import carMakes from "../../../assets/carMakes.json";
+import AdContext from "../../../context/ad/adContext";
+import GeneralContext from "../../../context/general/generalContext";
 import "./AdSearch.scss";
 
 const AdSearch = () => {

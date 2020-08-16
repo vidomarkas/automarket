@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import Spinner from "../layout/Spinner";
-import AdContext from "../../context/ad/adContext";
-import MyAdItem from "./MyAdItem";
-import { GoPlus } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { GoPlus } from "react-icons/go";
+import AdContext from "../../../context/ad/adContext";
+import MyAdItem from "./MyAdItem";
+import Spinner from "../../layout/Spinner";
 import "./MyAds.scss";
 
 const MyAds = () => {
@@ -12,7 +12,6 @@ const MyAds = () => {
 
   useEffect(() => {
     getMyAds();
-
     // eslint-disable-next-line
   }, []);
   return (

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
-import fuelIcon from "../../assets/img/fuel.svg";
-import gearboxIcon from "../../assets/img/gearbox.svg";
-import bodytypeIcon from "../../assets/img/coupe.svg";
-import placeholderCar from "../../assets/img/placeholder-car.png";
+import fuelIcon from "../../../assets/img/fuel.svg";
+import gearboxIcon from "../../../assets/img/gearbox.svg";
+import bodytypeIcon from "../../../assets/img/coupe.svg";
+import placeholderCar from "../../../assets/img/placeholder-car.png";
 import "./SearchResult.scss";
 
 const SearchResult = ({ ad }) => {
