@@ -1,5 +1,4 @@
 import React from "react";
-
 import AdGridItem from "./AdGridItem";
 import "./AdGrid.scss";
 

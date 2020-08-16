@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
-import fuelIcon from "../../assets/img/fuel.svg";
-import speedIcon from "../../assets/img/speed.svg";
-import yearIcon from "../../assets/img/calendar.svg";
-import gearboxIcon from "../../assets/img/gearbox.svg";
-import placeholderCar from "../../assets/img/placeholder-car.png";
-import displayPrice from "../../utils/displayPrice";
+import fuelIcon from "../../../assets/img/fuel.svg";
+import speedIcon from "../../../assets/img/speed.svg";
+import yearIcon from "../../../assets/img/calendar.svg";
+import gearboxIcon from "../../../assets/img/gearbox.svg";
+import placeholderCar from "../../../assets/img/placeholder-car.png";
+import displayPrice from "../../../utils/displayPrice";
 
 const AdGridItem = ({ ad }) => {
   const {

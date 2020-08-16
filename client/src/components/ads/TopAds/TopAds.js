@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AdContext from "../../../context/ad/adContext";
 import Spinner from "../../layout/Spinner";
 import TopAdsTabs from "./TopAdsTabs";
-import AdGrid from "../AdGrid";
+import AdGrid from "../AdGrid/AdGrid";
 
 const TopAds = () => {
   const adContext = useContext(AdContext);
