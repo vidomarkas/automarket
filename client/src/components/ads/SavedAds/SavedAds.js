@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import UserContext from "../../../context/user/userContext";
-import "./SavedAds.scss";
 import AdGrid from "../AdGrid/AdGrid";
 import "./SavedAds.scss";
 
@@ -9,7 +8,6 @@ const SavedAds = () => {
   const { savedAds, getSavedAds } = userContext;
   useEffect(() => {
     getSavedAds();
-
     //eslint-disable-next-line
   }, []);
 
@@ -19,14 +17,18 @@ const SavedAds = () => {
 
   return (
     <div className="saved-cars__container ">
-      <div className="saved-cars__heading shadow-min">
-        {savedAds && savedAds.length > 0 ? (
-          <h1>Saved ads</h1>
-        ) : (
+      {savedAds && savedAds.length > 0 ? (
+        <>
+          <div className="saved-cars__heading shadow-min">
+            <h1>Saved ads</h1>
+          </div>
+          <AdGrid ads={savedAds} />
+        </>
+      ) : (
+        <div className="saved-cars__heading shadow-min">
           <h1>There are no saved ads</h1>
-        )}
-      </div>
-      {savedAds && savedAds.length > 0 && <AdGrid ads={savedAds} />}
+        </div>
+      )}
     </div>
   );
 };

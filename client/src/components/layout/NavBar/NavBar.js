@@ -16,14 +16,16 @@ const NavBar = () => {
   const userContext = useContext(UserContext);
   const { savedAds, loading, getSavedAds } = userContext;
 
-  useEffect(() => {
-    getSavedAds();
-    //eslint-disable-next-line
-  }, []);
-
   const { clearMyAds } = adContext;
 
   const { isAuthenticated, logout, user } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getSavedAds();
+    }
+    //eslint-disable-next-line
+  }, [isAuthenticated]);
 
   const [dropdown, setDropdown] = useState(false);
   const [openMobileNav, setOpenMobileNav] = useState(false);
@@ -61,11 +63,16 @@ const NavBar = () => {
   const [savedAdsNumber, setSavedAdsNumber] = useState(null);
 
   useEffect(() => {
-    // Set initial  save state
-    if (!loading && savedAds && savedAds.length > 0) {
+    if (!loading && savedAds && isAuthenticated) {
       setSavedAdsNumber(savedAds.length);
     }
-  }, [savedAds && savedAds.length, savedAds, loading]);
+  }, [isAuthenticated, loading, savedAds]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setSavedAdsNumber(null);
+    }
+  }, [isAuthenticated]);
 
   const authLinks = (
     <>
