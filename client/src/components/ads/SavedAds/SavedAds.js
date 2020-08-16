@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import UserContext from "../../../context/user/userContext";
 import "./SavedAds.scss";
 import AdGrid from "../AdGrid";
+import "./SavedAds.scss";
 
 const SavedAds = () => {
   const userContext = useContext(UserContext);
@@ -22,33 +23,15 @@ const SavedAds = () => {
   };
 
   return (
-    // <div style={{ marginTop: "200px" }}>
-    //   <h1>Saved ads</h1>
-    //   {savedAds && savedAds.length > 0 && (
-    //     <>
-    //       <h2>Saved ads: {savedAds.length}</h2>
-    //       <ul>
-    //         {savedAds.map((ad) => (
-    //           <li key={ad._id}>
-    //             <img src={ad.imageURL} alt={ad.model} />
-    //             {ad.make}
-    //             {ad.model}
-    //             <button
-    //               onClick={() => {
-    //                 onRemoveAd(ad._id);
-    //               }}
-    //             >
-    //               Remove ad
-    //             </button>
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     </>
-    //   )}
-    // </div>
-    <div className="ad-grid__container">
-      <h1>Saved ads</h1>
-      {savedAds && savedAds.length > 0 && <AdGrid ads={savedAds} />}
+    <div className="saved-cars__container ">
+      <div className="saved-cars__heading shadow-min">
+        <h1>Saved ads</h1>
+      </div>
+      {savedAds && savedAds.length > 0 ? (
+        <AdGrid ads={savedAds} />
+      ) : (
+        <h4>There are no saved ads </h4>
+      )}
     </div>
   );
 };
