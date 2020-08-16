@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import SearchResults from "../ads/SearchResults";
 import Header from "../layout/Header";
-import AdGrid from "../ads/AdGrid";
+
 import AdContext from "../../context/ad/adContext";
+import TopAds from "../ads/TopAds/TopAds";
 
 const Main = () => {
   const adContext = useContext(AdContext);
@@ -10,7 +11,7 @@ const Main = () => {
   return (
     <>
       <Header />
-      {foundAds ? <SearchResults /> : <AdGrid />}
+      {foundAds ? <SearchResults /> : <TopAds />}
     </>
   );
 };

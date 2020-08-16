@@ -25,7 +25,7 @@ const MyAds = () => {
           {loading ? (
             <Spinner />
           ) : !loading && myAds && myAds.length > 0 ? (
-            myAds.map((ad) => <MyAdItem key={ad._id} myAd={ad} />)
+            myAds.map((ad) => <MyAdItem key={ad._id} ad={ad} />)
           ) : (
             <div className="my-cars__no-cars">
               <h2>You have no adverts at the moment. Please add new one</h2>

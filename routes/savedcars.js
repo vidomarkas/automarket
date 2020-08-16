@@ -10,7 +10,18 @@ const auth = require("../middleware/auth");
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
-    res.json(user.savedAds);
+
+    const getSavedAdDetails = async (id) => {
+      const savedAdDetails = await Ad.findById(id);
+      return savedAdDetails;
+    };
+
+    const adDetails = await Promise.all(
+      user.savedAds.map((id) => {
+        return getSavedAdDetails(id);
+      })
+    );
+    res.json(adDetails);
   } catch (error) {
     res.status(500).json({ msg: "Error geting the saved ads list" });
   }

@@ -4,7 +4,7 @@ import AdContext from "../../context/ad/adContext";
 import placeholderCar from "../../assets/img/placeholder-car.png";
 import displayPrice from "../../utils/displayPrice";
 
-const MyAdItem = ({ myAd }) => {
+const MyAdItem = ({ ad }) => {
   const adContext = useContext(AdContext);
   const { deleteAd, setCurrent, clearCurrent } = adContext;
   const {
@@ -17,7 +17,7 @@ const MyAdItem = ({ myAd }) => {
     featured,
     dateManufactured,
     dateAdded,
-  } = myAd;
+  } = ad;
 
   const onDelete = () => {
     deleteAd(_id);
@@ -69,7 +69,7 @@ const MyAdItem = ({ myAd }) => {
         </Link>
         <Link
           to="/editing"
-          onClick={() => setCurrent(myAd)}
+          onClick={() => setCurrent(ad)}
           className="btn btn-edit"
         >
           Edit

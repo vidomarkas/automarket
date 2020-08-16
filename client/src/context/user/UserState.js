@@ -53,10 +53,10 @@ const UserState = (props) => {
       const res = await axios.get("/api/savedcars");
       dispatch({ type: GET_SAVED_ADS, payload: res.data });
     } catch (err) {
-      console.log("Error getSavedAds, message:", err.response.data.msg);
+      console.log("Error getSavedAds, message:", err.res.data.msg);
       dispatch({
         type: SAVE_AD_ERROR,
-        payload: err.response.data.msg,
+        payload: err.res.data.msg,
       });
     }
   };

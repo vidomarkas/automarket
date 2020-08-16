@@ -35,7 +35,6 @@ const AdDetails = (props) => {
 
   const userContext = useContext(UserContext);
 
-  // todo savedAds not refreshing
   const { saveAd, removeAd, savedAds } = userContext;
 
   const authContext = useContext(AuthContext);
