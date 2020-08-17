@@ -1,46 +1,41 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.scss";
+import AuthContext from "../../../context/auth/authContext";
+import AdContext from "../../../context/ad/adContext";
+import UserContext from "../../../context/user/userContext";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
-import { Link } from "react-router-dom";
-import AuthContext from "../../../context/auth/authContext";
-import AdContext from "../../../context/ad/adContext";
-import UserContext from "../../../context/user/userContext";
-import "./Navbar.scss";
 
 const NavBar = () => {
   const authContext = useContext(AuthContext);
-  const adContext = useContext(AdContext);
-  const userContext = useContext(UserContext);
-  const { savedAds, loading, getSavedAds } = userContext;
-
-  const { clearMyAds } = adContext;
-
   const { isAuthenticated, logout, user } = authContext;
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      getSavedAds();
-    }
-    //eslint-disable-next-line
-  }, [isAuthenticated]);
+  const adContext = useContext(AdContext);
+  const { clearMyAds } = adContext;
 
+  const userContext = useContext(UserContext);
+  const { getSavedAds, savedAds, loading } = userContext;
+
+  const [savedAdsNumber, setSavedAdsNumber] = useState(null);
   const [dropdown, setDropdown] = useState(false);
   const [openMobileNav, setOpenMobileNav] = useState(false);
+
+  const dropdownRef = useRef();
+  const mobileMenuRef = useRef();
 
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
 
-  const dropdownRef = useRef();
-  const mobileMenuRef = useRef();
-
   const onLogout = () => {
     logout();
     clearMyAds();
   };
+
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropdown(false);
@@ -54,13 +49,17 @@ const NavBar = () => {
   };
 
   useEffect(() => {
+    if (isAuthenticated) {
+      getSavedAds();
+    }
+  }, [isAuthenticated, getSavedAds]);
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdown, openMobileNav]);
-
-  const [savedAdsNumber, setSavedAdsNumber] = useState(null);
 
   useEffect(() => {
     if (!loading && savedAds && isAuthenticated) {
@@ -89,14 +88,17 @@ const NavBar = () => {
           <span className="navbar__link--badge">{savedAdsNumber}</span>
         ) : null}
       </Link>
-      <div onClick={handleDropdown} className="navbar__avatar navbar__link">
+      <div
+        onClick={() => setDropdown(!dropdown)}
+        className="navbar__avatar navbar__link"
+      >
         <FaUserCircle /> {user && user.name} <MdKeyboardArrowDown />
       </div>
 
       {dropdown && (
         <ul className="navbar__dropdown" ref={dropdownRef}>
           <li className="navbar__dropdown-item">
-            <Link to="/profile" onClick={handleDropdown}>
+            <Link to="/profile" onClick={() => setDropdown(!dropdown)}>
               User profile
             </Link>
           </li>
