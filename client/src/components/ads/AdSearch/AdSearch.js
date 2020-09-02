@@ -37,7 +37,6 @@ const AdSearch = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(criteria);
     clearCurrentPage();
     searchAds({ criteria });
   };
