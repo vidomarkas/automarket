@@ -1,25 +1,24 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import AuthContext from "../../../context/auth/authContext";
-import AdContext from "../../../context/ad/adContext";
-import UserContext from "../../../context/user/userContext";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logout } from "../../../actions/authActions";
+import { clearMyAds } from "../../../actions/adActions";
+import { getSavedAds } from "../../../actions/userActions";
 
-const NavBar = () => {
-  const authContext = useContext(AuthContext);
-  const { isAuthenticated, logout, user } = authContext;
-
-  const adContext = useContext(AdContext);
-  const { clearMyAds } = adContext;
-
-  const userContext = useContext(UserContext);
-  const { getSavedAds, savedAds, loading } = userContext;
-
+const NavBar = ({
+  logout,
+  clearMyAds,
+  getSavedAds,
+  user: { savedAds, loading },
+  auth: { user, isAuthenticated },
+}) => {
   const [savedAdsNumber, setSavedAdsNumber] = useState(null);
   const [dropdown, setDropdown] = useState(false);
   const [openMobileNav, setOpenMobileNav] = useState(false);
@@ -226,4 +225,19 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+NavBar.propTypes = {
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+  clearMyAds: PropTypes.func.isRequired,
+  getSavedAds: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout, clearMyAds, getSavedAds })(
+  NavBar
+);

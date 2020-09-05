@@ -1,15 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import carMakes from "../../../assets/carMakes.json";
-import AdContext from "../../../context/ad/adContext";
-import GeneralContext from "../../../context/general/generalContext";
+import { connect } from "react-redux";
+import { searchAds, clearFilter } from "../../../actions/adActions";
+import { clearCurrentPage } from "../../../actions/generalActions";
 import "./AdSearch.scss";
+import PropTypes from "prop-types";
 
-const AdSearch = () => {
-  const adContext = useContext(AdContext);
-  const { searchAds, clearFilter, foundAds } = adContext;
-
-  const generalContext = useContext(GeneralContext);
-  const { clearCurrentPage } = generalContext;
+const AdSearch = ({
+  searchAds,
+  clearFilter,
+  clearCurrentPage,
+  ad: { foundAds },
+}) => {
   const initialState = {
     exactFields: { make: "", model: "", bodyType: "", fuelType: "" },
     rangeFields: { yearFrom: "", yearTo: "", priceFrom: "", priceTo: "" },
@@ -238,4 +240,19 @@ const AdSearch = () => {
   );
 };
 
-export default AdSearch;
+AdSearch.propTypes = {
+  searchAds: PropTypes.func.isRequired,
+  clearFilter: PropTypes.func.isRequired,
+  clearCurrentPage: PropTypes.func.isRequired,
+  ad: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  ad: state.ad,
+});
+
+export default connect(mapStateToProps, {
+  searchAds,
+  clearFilter,
+  clearCurrentPage,
+})(AdSearch);

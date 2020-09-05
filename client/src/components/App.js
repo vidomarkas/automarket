@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./layout/NavBar/NavBar";
 import Main from "./pages/Main";
@@ -15,23 +15,22 @@ import DemoUserLogin from "../components/auth/DemoUserLogin";
 import UserProfile from "../components/auth/UserProfile";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
-import AuthContext from "../context/auth/authContext";
+
 import Footer from "./layout/Footer/Footer";
 import "./normalize.scss";
 import "./App.scss";
+import { connect } from "react-redux";
+import { loadUser } from "../actions/authActions";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-function App() {
-  const authContext = useContext(AuthContext);
-
+function App({ loadUser }) {
   useEffect(() => {
     if (localStorage.token) {
-      authContext.loadUser();
+      loadUser();
     }
-
     // eslint-disable-next-line
   }, []);
   return (
@@ -76,4 +75,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { loadUser })(App);

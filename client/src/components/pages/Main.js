@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
-import AdContext from "../../context/ad/adContext";
+import React from "react";
 import Header from "../layout/Header/Header";
 import TopAds from "../ads/TopAds/TopAds";
 import SearchResults from "../ads/SearchResults/SearchResults";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const Main = () => {
-  const adContext = useContext(AdContext);
-  const { foundAds } = adContext;
+const Main = ({ foundAds }) => {
   return (
     <>
       <Header />
@@ -15,4 +14,12 @@ const Main = () => {
   );
 };
 
-export default Main;
+Main.propTypes = {
+  foundAds: PropTypes.array,
+};
+
+const mapStateToProps = (state) => ({
+  foundAds: state.ad.foundAds,
+});
+
+export default connect(mapStateToProps)(Main);

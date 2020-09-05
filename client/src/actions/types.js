@@ -1,9 +1,9 @@
-// Alert context
+// Alert
 export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const REMOVE_ALL_ALERTS = "REMOVE_ALL_ALERTS";
 
-// Auth contexxt
+// Auth
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const USER_LOADED = "USER_LOADED";
@@ -13,7 +13,7 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
-// Ad context
+// Ad
 export const GET_MY_ADS = " GET_MY_ADS";
 export const POST_AD = "POST_AD";
 export const UPDATE_AD = "UPDATE_AD";
@@ -36,11 +36,11 @@ export const INC_COUNT_SAVED = "INC_COUNT_SAVED";
 export const DEC_COUNT_SAVED = "DEC_COUNT_SAVED";
 export const COUNT_SAVED_ERROR = "COUNT_SAVED_ERROR";
 
-// General context
+// General
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const REMOVE_CURRENT_PAGE = "REMOVE_CURRENT_PAGE";
 
-// User context
+// User
 export const SAVE_AD = "SAVE_AD";
 export const GET_SAVED_ADS = "GET_SAVED_ADS";
 export const REMOVE_AD_FROM_SAVED = "REMOVE_AD_FROM_SAVED";

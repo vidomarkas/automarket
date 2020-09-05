@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import AdContext from "../../../context/ad/adContext";
 import placeholderCar from "../../../assets/img/placeholder-car.png";
 import displayPrice from "../../../utils/displayPrice";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { deleteAd, setCurrent, clearCurrent } from "../../../actions/adActions";
 
-const MyAdItem = ({ ad }) => {
-  const adContext = useContext(AdContext);
-  const { deleteAd, setCurrent, clearCurrent } = adContext;
+const MyAdItem = ({ deleteAd, setCurrent, clearCurrent, ad }) => {
   const {
     make,
     model,
@@ -83,4 +83,10 @@ const MyAdItem = ({ ad }) => {
   );
 };
 
-export default MyAdItem;
+MyAdItem.propTypes = (state) => ({
+  deleteAd: PropTypes.func.isRequired,
+  setCurrent: PropTypes.func.isRequired,
+  clearCurrent: PropTypes.func.isRequired,
+});
+
+export default connect(null, { deleteAd, setCurrent, clearCurrent })(MyAdItem);

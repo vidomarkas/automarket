@@ -7,8 +7,11 @@ import yearIcon from "../../../assets/img/calendar.svg";
 import gearboxIcon from "../../../assets/img/gearbox.svg";
 import placeholderCar from "../../../assets/img/placeholder-car.png";
 import displayPrice from "../../../utils/displayPrice";
+import { connect } from "react-redux";
+import { getAdDetails } from "../../../actions/adActions";
+import PropTypes from "prop-types";
 
-const AdGridItem = ({ ad }) => {
+const AdGridItem = ({ ad, getAdDetails }) => {
   const {
     make,
     model,
@@ -23,10 +26,15 @@ const AdGridItem = ({ ad }) => {
     dateUpdated,
   } = ad;
 
+  const onGoToDetailsPage = () => {
+    getAdDetails(_id);
+    console.log("_id", _id);
+  };
+
   return (
     <>
       <div className="ad-grid__item">
-        <Link to={`/cars/${_id}`}>
+        <Link to={`/cars/${_id}`} onClick={onGoToDetailsPage}>
           <div
             className="ad-grid__item__image"
             style={{
@@ -104,4 +112,8 @@ const AdGridItem = ({ ad }) => {
   );
 };
 
-export default AdGridItem;
+AdGridItem.propTypes = {
+  getAdDetails: PropTypes.func.isRequired,
+};
+
+export default connect(null, { getAdDetails })(AdGridItem);

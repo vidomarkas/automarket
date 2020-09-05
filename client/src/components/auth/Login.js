@@ -1,21 +1,21 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
 import Alerts from "../layout/Alerts/Alerts";
 import loginImg from "../../assets/img/login.jpg";
 import "./Auth.scss";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { setAlert } from "../../actions/alertActions";
+import { login, clearErrors } from "../../actions/authActions";
 
-const Login = (props) => {
+const Login = (
+  props,
+  { setAlert, login, clearErrors, email, password, error, isAuthenticated }
+) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const alertContext = useContext(AlertContext);
-  const authContext = useContext(AuthContext);
-  const { setAlert } = alertContext;
-  const { email, password } = user;
-  const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -101,4 +101,24 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  email: PropTypes.string,
+  password: PropTypes.string,
+};
+
+const mapStateToProps = (state) => ({
+  error: state.auth.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  email: state.user.email,
+  password: state.user.password,
+});
+
+export default connect(mapStateToProps, {
+  setAlert,
+  login,
+  clearErrors,
+})(Login);

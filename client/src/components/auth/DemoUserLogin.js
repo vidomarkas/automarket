@@ -1,18 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../../context/auth/authContext";
+
 import demoImg from "../../assets/img/demo.jpg";
 import "./Auth.scss";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/authActions";
 
-const Login = (props) => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  const authContext = useContext(AuthContext);
-  const { email, password } = user;
-  const { login, isAuthenticated } = authContext;
-
+const DemoUserLogin = (props, { login, email, password, isAuthenticated }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -22,10 +17,6 @@ const Login = (props) => {
       props.history.push("/");
     }
   }, [isAuthenticated, props.history]);
-
-  useEffect(() => {
-    setUser({ email: "demo@automarket.com", password: "DemoPassword123" });
-  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -83,4 +74,19 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+DemoUserLogin.propTypes = {
+  login: PropTypes.func.isRequired,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  email: state.user.email,
+  password: state.user.password,
+});
+
+export default connect(mapStateToProps, {
+  login,
+})(DemoUserLogin);

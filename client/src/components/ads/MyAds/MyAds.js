@@ -1,15 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
-import AdContext from "../../../context/ad/adContext";
 import MyAdItem from "./MyAdItem";
 import Spinner from "../../layout/Spinner";
 import "./MyAds.scss";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getMyAds } from "../../../actions/adActions";
 
-const MyAds = () => {
-  const adContext = useContext(AdContext);
-  const { myAds, getMyAds, loading } = adContext;
-
+const MyAds = ({ getMyAds, ad: { myAds, loading } }) => {
   useEffect(() => {
     getMyAds();
     // eslint-disable-next-line
@@ -42,4 +41,13 @@ const MyAds = () => {
   );
 };
 
-export default MyAds;
+MyAds.propTypes = {
+  ad: PropTypes.object.isRequired,
+  getMyAds: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  ad: state.ad,
+});
+
+export default connect(mapStateToProps, { getMyAds })(MyAds);

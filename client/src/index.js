@@ -1,11 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
-import AuthState from "./context/auth/AuthState";
-import AdState from "./context/ad/AdState";
-import AlertState from "./context/alert/AlertState";
-import GeneralState from "./context/general/GeneralState";
-import UserState from "./context/user/UserState";
+import { Provider } from "react-redux";
+import store from "./store";
 
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -16,17 +13,9 @@ JavascriptTimeAgo.addLocale(ru);
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthState>
-      <GeneralState>
-        <AdState>
-          <AlertState>
-            <UserState>
-              <App />
-            </UserState>
-          </AlertState>
-        </AdState>
-      </GeneralState>
-    </AuthState>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,5 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import AdContext from "../../../context/ad/adContext";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {
+  getAdDetails,
+  clearAdDetails,
+  countSeen,
+  clearCurrent,
+} from "../../../actions/adActions";
 import AdDetailsMap from "./AdDetailsMap";
 import AdDetailsContact from "./AdDetailsContact";
 import AdDetailsOverview from "./AdDetailsOverview";
@@ -9,34 +16,42 @@ import AdDetailsStats from "./AdDetailsStats";
 import AdDetailsSave from "./AdDetailsSave";
 import Spinner from "../../layout/Spinner";
 import AdDetailsSpecification from "./AdDetailsSpecification";
-
 import "./AdDetails.scss";
 
-const AdDetails = (props) => {
-  const adContext = useContext(AdContext);
-  const {
-    adDetails,
-    clearAdDetails,
-    getAdDetails,
-    loading,
-    countSeen,
-    incrementSavedCount,
-    decrementSavedCount,
-  } = adContext;
-
+const AdDetails = ({
+  match,
+  history,
+  getAdDetails,
+  clearAdDetails,
+  countSeen,
+  adDetails,
+  loading,
+}) => {
   useEffect(() => {
-    countSeen(props.match.params.id);
+    console.log("____________________");
+    console.log("loading", loading);
+    console.log("adDetails", adDetails);
+    console.log("____________________");
+  }, [loading, adDetails]);
+
+  // Increase the views counter & scroll to the top of the window
+  useEffect(() => {
+    if (adDetails) {
+      countSeen(adDetails._id);
+    }
     window.scrollTo(0, 0);
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    getAdDetails(props.match.params.id);
+    if (!adDetails) {
+      getAdDetails(match.params.id);
+    }
     return () => {
       clearAdDetails();
     };
     // eslint-disable-next-line
-  }, [props.match.params.id]);
+  }, []);
 
   return (
     <>
@@ -54,11 +69,7 @@ const AdDetails = (props) => {
                 <AdDetailsDescription description={adDetails.description} />
               </div>
               <div className="car-details__aside">
-                <AdDetailsSave
-                  ad={adDetails}
-                  incrementSavedCount={incrementSavedCount}
-                  decrementSavedCount={decrementSavedCount}
-                />
+                <AdDetailsSave ad={adDetails} />
                 <AdDetailsContact
                   coords={adDetails.coords}
                   phoneNumber={adDetails.phoneNumber}
@@ -69,7 +80,7 @@ const AdDetails = (props) => {
             </div>
           </div>
           <div className="car-details__back-button-container">
-            <button className="btn btn-primary" onClick={props.history.goBack}>
+            <button className="btn btn-primary" onClick={history.goBack}>
               Back
             </button>
           </div>
@@ -83,4 +94,24 @@ const AdDetails = (props) => {
   );
 };
 
-export default AdDetails;
+AdDetails.propTypes = {
+  clearAdDetails: PropTypes.func.isRequired,
+  getAdDetails: PropTypes.func.isRequired,
+  countSeen: PropTypes.func.isRequired,
+  adDetails: PropTypes.object,
+  loading: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  state,
+  adDetails: state.ad.adDetails,
+  loading: state.ad.loading,
+  current: state.ad.current,
+});
+
+export default connect(mapStateToProps, {
+  clearAdDetails,
+  getAdDetails,
+  countSeen,
+  clearCurrent,
+})(AdDetails);

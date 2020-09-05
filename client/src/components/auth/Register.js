@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
+import PropTypes from "prop-types";
 import Alerts from "../layout/Alerts/Alerts";
 import registerImg from "../../assets/img/register.jpg";
 import "./Auth.scss";
+import { connect } from "react-redux";
+import { setAlert, clearAllAlerts } from "../../actions/alertActions";
+import { register, clearErrors } from "../../actions/authActions";
 
-const Register = (props) => {
-  const alertContext = useContext(AlertContext);
-  const authContext = useContext(AuthContext);
-  const { setAlert, clearAllAlerts } = alertContext;
-  const { register, error, clearErrors, isAuthenticated } = authContext;
-
+const Register = (
+  props,
+  { setAlert, clearAllAlerts, register, clearErrors, error, isAuthenticated }
+) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -150,4 +150,23 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  clearAllAlerts: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  error: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  error: state.auth.error,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {
+  setAlert,
+  clearAllAlerts,
+  register,
+  clearErrors,
+})(Register);

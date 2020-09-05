@@ -36,7 +36,7 @@ router.post("/:id", async (req, res) => {
       { new: true }
     );
 
-    res.json(ad);
+    res.json(ad.seenCount);
   } catch (error) {
     res.status(500).json({ msg: "Error updating the ad" });
   }

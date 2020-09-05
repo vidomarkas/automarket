@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import AdContext from "../../../context/ad/adContext";
+import React, { useEffect, useState } from "react";
+
 import Spinner from "../../layout/Spinner";
 import TopAdsTabs from "./TopAdsTabs";
 import AdGrid from "../AdGrid/AdGrid";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getAdGroup, setAdGroupType } from "../../../actions/adActions";
 
-const TopAds = () => {
-  const adContext = useContext(AdContext);
-  const {
-    getAdGroup,
-    loading,
-    adGroup,
-    adGroupType,
-    setAdGroupType,
-  } = adContext;
+const TopAds = ({
+  getAdGroup,
+  setAdGroupType,
+  ad: { loading, adGroup, adGroupType },
+}) => {
   const [currentTab, setCurrentTab] = useState(adGroupType);
 
   useEffect(() => {
@@ -36,4 +35,14 @@ const TopAds = () => {
   );
 };
 
-export default TopAds;
+TopAds.propTypes = {
+  ad: PropTypes.object.isRequired,
+  getAdGroup: PropTypes.func.isRequired,
+  setAdGroupType: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  ad: state.ad,
+});
+
+export default connect(mapStateToProps, { getAdGroup, setAdGroupType })(TopAds);

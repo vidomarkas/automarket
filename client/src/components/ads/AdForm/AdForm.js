@@ -1,7 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import AlertContext from "../../../context/alert/alertContext";
-import AdContext from "../../../context/ad/adContext";
-import GeneralContext from "../../../context/general/generalContext";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import {
+  postAd,
+  updateAd,
+  uploadImage,
+  clearCurrent,
+} from "../../../actions/adActions";
+import { setAlert } from "../../../actions/alertActions";
+import { postcodeValidation } from "../../../actions/generalActions";
 import Alerts from "../../layout/Alerts/Alerts";
 import Spinner from "../../layout/Spinner";
 import "./AdForm.scss";
@@ -9,24 +15,20 @@ import AdPublished from "./AdPublished";
 import PhotoUploader from "./PhotoUploader";
 import FormMainInfo from "./FormMainInfo";
 import FormDescription from "./FormDescription";
+import PropTypes from "prop-types";
 
-const AdForm = (props) => {
-  const adContext = useContext(AdContext);
-  const {
+const AdForm = (
+  props,
+  {
     postAd,
     updateAd,
     uploadImage,
-    current,
     clearCurrent,
-    currentImg,
-  } = adContext;
-
-  const alertContext = useContext(AlertContext);
-  const { setAlert } = alertContext;
-
-  const generalContext = useContext(GeneralContext);
-  const { postcodeValidation } = generalContext;
-
+    ad: { currentImg, current },
+    setAlert,
+    postcodeValidation,
+  }
+) => {
   const initialState = {
     // required fields
     make: "",
@@ -403,4 +405,29 @@ const AdForm = (props) => {
   );
 };
 
-export default AdForm;
+AdForm.propTypes = {
+  ad: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  ad: state.ad,
+  user: state.user,
+  auth: state.auth,
+  postAd: PropTypes.func.isRequired,
+  updateAd: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
+  clearCurrent: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  postcodeValidation: PropTypes.func.isRequired,
+});
+
+export default connect(mapStateToProps, {
+  postAd,
+  updateAd,
+  uploadImage,
+  clearCurrent,
+  setAlert,
+  postcodeValidation,
+})(AdForm);

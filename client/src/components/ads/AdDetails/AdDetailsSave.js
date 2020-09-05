@@ -1,15 +1,24 @@
-import React, { useEffect, useContext, useState } from "react";
-import UserContext from "../../../context/user/userContext";
-import AuthContext from "../../../context/auth/authContext";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {
+  incrementSavedCount,
+  decrementSavedCount,
+} from "../../../actions/adActions";
+import { saveAd, removeAd } from "../../../actions/userActions";
 import { FaCheck } from "react-icons/fa";
 
-const AdDetailsSave = ({ ad, decrementSavedCount, incrementSavedCount }) => {
-  const userContext = useContext(UserContext);
-  const { saveAd, removeAd, savedAds, loading } = userContext;
-
-  const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
-
+const AdDetailsSave = (
+  {
+    ad,
+    decrementSavedCount,
+    incrementSavedCount,
+    saveAd,
+    removeAd,
+    user: { savedAds, loading },
+  },
+  isAuthenticated
+) => {
   const [isSaved, setIsSaved] = useState(false);
   const [savedButtonText, setSavedButtonText] = useState("Saved");
 
@@ -65,4 +74,21 @@ const AdDetailsSave = ({ ad, decrementSavedCount, incrementSavedCount }) => {
   );
 };
 
-export default AdDetailsSave;
+AdDetailsSave.propTypes = {
+  incrementSavedCount: PropTypes.func.isRequired,
+  decrementSavedCount: PropTypes.func.isRequired,
+  ad: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  ad: state.ad,
+  user: state.user,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {
+  incrementSavedCount,
+  decrementSavedCount,
+  saveAd,
+  removeAd,
+})(AdDetailsSave);

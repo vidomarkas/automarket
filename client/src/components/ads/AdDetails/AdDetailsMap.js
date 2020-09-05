@@ -1,5 +1,6 @@
 import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import PropTypes from "prop-types";
 
 const AdDetailsMap = ({ coords }) => {
   const position = [coords.latitude, coords.longitude];
@@ -31,6 +32,10 @@ const AdDetailsMap = ({ coords }) => {
       </div>
     </>
   );
+};
+
+AdDetailsMap.propTypes = {
+  coords: PropTypes.object.isRequired,
 };
 
 export default AdDetailsMap;

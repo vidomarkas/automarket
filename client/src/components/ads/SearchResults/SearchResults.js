@@ -1,18 +1,13 @@
-import React, { useContext, useState } from "react";
-import AdContext from "../../../context/ad/adContext";
-import GeneralContext from "../../../context/general/generalContext";
+import React, { useState } from "react";
 import SearchResult from "./SearchResult";
 import Spinner from "../../layout/Spinner";
 import "./SearchResults.scss";
 import Pagination from "../../Pagination";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 // change this component to featured ads
-const SearchResults = () => {
-  const adContext = useContext(AdContext);
-  const { foundAds, loading } = adContext;
-  const generalContext = useContext(GeneralContext);
-  const { currentPage } = generalContext;
-
+const SearchResults = ({ currentPage, ad: { foundAds, loading } }) => {
   const [adsPerPage] = useState(10);
 
   // Get current ads
@@ -60,5 +55,14 @@ const SearchResults = () => {
     </div>
   );
 };
+SearchResults.propTypes = (state) => ({
+  ad: PropTypes.object.isRequired,
+  currentPage: PropTypes.number.isRequired,
+});
 
-export default SearchResults;
+const mapStateToProps = (state) => ({
+  ad: state.ad,
+  currentPage: state.general.currentPage,
+});
+
+export default connect(mapStateToProps)(SearchResults);

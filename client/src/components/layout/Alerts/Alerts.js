@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import AlertContext from "../../../context/alert/alertContext";
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { BsInfoCircle } from "react-icons/bs";
 import "./Alerts.scss";
 
-const Alerts = () => {
-  const alertContext = useContext(AlertContext);
+const Alerts = ({ alerts }) => {
   return (
-    alertContext.alerts.length > 0 &&
-    alertContext.alerts.map((alert) => (
+    alerts.length > 0 &&
+    alerts.map((alert) => (
       <div key={alert.id} className={`alert alert__${alert.type}`}>
         <BsInfoCircle className="alert__icon" /> {alert.msg}
       </div>
@@ -15,4 +15,12 @@ const Alerts = () => {
   );
 };
 
-export default Alerts;
+Alerts.propTypes = {
+  alerts: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  alerts: state.alert.alerts,
+});
+
+export default connect(mapStateToProps)(Alerts);

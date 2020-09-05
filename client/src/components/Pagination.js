@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import GeneralContext from "../context/general/generalContext";
+import React from "react";
 
-const Pagination = ({ adsPerPage, totalAds }) => {
+import { connect } from "react-redux";
+import { setCurrentPage } from "../actions/generalActions";
+
+const Pagination = ({ adsPerPage, totalAds, setCurrentPage, currentPage }) => {
   const pageNumbers = [];
-  const generalContext = useContext(GeneralContext);
-  const { currentPage, setCurrentPage } = generalContext;
 
   for (let i = 1; i <= Math.ceil(totalAds / adsPerPage); i++) {
     pageNumbers.push(i);
@@ -32,4 +32,6 @@ const Pagination = ({ adsPerPage, totalAds }) => {
   );
 };
 
-export default Pagination;
+const mapStateToProps = (state) => ({ currentPage: state.general.currentPage });
+
+export default connect(mapStateToProps, { setCurrentPage })(Pagination);

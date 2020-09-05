@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import UserContext from "../../../context/user/userContext";
+import React, { useEffect } from "react";
 import AdGrid from "../AdGrid/AdGrid";
 import "./SavedAds.scss";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getSavedAds } from "../../../actions/userActions";
 
-const SavedAds = () => {
-  const userContext = useContext(UserContext);
-  const { savedAds, getSavedAds } = userContext;
+const SavedAds = ({ getSavedAds, savedAds }) => {
   useEffect(() => {
     getSavedAds();
     //eslint-disable-next-line
@@ -33,4 +33,13 @@ const SavedAds = () => {
   );
 };
 
-export default SavedAds;
+SavedAds.propTypes = {
+  getSavedAds: PropTypes.func.isRequired,
+  savedAds: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  savedAds: state.user.savedAds,
+});
+
+export default connect(mapStateToProps, { getSavedAds })(SavedAds);
