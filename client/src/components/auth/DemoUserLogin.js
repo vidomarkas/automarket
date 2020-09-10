@@ -7,20 +7,20 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/authActions";
 
-const DemoUserLogin = (props, { login, email, password, isAuthenticated }) => {
+const DemoUserLogin = ({ history, login, isAuthenticated }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/");
+      history.push("/");
     }
-  }, [isAuthenticated, props.history]);
+  }, [isAuthenticated, history]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login({ email, password });
+    login({ email: "demo@automarket.com", password: "DemoPassword123" });
   };
 
   return (
@@ -76,15 +76,11 @@ const DemoUserLogin = (props, { login, email, password, isAuthenticated }) => {
 
 DemoUserLogin.propTypes = {
   login: PropTypes.func.isRequired,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  email: state.user.email,
-  password: state.user.password,
 });
 
 export default connect(mapStateToProps, {

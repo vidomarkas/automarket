@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {
-  getAdDetails,
-  clearAdDetails,
-  countSeen,
-  clearCurrent,
-} from "../../../actions/adActions";
+import { getAdDetails, clearAdDetails } from "../../../actions/adActions";
 import AdDetailsMap from "./AdDetailsMap";
 import AdDetailsContact from "./AdDetailsContact";
 import AdDetailsOverview from "./AdDetailsOverview";
@@ -23,30 +18,13 @@ const AdDetails = ({
   history,
   getAdDetails,
   clearAdDetails,
-  countSeen,
   adDetails,
   loading,
 }) => {
+  // Get ad details & scroll to the top of the window
   useEffect(() => {
-    console.log("____________________");
-    console.log("loading", loading);
-    console.log("adDetails", adDetails);
-    console.log("____________________");
-  }, [loading, adDetails]);
-
-  // Increase the views counter & scroll to the top of the window
-  useEffect(() => {
-    if (adDetails) {
-      countSeen(adDetails._id);
-    }
+    getAdDetails(match.params.id);
     window.scrollTo(0, 0);
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    if (!adDetails) {
-      getAdDetails(match.params.id);
-    }
     return () => {
       clearAdDetails();
     };
@@ -97,21 +75,16 @@ const AdDetails = ({
 AdDetails.propTypes = {
   clearAdDetails: PropTypes.func.isRequired,
   getAdDetails: PropTypes.func.isRequired,
-  countSeen: PropTypes.func.isRequired,
   adDetails: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  state,
   adDetails: state.ad.adDetails,
   loading: state.ad.loading,
-  current: state.ad.current,
 });
 
 export default connect(mapStateToProps, {
   clearAdDetails,
   getAdDetails,
-  countSeen,
-  clearCurrent,
 })(AdDetails);

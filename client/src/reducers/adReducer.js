@@ -14,7 +14,6 @@ import {
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
-  COUNT_SEEN,
   SET_AD_GROUP,
   INC_COUNT_SAVED,
   DEC_COUNT_SAVED,
@@ -110,11 +109,6 @@ export default (state = initialState, action) => {
         adDetails: { ...state.adDetails, savedCount: action.payload },
       };
 
-    case COUNT_SEEN:
-      return {
-        ...state,
-        adDetails: { ...state.adDetails, seenCount: action.payload },
-      };
     default:
       return state;
   }

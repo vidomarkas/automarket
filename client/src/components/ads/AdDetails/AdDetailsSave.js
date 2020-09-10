@@ -22,14 +22,14 @@ const AdDetailsSave = (
   const [isSaved, setIsSaved] = useState(false);
   const [savedButtonText, setSavedButtonText] = useState("Saved");
 
-  useEffect(() => {
-    // Set initial  save state
-    if (!loading && savedAds && savedAds.length > 0) {
-      if (savedAds.some((adv) => adv._id === ad._id)) {
-        setIsSaved(true);
-      }
-    }
-  }, [ad, loading, savedAds]);
+  // useEffect(() => {
+  //   // Set initial  save state
+  //   if (!loading && savedAds && savedAds.length > 0) {
+  //     if (savedAds.some((adv) => adv._id === ad._id)) {
+  //       setIsSaved(true);
+  //     }
+  //   }
+  // }, [ad, loading, savedAds]);
   const onSaveAd = () => {
     saveAd(ad._id);
     incrementSavedCount(ad._id);

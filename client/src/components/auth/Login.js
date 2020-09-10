@@ -8,10 +8,16 @@ import PropTypes from "prop-types";
 import { setAlert } from "../../actions/alertActions";
 import { login, clearErrors } from "../../actions/authActions";
 
-const Login = (
-  props,
-  { setAlert, login, clearErrors, email, password, error, isAuthenticated }
-) => {
+const Login = ({
+  history,
+  setAlert,
+  login,
+  clearErrors,
+  email,
+  password,
+  error,
+  isAuthenticated,
+}) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -23,7 +29,7 @@ const Login = (
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/");
+      history.push("/");
     }
 
     if (error === "Invalid credentials") {
@@ -31,7 +37,7 @@ const Login = (
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated, history]);
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });

@@ -4,7 +4,12 @@ import placeholderCar from "../../../assets/img/placeholder-car.png";
 import displayPrice from "../../../utils/displayPrice";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteAd, setCurrent, clearCurrent } from "../../../actions/adActions";
+import {
+  deleteAd,
+  setCurrent,
+  clearCurrent,
+  getAdDetails,
+} from "../../../actions/adActions";
 
 const MyAdItem = ({ deleteAd, setCurrent, clearCurrent, ad }) => {
   const {
@@ -64,7 +69,11 @@ const MyAdItem = ({ deleteAd, setCurrent, clearCurrent, ad }) => {
         <div className="my-car__price">{displayPrice(price)}</div>
       </div>
       <div className="my-car__controls">
-        <Link className="btn btn-secondary" to={`/cars/${_id}`}>
+        <Link
+          className="btn btn-secondary"
+          to={`/cars/${_id}`}
+          onClick={() => getAdDetails(_id)}
+        >
           Visit ad
         </Link>
         <Link
@@ -83,10 +92,15 @@ const MyAdItem = ({ deleteAd, setCurrent, clearCurrent, ad }) => {
   );
 };
 
-MyAdItem.propTypes = (state) => ({
+MyAdItem.propTypes = {
   deleteAd: PropTypes.func.isRequired,
   setCurrent: PropTypes.func.isRequired,
   clearCurrent: PropTypes.func.isRequired,
-});
+};
 
-export default connect(null, { deleteAd, setCurrent, clearCurrent })(MyAdItem);
+export default connect(null, {
+  deleteAd,
+  setCurrent,
+  clearCurrent,
+  getAdDetails,
+})(MyAdItem);

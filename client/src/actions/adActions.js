@@ -15,7 +15,6 @@ import {
   GET_AD_DETAILS,
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
-  COUNT_SEEN,
   SET_AD_GROUP,
   INC_COUNT_SAVED,
   DEC_COUNT_SAVED,
@@ -34,8 +33,8 @@ export const getMyAds = () => async (dispatch) => {
 // Get ad details
 export const getAdDetails = (id) => async (dispatch) => {
   try {
-    console.log("getting ad detils. id: ", id);
     const res = await axios.get(`/api/cars/${id}`);
+    console.log("res", res);
     dispatch({ type: GET_AD_DETAILS, payload: res.data });
   } catch (err) {
     dispatch({ type: AD_ERROR, payload: err.response.data.msg });
@@ -139,16 +138,6 @@ export const clearMyAds = () => {
 
 export const clearAdDetails = () => {
   return { type: CLEAR_AD_DETAILS };
-};
-
-export const countSeen = (id) => async (dispatch) => {
-  try {
-    const res = await axios.post(`/api/cars/${id}`);
-    dispatch({ type: COUNT_SEEN, payload: res.data });
-  } catch (err) {
-    console.log("err", err);
-    dispatch({ type: AD_ERROR, payload: err });
-  }
 };
 
 export const incrementSavedCount = (id) => async (dispatch) => {
