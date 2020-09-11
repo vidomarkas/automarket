@@ -233,7 +233,7 @@ router.get("/postcodeValidation/:postcode", auth, async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json("Server error");
+    res.status(500).json({ msg: "Error validating postcode" });
   }
 });
 

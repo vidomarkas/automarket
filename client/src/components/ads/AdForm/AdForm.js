@@ -17,18 +17,17 @@ import FormMainInfo from "./FormMainInfo";
 import FormDescription from "./FormDescription";
 import PropTypes from "prop-types";
 
-const AdForm = (
-  props,
-  {
-    postAd,
-    updateAd,
-    uploadImage,
-    clearCurrent,
-    ad: { currentImg, current },
-    setAlert,
-    postcodeValidation,
-  }
-) => {
+const AdForm = ({
+  history,
+  postAd,
+  updateAd,
+  uploadImage,
+  clearCurrent,
+  currentImg,
+  current,
+  setAlert,
+  postcodeValidation,
+}) => {
   const initialState = {
     // required fields
     make: "",
@@ -66,8 +65,13 @@ const AdForm = (
   const [published, setPublished] = useState(false);
   const [errorFields, setErrorFields] = useState([]);
 
+  useEffect(() => {
+    console.log("ad :>> ", ad);
+  }, [ad]);
+
   // Determine whether the ad is being updated or it is a new ad
   useEffect(() => {
+    console.log("current :>> ", current);
     if (current !== null) {
       setAd(current);
     } else {
@@ -123,7 +127,7 @@ const AdForm = (
   useEffect(() => {
     if (published && !publishing) {
       const timer = setTimeout(() => {
-        props.history.push("/mycars");
+        history.push("/mycars");
       }, 3000);
       return () => clearTimeout(timer);
     }
@@ -246,7 +250,7 @@ const AdForm = (
     setPublishing(false);
     setAd(initialState);
     clearCurrent();
-    props.history.push("/mycars");
+    history.push("/mycars");
   };
 
   const onChangeSoldStatus = () => {
@@ -406,13 +410,15 @@ const AdForm = (
 };
 
 AdForm.propTypes = {
-  ad: PropTypes.object.isRequired,
+  current: PropTypes.object,
+  currentImg: PropTypes.object,
   user: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  ad: state.ad,
+  currentImg: state.ad.currentImg,
+  current: state.ad.current,
   user: state.user,
   auth: state.auth,
   postAd: PropTypes.func.isRequired,

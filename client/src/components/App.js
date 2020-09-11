@@ -15,18 +15,17 @@ import DemoUserLogin from "../components/auth/DemoUserLogin";
 import UserProfile from "../components/auth/UserProfile";
 import setAuthToken from "../utils/setAuthToken";
 import PrivateRoute from "../components/routing/PrivateRoute";
-
 import Footer from "./layout/Footer/Footer";
 import "./normalize.scss";
 import "./App.scss";
 import { connect } from "react-redux";
 import { loadUser } from "../actions/authActions";
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+const App = ({ loadUser }) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
 
-function App({ loadUser }) {
   useEffect(() => {
     if (localStorage.token) {
       loadUser();
@@ -73,6 +72,6 @@ function App({ loadUser }) {
       </div>
     </Router>
   );
-}
+};
 
 export default connect(null, { loadUser })(App);

@@ -13,7 +13,7 @@ export const clearCurrentPage = () => {
 
 // Validate postcode
 
-export const postcodeValidation = () => async (dispatch, postcode) => {
+export const postcodeValidation = (postcode) => async () => {
   try {
     const res = await axios.get(`/api/mycars/postcodeValidation/${postcode}`);
     return res.data.result;

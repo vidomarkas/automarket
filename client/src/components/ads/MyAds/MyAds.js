@@ -10,6 +10,7 @@ import { getMyAds } from "../../../actions/adActions";
 
 const MyAds = ({ getMyAds, ad: { myAds, loading } }) => {
   useEffect(() => {
+    window.scrollTo(0, 0);
     getMyAds();
     // eslint-disable-next-line
   }, []);

@@ -36,6 +36,7 @@ router.post("/", async (req, res) => {
 
   try {
     const result = await Ad.find(typeObj.find).sort(typeObj.sort).limit(15);
+
     res.json(result);
   } catch (error) {
     console.error(error.message);

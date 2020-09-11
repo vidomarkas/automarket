@@ -6,6 +6,20 @@ import {
   SAVE_AD_ERROR,
 } from "./types";
 
+// Get saved ads list of the user
+export const getSavedAds = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/savedcars");
+    dispatch({ type: GET_SAVED_ADS, payload: res.data });
+  } catch (err) {
+    console.log("Error getSavedAds, message:", err.response.data.msg);
+    dispatch({
+      type: SAVE_AD_ERROR,
+      payload: err.response.data.msg,
+    });
+  }
+};
+
 // Save ad
 export const saveAd = (AdID) => async (dispatch) => {
   const config = { headers: { "Content-Type": "application/json" } };
@@ -28,20 +42,6 @@ export const removeAd = (AdID) => async (dispatch) => {
     const res = axios.delete(`/api/savedcars/${AdID}`, config);
     dispatch({ type: REMOVE_AD_FROM_SAVED, payload: res.data });
   } catch (err) {
-    dispatch({
-      type: SAVE_AD_ERROR,
-      payload: err.response.data.msg,
-    });
-  }
-};
-
-// Get saved ads list of the user
-export const getSavedAds = () => async (dispatch) => {
-  try {
-    const res = await axios.get("/api/savedcars");
-    dispatch({ type: GET_SAVED_ADS, payload: res.data });
-  } catch (err) {
-    console.log("Error getSavedAds, message:", err.response.data.msg);
     dispatch({
       type: SAVE_AD_ERROR,
       payload: err.response.data.msg,

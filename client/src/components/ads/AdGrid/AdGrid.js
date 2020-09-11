@@ -3,10 +3,13 @@ import AdGridItem from "./AdGridItem";
 import "./AdGrid.scss";
 
 const AdGrid = ({ ads }) => {
+  const filteredAds = ads.filter((ad) => {
+    return ad !== null;
+  });
   return (
     <div className="ad-grid__grid">
-      {ads && ads.length > 0 ? (
-        ads.map((ad) => <AdGridItem key={ad._id} ad={ad} />)
+      {filteredAds && filteredAds.length > 0 ? (
+        filteredAds.map((ad) => <AdGridItem key={ad._id} ad={ad} />)
       ) : (
         <h4>No ads found</h4>
       )}

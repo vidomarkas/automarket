@@ -21,15 +21,23 @@ const TopAds = ({
     });
     // eslint-disable-next-line
   }, [currentTab, setCurrentTab]);
+
+  useEffect(() => {
+    if (adGroup === null) {
+      getAdGroup({
+        type: currentTab,
+      });
+    }
+  }, [adGroup]);
   return (
     <div className="ad-grid__container">
-      {loading ? (
-        <Spinner />
-      ) : (
+      {!loading && adGroup !== null ? (
         <>
           <TopAdsTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
           <AdGrid ads={adGroup} />
         </>
+      ) : (
+        <Spinner />
       )}
     </div>
   );
