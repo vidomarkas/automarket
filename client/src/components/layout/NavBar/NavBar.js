@@ -10,13 +10,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../../actions/authActions";
 import { clearMyAds } from "../../../actions/adActions";
-import { getSavedAds } from "../../../actions/userActions";
+import { getSavedAdsList } from "../../../actions/userActions";
 
 const NavBar = ({
   logout,
   clearMyAds,
-  getSavedAds,
-  user: { savedAds, loading },
+  getSavedAdsList,
+  savedAdsList,
+  user: { loading },
   auth: { user, isAuthenticated },
 }) => {
   const [savedAdsNumber, setSavedAdsNumber] = useState(null);
@@ -49,9 +50,9 @@ const NavBar = ({
 
   useEffect(() => {
     if (isAuthenticated) {
-      getSavedAds();
+      getSavedAdsList();
     }
-  }, [isAuthenticated, getSavedAds]);
+  }, [isAuthenticated, getSavedAdsList]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -61,10 +62,10 @@ const NavBar = ({
   }, [dropdown, openMobileNav]);
 
   useEffect(() => {
-    if (!loading && savedAds && isAuthenticated) {
-      setSavedAdsNumber(savedAds.length);
+    if (!loading && savedAdsList && isAuthenticated) {
+      setSavedAdsNumber(savedAdsList.length);
     }
-  }, [isAuthenticated, loading, savedAds]);
+  }, [isAuthenticated, loading, savedAdsList]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -230,14 +231,17 @@ NavBar.propTypes = {
   auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   clearMyAds: PropTypes.func.isRequired,
-  getSavedAds: PropTypes.func.isRequired,
+  getSavedAdsList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
   auth: state.auth,
+  savedAdsList: state.user.savedAdsList,
 });
 
-export default connect(mapStateToProps, { logout, clearMyAds, getSavedAds })(
-  NavBar
-);
+export default connect(mapStateToProps, {
+  logout,
+  clearMyAds,
+  getSavedAdsList,
+})(NavBar);

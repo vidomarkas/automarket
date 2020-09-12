@@ -3,26 +3,23 @@ import AdGrid from "../AdGrid/AdGrid";
 import "./SavedAds.scss";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getSavedAds } from "../../../actions/userActions";
+import { getSavedAdsDetails } from "../../../actions/userActions";
 
-const SavedAds = ({ getSavedAds, savedAds }) => {
-  useEffect(() => {
-    getSavedAds();
-    //eslint-disable-next-line
-  }, []);
-
+const SavedAds = ({ getSavedAdsDetails, savedAdsDetails }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
+    getSavedAdsDetails();
+    //eslint-disable-next-line
   }, []);
 
   return (
     <div className="saved-cars__container ">
-      {savedAds && savedAds.length > 0 ? (
+      {savedAdsDetails && savedAdsDetails.length > 0 ? (
         <>
           <div className="saved-cars__heading shadow-min">
             <h1>Saved ads</h1>
           </div>
-          <AdGrid ads={savedAds} />
+          <AdGrid ads={savedAdsDetails} />
         </>
       ) : (
         <div className="saved-cars__heading shadow-min">
@@ -34,12 +31,12 @@ const SavedAds = ({ getSavedAds, savedAds }) => {
 };
 
 SavedAds.propTypes = {
-  getSavedAds: PropTypes.func.isRequired,
-  savedAds: PropTypes.array.isRequired,
+  getSavedAdsDetails: PropTypes.func.isRequired,
+  savedAdsDetails: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  savedAds: state.user.savedAds,
+  savedAdsDetails: state.user.savedAdsDetails,
 });
 
-export default connect(mapStateToProps, { getSavedAds })(SavedAds);
+export default connect(mapStateToProps, { getSavedAdsDetails })(SavedAds);

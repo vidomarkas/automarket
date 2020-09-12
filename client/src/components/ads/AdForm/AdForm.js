@@ -9,9 +9,9 @@ import {
 import { setAlert } from "../../../actions/alertActions";
 import { postcodeValidation } from "../../../actions/generalActions";
 import Alerts from "../../layout/Alerts/Alerts";
-import Spinner from "../../layout/Spinner";
 import "./AdForm.scss";
 import AdPublished from "./AdPublished";
+import AdPublishing from "./AdPublishing";
 import PhotoUploader from "./PhotoUploader";
 import FormMainInfo from "./FormMainInfo";
 import FormDescription from "./FormDescription";
@@ -63,22 +63,8 @@ const AdForm = ({
 
   const [publishing, setPublishing] = useState(false);
   const [published, setPublished] = useState(false);
+  // Validation errors
   const [errorFields, setErrorFields] = useState([]);
-
-  useEffect(() => {
-    console.log("ad :>> ", ad);
-  }, [ad]);
-
-  // Determine whether the ad is being updated or it is a new ad
-  useEffect(() => {
-    console.log("current :>> ", current);
-    if (current !== null) {
-      setAd(current);
-    } else {
-      setAd(initialState);
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const {
     make,
@@ -96,6 +82,16 @@ const AdForm = ({
     featured,
     sold,
   } = ad;
+
+  // Determine whether the ad is being updated or it is a new ad
+  useEffect(() => {
+    if (current !== null) {
+      setAd(current);
+    } else {
+      setAd(initialState);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (publishing && currentImg !== null) {
@@ -123,6 +119,13 @@ const AdForm = ({
     // eslint-disable-next-line
   }, [imageURL, publishing]);
 
+  useEffect(() => {
+    if (image) {
+      setAd({ ...ad, imageURL: null });
+    }
+    // eslint-disable-next-line
+  }, [image]);
+
   // Ad published, redirecting to /myads
   useEffect(() => {
     if (published && !publishing) {
@@ -134,40 +137,7 @@ const AdForm = ({
     // eslint-disable-next-line
   }, [published, publishing]);
 
-  useEffect(() => {
-    if (image) {
-      setAd({ ...ad, imageURL: null });
-    }
-    // eslint-disable-next-line
-  }, [image]);
-
-  // On change in inputs, update ad state
-  const onChange = (e) => {
-    setAd({ ...ad, [e.target.name]: e.target.value });
-    const errorFieldsCopy = errorFields.slice();
-    const index = errorFields.indexOf(e.target.name);
-    if (index !== -1) {
-      errorFieldsCopy.splice(index, 1);
-      setErrorFields([...errorFieldsCopy]);
-    }
-  };
-
-  // On change in image upload input, update state
-  const onImageSelect = (e) => {
-    setAd({ ...ad, [e.target.name]: e.target.files[0] });
-  };
-
-  const onCheck = (e) => {
-    setAd({ ...ad, [e.target.name]: e.target.checked });
-  };
-
-  const createCurrentDate = () => {
-    const date = new Date();
-    return date.toISOString();
-  };
-
   // ======================= Start of validation ====================
-
   const validation = async () => {
     // Empty fields
     const emptyFields = [];
@@ -222,16 +192,14 @@ const AdForm = ({
     }
   };
 
-  // ======================= End of validation ====================
-
+  // ======================= Actions ====================
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const validated = await validation();
-    setAd({ ...ad, dateUpdated: createCurrentDate() });
+    //setAd({ ...ad, dateUpdated: createCurrentDate() });
     if (validated) {
       // Passed validation
-
       setPublishing(true);
 
       // If user added image
@@ -255,6 +223,26 @@ const AdForm = ({
 
   const onChangeSoldStatus = () => {
     setAd({ ...ad, sold: !sold });
+  };
+
+  // On change in inputs, update ad state
+  const onChange = (e) => {
+    setAd({ ...ad, [e.target.name]: e.target.value });
+    const errorFieldsCopy = errorFields.slice();
+    const index = errorFields.indexOf(e.target.name);
+    if (index !== -1) {
+      errorFieldsCopy.splice(index, 1);
+      setErrorFields([...errorFieldsCopy]);
+    }
+  };
+
+  // On change in image upload input, update state
+  const onImageSelect = (e) => {
+    setAd({ ...ad, [e.target.name]: e.target.files[0] });
+  };
+
+  const onCheck = (e) => {
+    setAd({ ...ad, [e.target.name]: e.target.checked });
   };
 
   return (
@@ -297,16 +285,6 @@ const AdForm = ({
               ad={ad}
               emptyFields={errorFields}
             />
-            {/* <div className="ad-form__section">
-              <h2 className="ad-form__section__heading">
-                Aditional information
-              </h2>
-            </div>
-            <div className="ad-form__section">
-              <h2 className="ad-form__section__heading">
-                Features / Equipment
-              </h2>
-            </div> */}
             <FormDescription onChange={onChange} description={description} />
             <PhotoUploader onImageSelect={onImageSelect} imageURL={imageURL} />
             <div className="ad-form__section">
@@ -398,10 +376,7 @@ const AdForm = ({
           </form>
         </>
       ) : publishing && !published ? (
-        <div className="ad-publishing">
-          <Spinner />
-          <h2> Publishing...</h2>
-        </div>
+        <AdPublishing />
       ) : (
         <AdPublished />
       )}

@@ -6,6 +6,7 @@ const Ad = require("../models/Ad");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 const getCoords = require("../utils/getCoords");
+const createCurrentDate = require("../utils/createCurrentDate");
 
 // Route        GET api/myads
 // Description  Get my ads
@@ -66,10 +67,10 @@ router.post(
       regNo,
       featured,
       sold,
-      dateUpdated,
     } = req.body;
 
     const coords = await getCoords(postcode);
+
     try {
       const newAd = new Ad({
         make,
@@ -95,9 +96,9 @@ router.post(
         regNo,
         featured,
         sold,
-        dateUpdated,
         user: req.user.id,
         coords,
+        dateUpdated: createCurrentDate(),
       });
       const ad = await newAd.save();
 
@@ -138,7 +139,6 @@ router.put("/:id", auth, async (req, res) => {
     imageURL,
     featured,
     sold,
-    dateUpdated,
   } = req.body;
   const coords = await getCoords(postcode);
 
@@ -167,7 +167,7 @@ router.put("/:id", auth, async (req, res) => {
   if (description) adFields.description = description;
   if (imageURL) adFields.imageURL = imageURL;
   if (regNo) adFields.regNo = regNo;
-  if (dateUpdated) adFields.dateUpdated = dateUpdated;
+  adFields.dateUpdated = createCurrentDate();
   if (featured !== undefined) adFields.featured = featured;
   if (sold !== undefined) adFields.sold = sold;
   if (await coords) adFields.coords = coords;

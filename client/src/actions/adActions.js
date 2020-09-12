@@ -34,7 +34,7 @@ export const getMyAds = () => async (dispatch) => {
 export const getAdDetails = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/cars/${id}`);
-    console.log("res", res);
+
     dispatch({ type: GET_AD_DETAILS, payload: res.data });
   } catch (err) {
     dispatch({ type: AD_ERROR, payload: err.response.data.msg });
@@ -140,21 +140,21 @@ export const clearAdDetails = () => {
   return { type: CLEAR_AD_DETAILS };
 };
 
-export const incrementSavedCount = (id) => async (dispatch) => {
-  const config = { headers: { "Content-Type": "application/json" } };
-  try {
-    const res = await axios.post("/api/savedcars/inc", { id }, config);
-    dispatch({ type: INC_COUNT_SAVED, payload: res.data });
-  } catch (err) {
-    dispatch({ type: AD_ERROR, payload: err.response.msg });
-  }
-};
-export const decrementSavedCount = (id) => async (dispatch) => {
-  const config = { headers: { "Content-Type": "application/json" } };
-  try {
-    const res = await axios.post("/api/savedcars/dec", { id }, config);
-    dispatch({ type: DEC_COUNT_SAVED, payload: res.data });
-  } catch (err) {
-    dispatch({ type: AD_ERROR, payload: err.response.msg });
-  }
-};
+// export const incrementSavedCount = (id) => async (dispatch) => {
+//   const config = { headers: { "Content-Type": "application/json" } };
+//   try {
+//     const res = await axios.post("/api/savedcars/inc", { id }, config);
+//     dispatch({ type: INC_COUNT_SAVED, payload: res.data });
+//   } catch (err) {
+//     dispatch({ type: AD_ERROR, payload: err.response.msg });
+//   }
+// };
+// export const decrementSavedCount = (id) => async (dispatch) => {
+//   const config = { headers: { "Content-Type": "application/json" } };
+//   try {
+//     const res = await axios.post("/api/savedcars/dec", { id }, config);
+//     dispatch({ type: DEC_COUNT_SAVED, payload: res.data });
+//   } catch (err) {
+//     dispatch({ type: AD_ERROR, payload: err.response.msg });
+//   }
+// };

@@ -4,7 +4,6 @@ import Spinner from "../../layout/Spinner";
 
 const AdDetailsStats = ({ ad }) => {
   const { seenCount, savedCount, dateAdded, dateUpdated } = ad;
-
   return (
     <>
       {ad ? (

@@ -28,6 +28,7 @@ const TopAds = ({
         type: currentTab,
       });
     }
+    // eslint-disable-next-line
   }, [adGroup]);
   return (
     <div className="ad-grid__container">

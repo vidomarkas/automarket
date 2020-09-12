@@ -1,44 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {
-  incrementSavedCount,
-  decrementSavedCount,
-} from "../../../actions/adActions";
 import { saveAd, removeAd } from "../../../actions/userActions";
 import { FaCheck } from "react-icons/fa";
 
 const AdDetailsSave = (
-  {
-    ad,
-    decrementSavedCount,
-    incrementSavedCount,
-    saveAd,
-    removeAd,
-    user: { savedAds, loading },
-  },
+  { id, saveAd, removeAd, loading, savedAdsList },
   isAuthenticated
 ) => {
   const [isSaved, setIsSaved] = useState(false);
   const [savedButtonText, setSavedButtonText] = useState("Saved");
 
+  useEffect(() => {
+    console.log("savedAdsList :>> ", savedAdsList);
+    console.log("id :>> ", id);
+  }, [savedAdsList, id]);
+
   // useEffect(() => {
   //   // Set initial  save state
-  //   if (!loading && savedAds && savedAds.length > 0) {
-  //     if (savedAds.some((adv) => adv._id === ad._id)) {
+  //   if (!loading && savedAdsList.length > 0) {
+  //     console.log("triggered");
+  //     if (savedAdsList.some((adv) => adv === id)) {
   //       setIsSaved(true);
   //     }
   //   }
-  // }, [ad, loading, savedAds]);
+  // }, [loading, savedAdsList]);
+
   const onSaveAd = () => {
-    saveAd(ad._id);
-    incrementSavedCount(ad._id);
+    console.log("id", id);
+    saveAd(id);
     setIsSaved(true);
   };
   // Remove ad from saved ads list
   const onRemoveAd = () => {
-    removeAd(ad._id);
-    decrementSavedCount(ad._id);
+    removeAd(id);
     setIsSaved(false);
   };
 
@@ -74,21 +69,16 @@ const AdDetailsSave = (
   );
 };
 
-AdDetailsSave.propTypes = {
-  incrementSavedCount: PropTypes.func.isRequired,
-  decrementSavedCount: PropTypes.func.isRequired,
-  ad: PropTypes.object.isRequired,
-};
+AdDetailsSave.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  ad: state.ad,
-  user: state.user,
+  id: state.ad.adDetails._id,
+  savedAdsList: state.user.savedAdsList,
+  loading: state.user.loading,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {
-  incrementSavedCount,
-  decrementSavedCount,
   saveAd,
   removeAd,
 })(AdDetailsSave);
