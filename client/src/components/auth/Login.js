@@ -46,7 +46,6 @@ const Login = ({
     if (user.email === "" || user.password === "") {
       setAlert("Please enter all fields", "danger");
     } else {
-      console.log("email, password :>> ", user.email, user.password);
       login({ email: user.email, password: user.password });
     }
   };

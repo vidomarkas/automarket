@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
-
 import { connect } from "react-redux";
+import { loadUser } from "../../actions/authActions";
+import setAuthToken from "../../utils/setAuthToken";
+import Spinner from "../layout/Spinner";
 
 const PrivateRoute = ({
   component: Component,
@@ -9,11 +11,20 @@ const PrivateRoute = ({
   isAuthenticated,
   ...rest
 }) => {
+  useEffect(() => {
+    // load token into global headers and load user
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      loadUser();
+    }
+  }, []);
   return (
     <Route
       {...rest}
       render={(props) =>
-        !loading && isAuthenticated ? (
+        loading ? (
+          <Spinner />
+        ) : !loading && isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect to="/login" />

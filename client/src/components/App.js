@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./layout/NavBar/NavBar";
 import Main from "./pages/Main";
@@ -17,8 +17,18 @@ import PrivateRoute from "../components/routing/PrivateRoute";
 import Footer from "./layout/Footer/Footer";
 import "./normalize.scss";
 import "./App.scss";
+import setAuthToken from "../utils/setAuthToken";
+import { loadUser } from "../actions/authActions";
+import { connect } from "react-redux";
 
-const App = () => {
+const App = ({ loadUser }) => {
+  useEffect(() => {
+    // load token into global headers and load user
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      loadUser();
+    }
+  }, [loadUser]);
   return (
     <Router>
       <div className="app">
@@ -61,4 +71,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(null, { loadUser })(App);
