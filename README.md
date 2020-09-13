@@ -4,9 +4,9 @@ Automarket is a car sales platform. Full stack web application.
 
 ## Project stack
  * React with hooks
- * NodeJS
- * Express
- * MongoDB hosted in cloud with Mongoose abstraction layer 
+ * Redux for state management
+ * NodeJS with Express
+ * MongoDB with Mongoose
  
 ## Features
 
