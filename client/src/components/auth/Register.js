@@ -8,17 +8,22 @@ import { connect } from "react-redux";
 import { setAlert, clearAllAlerts } from "../../actions/alertActions";
 import { register, clearErrors } from "../../actions/authActions";
 
-const Register = (
-  props,
-  { setAlert, clearAllAlerts, register, clearErrors, error, isAuthenticated }
-) => {
+const Register = ({
+  history,
+  setAlert,
+  clearAllAlerts,
+  register,
+  clearErrors,
+  error,
+  isAuthenticated,
+}) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/");
+      history.push("/");
     }
 
     if (error === "User already exists") {
@@ -26,7 +31,7 @@ const Register = (
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
     name: "",
@@ -71,7 +76,7 @@ const Register = (
         </div>
         <div className="auth__text-box">
           <h1 className="auth__text-box__heading">
-            Sign up for the <span>{"///"}AutoMarket</span>
+            Sign up for <span>{"///"}AutoMarket</span>
           </h1>
           <p className="auth__text-box__subheading">Enter your details below</p>
           <form onSubmit={onSubmit} className="auth__form">
@@ -155,8 +160,8 @@ Register.propTypes = {
   clearAllAlerts: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  error: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

@@ -13,8 +13,6 @@ const Login = ({
   setAlert,
   login,
   clearErrors,
-  email,
-  password,
   error,
   isAuthenticated,
 }) => {
@@ -45,10 +43,11 @@ const Login = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (email === "" || password === "") {
+    if (user.email === "" || user.password === "") {
       setAlert("Please enter all fields", "danger");
     } else {
-      login({ email, password });
+      console.log("email, password :>> ", user.email, user.password);
+      login({ email: user.email, password: user.password });
     }
   };
 
@@ -73,7 +72,7 @@ const Login = ({
               <input
                 type="email"
                 name="email"
-                value={email}
+                value={user.email}
                 onChange={onChange}
               />
             </div>
@@ -83,7 +82,7 @@ const Login = ({
               <input
                 type="password"
                 name="password"
-                value={password}
+                value={user.password}
                 onChange={onChange}
               />
             </div>
@@ -92,11 +91,6 @@ const Login = ({
               value="Log In"
               className="btn btn-primary btn-block"
             />
-            {/* <input
-              type="submit"
-              value="Forgot your password?"
-              className="btn btn-secondary btn-block"
-            /> */}
           </form>
         </div>
         <p className="auth__login-link">
@@ -111,7 +105,7 @@ Login.propTypes = {
   setAlert: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.string,
   email: PropTypes.string,
   password: PropTypes.string,
 };
@@ -119,8 +113,6 @@ Login.propTypes = {
 const mapStateToProps = (state) => ({
   error: state.auth.error,
   isAuthenticated: state.auth.isAuthenticated,
-  email: state.user.email,
-  password: state.user.password,
 });
 
 export default connect(mapStateToProps, {

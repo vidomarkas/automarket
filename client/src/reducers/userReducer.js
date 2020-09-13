@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
     case REMOVE_AD_FROM_SAVED:
       return {
         ...state,
-        savedAdsList: action.payload,
+        savedAdsList: state.savedAdsList.filter((id) => id !== action.payload),
         loading: false,
       };
 

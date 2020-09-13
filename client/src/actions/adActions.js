@@ -16,8 +16,6 @@ import {
   CLEAR_AD_DETAILS,
   GET_AD_GROUP,
   SET_AD_GROUP,
-  INC_COUNT_SAVED,
-  DEC_COUNT_SAVED,
 } from "./types";
 
 // Get my ads

@@ -17,8 +17,9 @@ const NavBar = ({
   clearMyAds,
   getSavedAdsList,
   savedAdsList,
-  user: { loading },
-  auth: { user, isAuthenticated },
+  loading,
+  user,
+  isAuthenticated,
 }) => {
   const [savedAdsNumber, setSavedAdsNumber] = useState(null);
   const [dropdown, setDropdown] = useState(false);
@@ -34,6 +35,7 @@ const NavBar = ({
   const onLogout = () => {
     logout();
     clearMyAds();
+    setSavedAdsNumber(null);
   };
 
   const handleClickOutside = (event) => {
@@ -49,10 +51,10 @@ const NavBar = ({
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       getSavedAdsList();
     }
-  }, [isAuthenticated, getSavedAdsList]);
+  }, [user, getSavedAdsList]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -66,12 +68,6 @@ const NavBar = ({
       setSavedAdsNumber(savedAdsList.length);
     }
   }, [isAuthenticated, loading, savedAdsList]);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setSavedAdsNumber(null);
-    }
-  }, [isAuthenticated]);
 
   const authLinks = (
     <>
@@ -227,16 +223,18 @@ const NavBar = ({
 };
 
 NavBar.propTypes = {
-  user: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
+  user: PropTypes.object,
   logout: PropTypes.func.isRequired,
   clearMyAds: PropTypes.func.isRequired,
   getSavedAdsList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
-  auth: state.auth,
+  loading: state.user.loading,
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated,
   savedAdsList: state.user.savedAdsList,
 });
 

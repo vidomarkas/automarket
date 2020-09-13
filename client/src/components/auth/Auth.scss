@@ -95,9 +95,8 @@
         height: 32px;
         font-size: 1.6rem;
         &:hover {
-          cursor: pointer;
-          background-color: #f5f5f8c0;
-          border: 1px solid #249af3;
+          // background-color: #f5f5f844;
+          border: 1px solid #2499f354;
         }
         &:focus {
           outline: none !important;
@@ -133,8 +132,8 @@
 
   &__alert {
     position: absolute;
-    top: 4rem;
-    width: 100%;
+    top: 3rem;
+    width: 80%;
   }
 
   &__checkbox {

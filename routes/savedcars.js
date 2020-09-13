@@ -33,6 +33,7 @@ router.get("/details", auth, async (req, res) => {
 router.get("/list", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
+
     res.json(user.savedAds);
   } catch (error) {
     res.status(500).json({ msg: "Error geting the saved ads list" });
@@ -45,8 +46,6 @@ router.get("/list", auth, async (req, res) => {
 
 router.post("/", auth, async (req, res) => {
   const id = req.body.id;
-  console.log("id", id);
-
   try {
     const user = await User.findByIdAndUpdate(
       req.user.id,
@@ -55,7 +54,7 @@ router.post("/", auth, async (req, res) => {
       },
       { new: true }
     );
-    Ad.findByIdAndUpdate(
+    const ad = await Ad.findByIdAndUpdate(
       id,
       {
         $inc: { savedCount: 1 },
@@ -76,17 +75,17 @@ router.post("/", auth, async (req, res) => {
 // Description  Remove an ad from favorites
 // Access       Private
 router.delete("/:id", auth, async (req, res) => {
-  const AdID = req.params.id;
+  const AdId = req.params.id;
   const userId = req.user.id;
 
   try {
     const user = await User.findByIdAndUpdate(
       { _id: userId },
-      { $pull: { savedAds: AdID } },
+      { $pull: { savedAds: AdId } },
       { new: true }
     );
-    Ad.findByIdAndUpdate(
-      AdID,
+    const ad = await Ad.findByIdAndUpdate(
+      AdId,
       {
         $inc: { savedCount: -1 },
       },

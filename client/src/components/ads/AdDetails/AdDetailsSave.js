@@ -12,22 +12,12 @@ const AdDetailsSave = (
   const [savedButtonText, setSavedButtonText] = useState("Saved");
 
   useEffect(() => {
-    console.log("savedAdsList :>> ", savedAdsList);
-    console.log("id :>> ", id);
+    if (savedAdsList.indexOf(id) > -1) {
+      setIsSaved(true);
+    }
   }, [savedAdsList, id]);
 
-  // useEffect(() => {
-  //   // Set initial  save state
-  //   if (!loading && savedAdsList.length > 0) {
-  //     console.log("triggered");
-  //     if (savedAdsList.some((adv) => adv === id)) {
-  //       setIsSaved(true);
-  //     }
-  //   }
-  // }, [loading, savedAdsList]);
-
   const onSaveAd = () => {
-    console.log("id", id);
     saveAd(id);
     setIsSaved(true);
   };
@@ -69,7 +59,14 @@ const AdDetailsSave = (
   );
 };
 
-AdDetailsSave.propTypes = {};
+AdDetailsSave.propTypes = {
+  id: PropTypes.string.isRequired,
+  saveAd: PropTypes.func.isRequired,
+  removeAd: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
+  savedAdsList: PropTypes.array.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   id: state.ad.adDetails._id,

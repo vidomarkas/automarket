@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
         token: null,
         loading: false,
         isAuthenticated: false,
-        user: false,
+        user: null,
         error: action.payload,
       };
 
