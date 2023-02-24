@@ -1,6 +1,7 @@
 # Automarket
 
 Automarket is a car sales platform. Full stack web application.
+The project does not have a live link as Heroku stopped their free plan.
 
 ## Project stack
  * React with hooks
